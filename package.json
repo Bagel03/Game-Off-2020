@@ -1,0 +1,14 @@
+{
+    "name": "gameoff",
+    "version": "1.0.0",
+    "description": "",
+    "main": "",
+    "author": "",
+    "license": "MIT",
+    "scripts": {
+        "start": "http-server ./ --gzip -o index.html"
+    },
+    "devDependencies": {
+        "http-server": "^0.12.3"
+    }
+}
