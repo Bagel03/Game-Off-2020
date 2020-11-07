@@ -1,3 +1,5 @@
+import 'hud.Splash';
+
 @tag("game-off");
 namespace `game` (
     class Main extends World {
