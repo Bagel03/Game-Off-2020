@@ -1,4 +1,5 @@
 import 'hud.Splash';
+import! 'game.sprites.Sonic';
 
 @tag("game-off");
 namespace `game` (
@@ -10,9 +11,13 @@ namespace `game` (
         async onConnected() {
             await super.onConnected();
             console.log("Game-Off 2020!");
+            this.canvas = this.querySelector('canvas');
+            this.context = this.canvas.getContext('2d');
 
-            this.Context = this.querySelector('canvas').getContext('2d');
-
+            var img = new Image();
+            img.src="/resources/images/sonic3_spritesheet.png";
+            this.sonic = new game.sprites.Sonic(80, 50, this.context, img);
+            this.sonic.idle()
         }
 
         onFixedUpdate = (time) => {
@@ -20,12 +25,14 @@ namespace `game` (
         }
 
         onDraw = (interpolation) => {
-            this.Context.fillRect(50, 50, 50, 50);
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.context.fillRect(50, 50, 50, 50);
+            this.sonic.onDraw()
         }
 
 
         onUpdate = (timestamp, delta) => {
-            
+            this.sonic.onUpdate()
         }
     }
 );
