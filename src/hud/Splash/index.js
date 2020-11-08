@@ -8,7 +8,7 @@ namespace `hud` (
 
         //Any calls to [.this] is this component, <splash-loader>.
         async onConnected() {
-            await super.onConnected();
+            await super.onConnected(); //onConnected fires when components DOM is ready
             if(Config.SHOW_LOADER){//see <head> tag to disable
                 application.addEventListener("showsplash",  e => this.onShow());
                 this.addEventListener('transitionend',      e => this.onTransitionEnded(e));
