@@ -39,7 +39,7 @@ namespace `game.sprites` (
             this.ticksPerFrame = 12;
         }
 
-        /*onUpdate(){
+        onUpdate(){
             super.onUpdate();
             if(Key.isDown(Key.Right)){
                 
@@ -47,7 +47,7 @@ namespace `game.sprites` (
             }
             
             
-        }*/
+        }
 
     }
 )

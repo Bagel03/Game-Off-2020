@@ -1,6 +1,6 @@
 import 'hud.Splash';
 import! 'game.sprites.Sonic';
-import '/src/game/Modules/Key.js';
+import! 'game.Modules.Key';
 
 @tag("game-off");
 namespace `game` (

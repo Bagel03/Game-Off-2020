@@ -1,3 +1,5 @@
+namespace `game.modules` (
+
 window.Key = {
   _pressed: {},
   LEFT: "ArrowLeft",
@@ -21,3 +23,5 @@ window.Key = {
 };
 window.addEventListener('keyup', function(e) { Key.onKeyup(e); }, false);
 window.addEventListener('keydown', function(e) { Key.onKeydown(e); }, false);
+
+)
