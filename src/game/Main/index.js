@@ -1,5 +1,6 @@
 import 'hud.Splash';
 import! 'game.sprites.Sonic';
+import '/src/game/Modules/Key.js';
 
 @tag("game-off");
 namespace `game` (
