@@ -16,7 +16,7 @@ namespace `game` (
             this.context = this.canvas.getContext('2d');
 
             var img = new Image();
-            img.src="resources/images/sonic3_spritesheet.png";
+            img.src="/resources/images/sonic3_spritesheet.png";
             this.sonic = new game.sprites.Sonic(80, 50, this.context, img);
             this.sonic.idle()
         }
@@ -27,7 +27,7 @@ namespace `game` (
 
         onDraw = (interpolation) => {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.context.fillRect(50, 50, 50, 50);
+            this.context.fillRect(150, 150, 150, 150);
             this.sonic.onDraw()
         }
 
