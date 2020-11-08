@@ -20,7 +20,8 @@ namespace `hud` (
         }
 
         fade(){
-            this.classList.add("fade");
+			this.classList.add("hidden");
+			this.classList.remove("fade")
         }
 
         show(){
