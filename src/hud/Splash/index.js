@@ -15,13 +15,14 @@ namespace `hud` (
                 this.logo = this.querySelector("#logo");
                 this.fadeToLogo();
             } else {
-                this.fade()
+				this.fade()
+				await wait(700)
+				this.classList.add("hidden");
             }
         }
 
         fade(){
-			this.classList.add("hidden");
-			this.classList.remove("fade")
+			this.classList.add("fade")
         }
 
         show(){
