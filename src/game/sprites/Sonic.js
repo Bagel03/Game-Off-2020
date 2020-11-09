@@ -44,7 +44,7 @@ namespace `game.sprites` (
         //TODO: replace with StateMachine/BehaviorTree
         onUpdate(){
             super.onUpdate();
-
+            
             if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
                 if(!this.is_running){
                     this.run();
@@ -66,6 +66,12 @@ namespace `game.sprites` (
                 this.is_running=false;
                 this.idle();
             }
+            
+            if(Key.isDown){console.log(Key.code);}
+            //how would i get the this.context of sonic?
+            
+            if(Key.isDown(Key.LEFT)){console.log(this.context);}
+            //this.context.scale(-1,1);
             
         }
     }

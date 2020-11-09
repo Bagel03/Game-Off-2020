@@ -16,8 +16,8 @@ namespace `game` (
             this.canvas = this.querySelector('canvas');
             this.context = this.canvas.getContext('2d');
 
-            this.canvas.height = window.innerHeight; //make canvas fullscreen
-            this.canvas.width = window.innerWidth; //make canvas fullscreen
+            this.canvas.height = (window.innerHeight/2); //make canvas fullscreen
+            this.canvas.width = (window.innerWidth/2); //make canvas fullscreen
             var img = new Image();
             img.src="resources/images/sonic3_spritesheet.png";
             this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.context, img);
@@ -33,11 +33,11 @@ namespace `game` (
         //onDraw, runs 1x per frame. Good place to paint
         onDraw = (interpolation) => {
            
-            let h = innerHeight;
-            let w = innerWidth;
+            let h = window.innerHeight/2;
+            let w = window.innerWidth/2;
             // console.log("h: "+h+" "+"w: "+w);
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.context.fillStyle = 'hsl(175,15%,10%)';
+            this.context.fillStyle = 'hsl(75,55%,50%)';
             this.context.fillRect(0, 0, w, h);
             this.sonic.onDraw()
         }
