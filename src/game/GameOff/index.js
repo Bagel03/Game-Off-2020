@@ -4,6 +4,9 @@ import! 'game.modules.UIMachine';
 import 'game.views.StartMenu';
 
 
+/**A COPY OF MAIN GAME FOR TESTING STATE MACHINE ONLY **/
+
+
 @tag("game-off");
 namespace `game` (
     class Main extends World {
