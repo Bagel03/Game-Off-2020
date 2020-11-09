@@ -1,4 +1,5 @@
 import 'hud.Splash';
+import 'hud.PauseMenu'
 import! 'game.sprites.Sonic';
 import! 'game.modules.KeyHandler';
 

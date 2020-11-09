@@ -1,4 +1,4 @@
-
+import 'game.views.Credits';
 
 
 
@@ -16,6 +16,8 @@ namespace `game.views` (
             this.music_select.loop=false;
             this.music_select.load();
             this.onReset();
+            
+            
         }
 
         onReset(){
@@ -23,13 +25,27 @@ namespace `game.views` (
             this.isBlocking = true;
             this.isStarted  = false;
         }
-
+       
         async onConnected() {
+            
             await super.onConnected();
+            
             this.addEventListener("click",  e => this.onStartGame(),    false, "#start-game");
             this.addEventListener("change", e => this.onToggleMusic(e), false, "#enable-music");
-        }
 
+            this.creditsButton = document.querySelector("#credits")
+            this.onCreditsHandler()
+
+
+            this.loadGameButton = document.querySelector("#load-game")
+            this.quitGameButton = document.querySelector("#quit-game")
+        }
+       async onCreditsHandler(){
+           
+            this.creditsButton.addEventListener("click",e =>{
+                console.log(e)
+            })
+         }
         async onToggleMusic(e){
             if(e.target.checked){
                 this.music_select.play();
@@ -46,6 +62,7 @@ namespace `game.views` (
         onStartGame(){
             this.dispatchEvent("startgame");
         }
+        
 
 
 
