@@ -1,4 +1,5 @@
-namespace `game.modules` (
+
+/**ADD OTHER KEYCODES, SEE CHART -->.   https://keycode.info **/
 
   window.Key = {
     _pressed: {},
@@ -20,8 +21,8 @@ namespace `game.modules` (
     onKeyup: function(e) {
       delete this._pressed[e.code];
     }
-  },
-  window.addEventListener('keyup', function(e) { Key.onKeyup(e); }, false),
+  };
+
+  window.addEventListener('keyup', function(e) { Key.onKeyup(e); }, false)
   window.addEventListener('keydown', function(e) { Key.onKeydown(e); }, false)
 
-)

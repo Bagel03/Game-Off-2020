@@ -1,13 +1,11 @@
 import 'hud.Splash';
 import! 'game.sprites.Sonic';
-import! 'game.Modules.Key';
+import! 'game.modules.KeyHandler';
 
 @tag("game-off");
 namespace `game` (
     
     class Main extends World {
-    
-            
         constructor(element){
             super(element);
         }
@@ -26,24 +24,29 @@ namespace `game` (
             this.sonic.idle()
         }
 
+        //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
         onFixedUpdate = (time) => {
-
+            this.sonic.onUpdate()
         }
         
+
+        //onDraw, runs 1x per frame. Good place to paint
         onDraw = (interpolation) => {
            
             let h = innerHeight;
             let w = innerWidth;
-            console.log("h: "+h+" "+"w: "+w);
+            // console.log("h: "+h+" "+"w: "+w);
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.context.fillStyle = 'hsl(175,15%,10%)';
             this.context.fillRect(0, 0, w, h);
             this.sonic.onDraw()
         }
 
-
+        //onUpdate, runs 1x per frame. Good place to handle user input
         onUpdate = (timestamp, delta) => {
-            this.sonic.onUpdate()
+            if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
+                console.log("DOWN-RIGHT BEING PRESSED")
+            }
         }
     }
 );

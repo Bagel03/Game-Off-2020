@@ -1,5 +1,5 @@
 
-namespace `game.modules.StateMachine` (
+namespace `game.modules` (
     class UIMachine extends Array {
         constructor() {
             super();
