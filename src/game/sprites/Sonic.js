@@ -69,7 +69,7 @@ namespace `game.sprites` (
             
             if(Key.isDown){console.log(Key.code);}
             //how would i get the this.context of sonic?
-            
+            //////////////////////////////////////////////////////
             if(Key.isDown(Key.LEFT)){console.log(this.context);}
             //this.context.scale(-1,1);
             
