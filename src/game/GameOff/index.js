@@ -1,4 +1,5 @@
 import 'hud.Splash';
+import 'hud.PauseMenu';
 import 'game.views.StartMenu';
 import 'game.views.World';
 import! 'game.modules.UIMachine';
@@ -38,6 +39,7 @@ namespace `game` (
 
         onPauseGame(){
             this.machine.push(this.startmenu);
+            PauseMenu.pause();
         }
 
         onStartGame(){
