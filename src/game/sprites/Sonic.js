@@ -38,5 +38,35 @@ namespace `game.sprites` (
             this.row = 0;
             this.ticksPerFrame = 12;
         }
+
+
+        //logic below is simple butt buggy, complicated
+        //TODO: replace with StateMachine/BehaviorTree
+        onUpdate(){
+            super.onUpdate();
+
+            if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
+                if(!this.is_running){
+                    this.run();
+                    this.is_running=true;
+                    this.is_walking=false
+                }
+                return
+            }
+            else if(Key.isDown(Key.RIGHT)){
+                if(!this.is_walking){
+                    this.walk();
+                    this.is_walking=true;
+                    this.is_running=false;
+                }
+                return
+            }
+            else {
+                this.is_walking=false;
+                this.is_running=false;
+                this.idle();
+            }
+            
+        }
     }
 )
