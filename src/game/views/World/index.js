@@ -20,59 +20,81 @@ namespace `game.views` (
 
         async onConnected() {
             await super.onConnected();
-            this.onGameOver = this.onGameOver.bind(this);
-            this.world.addEventListener("gameover", this.onGameOver, false);
-            this.canvas = this.querySelector("#canvas");
+            // this.onGameOver = this.onGameOver.bind(this);
+            // this.world.addEventListener("gameover", this.onGameOver, false);
+            this.canvas = this.querySelector('canvas');
+            this.context = this.canvas.getContext('2d');
+
+            this.canvas.height = window.innerHeight; //make canvas fullscreen
+            this.canvas.width = window.innerWidth; //make canvas fullscreen
+            var img = new Image();
+            img.src="resources/images/sonic3_spritesheet.png";
+            this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.context, img);
+            this.sonic.idle()
+
+
             this.addEventListener("click", e => this.onPauseMenu(), false, "#pause");
             this.addEventListener("click", e => this.onEndLevel(), false, "#exit");
-            this.addEventListener("click", e => this.onScored(e), false, "#inc-score");
-            this.addEventListener("challengedone", e => this.onChallengeDone(e));
-            this.addEventListener("failed", e => this.onFailedChallenge(e));
+            // this.addEventListener("click", e => this.onScored(e), false, "#inc-score");
+            // this.addEventListener("challengedone", e => this.onChallengeDone(e));
+            // this.addEventListener("failed", e => this.onFailedChallenge(e));
             
-            this.actions.push(new display.worlds.aeiou.Challenge(this.world, this, this.machine));
-            this.actions.push(new display.worlds.aeiou.ScoreKeeper(this.world, this.machine));
-            this.actions.push(new display.worlds.aeiou.DamageMeter(this.world, this.machine));
+            // this.actions.push(new display.worlds.aeiou.Challenge(this.world, this, this.machine));
+            // this.actions.push(new display.worlds.aeiou.ScoreKeeper(this.world, this.machine));
+            // this.actions.push(new display.worlds.aeiou.DamageMeter(this.world, this.machine));
         }
 
-        onEndLevel(){
-            debugger;
-            this.isFinished=true
-            this.dispatchEvent("gameover");
-            this.music.pause();
-        }
+        
 
-        onGameOver(){
-            this.isFinished=true;
-            this.music.pause();
-        }
+        // //onUpdate, runs 1x per frame. Good place to handle user input
+        // onUpdate(timestamp, delta) {
+        //     // if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
+        //     //     console.log("DOWN-RIGHT BEING PRESSED")
+        //     // }
+        // }
 
-        onFailedChallenge(){
-            //TODO: Could be used to decrement lives as a feature (?)
-        }
+        // onEndLevel(){
+        //     debugger;
+        //     this.isFinished=true
+        //     this.dispatchEvent("gameover");
+        //     this.music.pause();
+        // }
 
-        onChallengeDone(){
-            var doit = !this.isFinished && confirm("Try the next Challenge?")
-                doit && this.actions.push(new display.worlds.aeiou.Challenge(this.world, this, this.machine));
-        }
+        // onGameOver(){
+        //     this.isFinished=true;
+        //     this.music.pause();
+        // }
+
+        // onFailedChallenge(){
+        //     //TODO: Could be used to decrement lives as a feature (?)
+        // }
+
+        // onChallengeDone(){
+        //     var doit = !this.isFinished && confirm("Try the next Challenge?")
+        //         doit && this.actions.push(new display.worlds.aeiou.Challenge(this.world, this, this.machine));
+        // }
 
         onPauseMenu(){
             // this.machine.push(new display.worlds.aeiou.Menu(this.world, this.machine));
             this.dispatchEvent("pausegame")
         }
 
-        onScored(e){
-            this.dispatchEvent("score", {amount:42});
-        }
+        // onScored(e){
+        //     this.dispatchEvent("score", {amount:42});
+        // }
 
-        append(vowel){
-            this.canvas.appendChild(vowel)
-        }
+        // append(vowel){
+        //     this.canvas.appendChild(vowel)
+        // }
         
         
+        
+
+        //----------------MACHINE
         onAwake(){
             this.style.display="block";
             console.log(this.namespace + " Awake")
-            this.music.play();
+            // this.music.play();
         }
 
         onSleep(){
@@ -81,14 +103,10 @@ namespace `game.views` (
             this.music.pause();
         }
 
-        //----------------MACHINE
         onStart() {
-            this.world.settings.music && this.music.play();
-            // if(!this.isStarted){this.world.appendChild(this);}
-            this.world.appendChild(this)
-            // else {
-            //     this.style.display="block"
-            // }
+            // this.world.settings.music && this.music.play();
+            document.body.appendChild(this)
+            // this.world.appendChild(this)
             this.isStarted=true;   
             console.log(this.namespace + " Started")
         }
@@ -96,7 +114,7 @@ namespace `game.views` (
         onExit(){
             this.remove();
             console.log(this.namespace + " Exit")
-            this.music.pause();
+            // this.music.pause();
             // this.remove();
             // this.style.display="none";
             // this.world.removeEventListener("gameover", this.onGameOver, false);
@@ -106,8 +124,28 @@ namespace `game.views` (
             // this.machine.push(new display.worlds.aeiou.GameOver(this.world, this.machine));
         }
 
-        onUpdate=(time)=>{
-            this.actions.onUpdate();
+        //onUpdate, runs 1x per frame. Good place to handle user input
+        onUpdate(timestamp, delta){
+            // this.actions.onUpdate();
+        }
+
+
+        //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
+        onFixedUpdate(time) {
+            this.sonic.onUpdate()
+        }
+        
+
+        //onDraw, runs 1x per frame. Good place to paint
+        onDraw (interpolation){
+           
+            let h = innerHeight;
+            let w = innerWidth;
+            // console.log("h: "+h+" "+"w: "+w);
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.context.fillStyle = 'hsl(175,15%,10%)';
+            this.context.fillRect(0, 0, w, h);
+            this.sonic.onDraw()
         }
     }
 );

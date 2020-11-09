@@ -40,6 +40,8 @@ namespace `game.sprites` (
         }
 
 
+        //logic below is simple butt buggy, complicated
+        //TODO: replace with StateMachine/BehaviorTree
         onUpdate(){
             super.onUpdate();
 
@@ -49,6 +51,7 @@ namespace `game.sprites` (
                     this.is_running=true;
                     this.is_walking=false
                 }
+                return
             }
             else if(Key.isDown(Key.RIGHT)){
                 if(!this.is_walking){
@@ -56,6 +59,7 @@ namespace `game.sprites` (
                     this.is_walking=true;
                     this.is_running=false;
                 }
+                return
             }
             else {
                 this.is_walking=false;

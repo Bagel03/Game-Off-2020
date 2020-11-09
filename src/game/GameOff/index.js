@@ -1,58 +1,65 @@
 import 'hud.Splash';
-import! 'game.sprites.Sonic';
-import! 'game.modules.UIMachine';
 import 'game.views.StartMenu';
-
-
-/**A COPY OF MAIN GAME FOR TESTING STATE MACHINE ONLY **/
-
+import 'game.views.World';
+import! 'game.modules.UIMachine';
+import! 'game.sprites.Sonic';
+import! 'game.modules.KeyHandler';
+import! 'game.modules.Audio';
 
 @tag("game-off");
 namespace `game` (
-    class Main extends World {
+    
+    class GameOff extends World {
         constructor(element){
             super(element);
-            this.machine    = new game.modules.UIMachine;
-            this.menu       = new game.views.StartMenu(this, this.machine);
-            // this.level      = new game.views.Level(this, this.machine);
-            // this.gameover   = new game.views.GameOver(this, this.machine);
-            
-        }
+            this.settings = {
+                music : false
+            }
 
+            
+            this.machine    = new game.modules.UIMachine;
+            this.startmenu  = new game.views.StartMenu(this, this.machine);
+            this.level      = new game.views.World(this, this.machine);
+            // this.gameover   = new ns.GameOver(this, this.machine);
+            this.machine.push(this.startmenu);
+        }
+        
         async onConnected() {
             await super.onConnected();
-            console.log("Game-Off 2020!");
-            // this.canvas = this.querySelector('canvas');
-            // this.context = this.canvas.getContext('2d');
-
-            // var img = new Image();
-            // img.src="/resources/images/sonic3_spritesheet.png";
-            // this.sonic = new game.sprites.Sonic(80, 50, this.context, img);
-            // this.sonic.idle();
-
-            console.log(this.menu)
-            this.machine.push(this.menu);
             this.addEventListener("startgame",  e => this.onStartGame(e))
+            this.addEventListener("pausegame",  e => this.onPauseGame(e))
+            this.addEventListener("gameover",   e => this.onGameOver(e))
+        }
+
+        onGameOver(){
+            this.machine.push(this.gameover);
+            this.level=null
+        }
+
+        onPauseGame(){
+            this.machine.push(this.startmenu);
         }
 
         onStartGame(){
-
+            this.level = this.level || new display.worlds.aeiou.Level(this, this.machine);
+            this.machine.push(this.level);
         }
 
+        //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
         onFixedUpdate = (time) => {
-
+            this.machine.onFixedUpdate();
         }
+        
 
+        //onDraw, runs 1x per frame. Good place to paint
         onDraw = (interpolation) => {
-            // this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            // this.context.fillRect(50, 50, 50, 50);
-            // this.sonic.onDraw()
+            this.machine.onDraw();
         }
 
-
+        //onUpdate, runs 1x per frame. Good place to handle user input
         onUpdate = (timestamp, delta) => {
-            // this.sonic.onUpdate()
-            this.machine.onUpdate()
+            this.machine.onUpdate();
         }
     }
 );
+

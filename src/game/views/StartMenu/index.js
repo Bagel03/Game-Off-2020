@@ -9,12 +9,12 @@ namespace `game.views` (
             super();
             this.machine = machine;
             this.world   = world;
-            // this.music = new Audio("/resources/tunes/04_start5.wav");
-            // this.music_select = new Audio("/resources/tunes/09_select1.wav");
-            // this.music.loop=false;
-            // this.music.load();
-            // this.music_select.loop=false;
-            // this.music_select.load();
+            this.music = new Audio("/resources/sfx/04_start5.wav");
+            this.music_select = new Audio("/resources/sfx/Rolemusic_-_the_river.mp3");
+            this.music.loop=false;
+            this.music.load();
+            this.music_select.loop=false;
+            this.music_select.load();
             this.onReset();
         }
 
@@ -30,10 +30,15 @@ namespace `game.views` (
             this.addEventListener("change", e => this.onToggleMusic(e), false, "#enable-music");
         }
 
-        onToggleMusic(e){
+        async onToggleMusic(e){
             if(e.target.checked){
                 this.music_select.play();
-                // this.music.play()
+                // await wait(00);
+                this.music.play()
+            }
+            else {
+                this.music_select.pause();
+                this.music.pause()
             }
             this.world.settings.music = e.target.checked;
         }
@@ -54,7 +59,6 @@ namespace `game.views` (
 
         //------------------MACHINE METHODS--------------------
         async onStart() {
-            debugger;
             document.body.appendChild(this)
             // if(this.world.settings.music){this.music.play();}
             this.isStarted=true;  

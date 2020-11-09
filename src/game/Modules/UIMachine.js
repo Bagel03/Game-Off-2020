@@ -5,14 +5,19 @@ namespace `game.modules` (
             super();
         }
 
-        onUpdate(){
+        onUpdate(timestamp, delta){
             var state = this[0];
-                state&&!state.isSleeping&&state.onUpdate();
+                state&&!state.isSleeping&&state.onUpdate&&state.onUpdate(timestamp, delta);
         }
 
-        onRender(){
+        onFixedUpdate(time){
             var state = this[0];
-                state&&!state.isSleeping&&state.onRender();
+                state&&!state.isSleeping&&state.onFixedUpdate&&state.onFixedUpdate(time);
+        }
+
+        onDraw(interpolation){
+            var state = this[0];
+                state&&!state.isSleeping&&state.onDraw&&state.onDraw(interpolation);
         }
 
         push(state){
