@@ -5,6 +5,12 @@
                 `<input id="enable-music" type='checkbox' ${this.music? 'checked':''}/>`
             }
         </div>
-        <button id="start-game">Start</button>
+        <div id="menuButtonsContainer">
+            <button id="start-game" class="menuStartButton menuStartButton__start-game">Start</button>
+            <button id="load-game"class="menuStartButton menuStartButton__load-game">Load game</button>
+            <button id="credits" class="menuStartButton menuStartButton__credits" >Credits</button>
+            <button id="quit-game" class="menuStartButton menuStartButton__quit-game">Quit game</button>
+        </div>
+    
     </div>
 </template>
