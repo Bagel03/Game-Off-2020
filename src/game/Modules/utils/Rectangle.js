@@ -24,4 +24,6 @@ export class Rectangle{
      * @param {Vector} vector 
      */
     setCenter = vector => this.position.setFromVector(vector.sub(this.size.copy().div(2)));
+
+    
 }
