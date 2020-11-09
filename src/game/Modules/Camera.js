@@ -63,11 +63,6 @@ export class Camera{
         switch(interpolation){
             case 'logarithmic':
                 this.animations.push(new CameraAnimation(framecount, frame => {
-              
-                    //If it is the last frame, do the same as previous frame to get you to the final point
-                    if(frame === framecount) this.setCenter(Vector.add(this.center, scaler));
-                    else this.zoom.
-                    
                 }))
             break;
             case 'exponential':
