@@ -41,7 +41,7 @@ namespace `game.sprites` (
 
         onUpdate(){
             super.onUpdate();
-            if(Key.isDown(Key.Right)){
+            if(Key.isDown(Key.RIGHT)){
                 
                 this.walk();
             }

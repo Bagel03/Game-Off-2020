@@ -44,9 +44,9 @@ namespace `game` (
 
         //onUpdate, runs 1x per frame. Good place to handle user input
         onUpdate = (timestamp, delta) => {
-            if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
-                console.log("DOWN-RIGHT BEING PRESSED")
-            }
+            // if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
+            //     console.log("DOWN-RIGHT BEING PRESSED")
+            // }
         }
     }
 );
