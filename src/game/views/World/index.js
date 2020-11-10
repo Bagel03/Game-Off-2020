@@ -1,5 +1,6 @@
 import! 'game.modules.camera';
 import! 'game.modules.utils.rectangle';
+import! 'game.modules.utils.vector';
 namespace `game.views` (
     @tag("world-view");
     class World extends WebComponent {
@@ -34,25 +35,19 @@ namespace `game.views` (
             
             var img = new Image();
 
-            img.src="./resources/images/sonic3_spritesheet.png";
-            this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.context, img);
-            this.sonic.idle();
-
             img.src="resources/images/sonic3_spritesheet.png";
-            this.sonic = new game.sprites.Sonic((this.canvas.width/4), (this.canvas.height/4), this.buffer, img);
+            this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
             this.sonic.idle()
 
 
-            const viewport = new game.modules.utils.Rectangle(0, 0, this.canvas.width/2, this.canvas.height/2);
-            const target = new game.modules.utils.Rectangle(100, 100, this.canvas.width, this.canvas.height);//draw with offset
+            const viewport = new game.modules.utils.Rectangle(0, 0, this.canvas.width, this.canvas.height);
+            const target = new game.modules.utils.Rectangle(0, 0, this.canvas.width, this.canvas.height);//draw with offset
             this.camera = new game.modules.Camera(viewport, target);
-            
-            let h = innerHeight/2;
-            let w = innerWidth/2;
-            // console.log("h: "+h+" "+"w: "+w);
-            this.buffer.fillStyle = 'hsl(175,15%,10%)';
-            this.buffer.fillRect(0, 0, w, h);
-            this.sonic.onDraw()
+
+            this.camera.moveBy(new game.modules.utils.Vector(100, 100), 100, 'linear')
+            .then(() => this.camera.moveBy(new game.modules.utils.Vector(-100, -100), 100, 'linear'))
+
+
 
             this.addEventListener("click", e => this.onPauseMenu(), false, "#pause");
         }
@@ -87,6 +82,7 @@ namespace `game.views` (
             this.isStarted=true;   
             console.log(this.namespace + " Started");
 
+
         }
 
         onExit(){
@@ -110,6 +106,7 @@ namespace `game.views` (
 
         //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
         onFixedUpdate(time) {
+            this.camera.update();
             this.sonic.onUpdate();
         }
         
@@ -123,19 +120,16 @@ namespace `game.views` (
             let w = innerWidth/2;
             // console.log("h: "+h+" "+"w: "+w);
 
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.context.fillStyle = 'hsl(175,15%,10%)';
-            this.context.fillRect(0, 0, w, h);
+            this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.buffer.fillStyle = 'red';
+            this.buffer.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            this.buffer.fillStyle = 'hsl(175,15%,10%)';
+            this.buffer.fillRect(w/2, h/2, w, h);
             
             this.sonic.onDraw();
             
-            
-
-            this.buffer.fillStyle = 'hsl(175,15%,10%)';
-            this.buffer.fillRect(0, 0, w, h);
-            this.sonic.onDraw()
             this.camera.render(this.buffer, this.context);
 
         }
     }
-);
+)

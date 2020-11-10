@@ -15,6 +15,14 @@ namespace `game.modules.utils`(
         get width(){return this.size.x}
         get height(){return this.size.y}
 
+        set top(value){this.position.y = value}
+        set left(value){this.position.x = value}
+        set right(value){this.position.x = value - this.size.x}
+        set bottom(value){this.position.y = value - this.size.y}
+
+        set width(value){this.size.x = value}
+        set height(value){this.size.y = value}
+
         /**
          * 
          * @param {Vector} vector 

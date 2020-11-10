@@ -18,28 +18,37 @@ namespace `game.modules`(
          * @param {string} interpolation Type of interpolation to using durring the camera's movement
          * 
          */
-        moveBy(amount, framecount, interpolation = 'linear'){
+        moveBy(amount, framecount, interpolation = 'linear'){                    console.log('called')
+
+            let animationFunct;
             switch(interpolation){
                 case 'logarithmic':
-                    this.animations.push(new CameraAnimation(framecount, frame => {
+                    animationFunct = frame => {
                         //If it is the last frame, do the same as last frame to get you to the final point
                         if(frame === framecount) this.setCenter(Vector.add(this.center, amount));
                         else this.setCenter(Vector.add(this.center, amount.div(2)));
-                    }))
+                    }
                 break;
                 case 'delay':
-                    this.animations.push(new CameraAnimation(framecount, frame => {
+                    animationFunct = frame => {
                         //If it is the last frame, jump to the final point
-                        if(frame === framecount) this.setCenter(Vector.add(this.center, amount));
-                    }))
+                        if(frame === framecount) this.viewport.position.add(amount);
+                    }
                 break;
                 case 'linear':
                 default:
+
                     const segment = amount.div(framecount)
-                    this.animations.push(new CameraAnimation(framecount, frame => {
-                        this.setCenter(Vector.add(this.center, segment));
-                    }))
+                    animationFunct = frame => {
+                        this.viewport.position.add(segment);
+                    }
             }
+            return new Promise((resolve, reject) => {
+                this.animations.push(new CameraAnimation(framecount, animationFunct, () => {
+                    this.animations.splice(this.animations.findIndex(() => this), 1);
+                    resolve();
+                }));
+            })
         }
 
         /**
@@ -55,6 +64,7 @@ namespace `game.modules`(
         }
 
         zoomBy(scaler, framecount, interpolation = 'linear'){
+            let animationFunct;
             switch(interpolation){
                 case 'logarithmic':
                     this.animations.push(new CameraAnimation(framecount, frame => {
@@ -71,20 +81,18 @@ namespace `game.modules`(
                 case 'linear':
                 default:
                     const segment = scaler.div(framecount);
-                    this.animations.push(new CameraAnimation(framecount, frame => {
+                    animationFunct = frame => {
                         this.zoom.add(segment);
-                    }));
+                    };
             }
+            return new Promise((resolve, reject) => {
+                this.animations.push(new CameraAnimation(framecount, frame => animationFunct(frame), resolve()));
+            })
         }
-
 
         
         update(){
-            this.animations.reverse();
-            for(let i = this.animations.length; i > -1; i--){
-                if(this.animations[i].run()) this.animations.splice(i, 1);
-            }
-            this.animations.reverse();
+            this.animations.forEach(animation => animation.run());
         }
 
         /**
@@ -97,34 +105,35 @@ namespace `game.modules`(
                 this.viewport.left, this.viewport.top, this.viewport.width, this.viewport.height,
                 this.target.left,   this.target.top,   this.target.width,   this.target.height)
         }
-        
-        setCenter(vector){
-            this.center.setFromVector(vector);
-            this.viewport.setCenter(vector);
-        }
-
     },
 
-    class CameraAnimation{
-        /**
-         * @callback animationFunct
-         * @param {number} frame The current frame of the animation
-        */
-    
-        /** 
-         * @param {number} frameCount The total number of frames the animation will run on.
-         * @param {animationFunct} animationFunct Called for each frame of animation
-         */
-        constructor(frameCount, animationFunct){
-            this.currentFrame = 0;
-            this.frameCount = frameCount;
-            this.animationFunct = animationFunct;
-        }
-
-        run = () => {
-            this.currentFrame++;
-            this.animationFunct();
-            return this.currentFrame === this.frameCount;
-        }
-    }
 )
+
+
+class CameraAnimation{
+    /**
+     * @callback animationFunct
+     * @param {number} frame The current frame of the animation
+    */
+   /**
+    * @callback finishFunct
+    */
+
+    /** 
+     * @param {number} frameCount The total number of frames the animation will run on.
+     * @param {animationFunct} animationFunct Called for each frame of animation
+     * @param {finishFunct} finishFunct Called once the animation is finihsed 
+     */
+    constructor(frameCount, animationFunct, finishFunct){
+        this.currentFrame = 0;
+        this.frameCount = frameCount;
+        this.animationFunct = animationFunct;
+        this.finishFunct = finishFunct
+    }
+
+    run = () => {
+        this.currentFrame++;
+        this.animationFunct();
+        if(this.currentFrame === this.frameCount) this.finishFunct(); 
+    }
+}
