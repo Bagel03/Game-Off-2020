@@ -24,18 +24,18 @@ namespace `game.views` (
         }
        
         async onConnected() {
-            
             await super.onConnected();
             
             this.addEventListener("click",  e => this.onStartGame(),    false, "#start-game");
             this.addEventListener("change", e => this.onToggleMusic(e), false, "#enable-music");
-            this.addEventListener("click",  e => this.onCreditsHandler(),    false, "#credits");
+            this.addEventListener("click",  e => this.onCreditsHandler(),    false, "#credits-game");
         
         }
+        
         async onCreditsHandler(){
-               console.log("I am onCreditsHandler, and i am working good")
-          
-         }
+            this.dispatchEvent("showcredits")
+        }
+
         async onToggleMusic(e){
             if(e.target.checked){
                 this.music_select.play();
