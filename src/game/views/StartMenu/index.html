@@ -5,12 +5,17 @@
                 `<input id="enable-music" type='checkbox' ${this.music? 'checked':''}/>`
             }
         </div>
+        
         <div id="menuButtonsContainer">
             <button id="start-game" class="menuStartButton menuStartButton__start-game">Start</button>
             <button id="load-game"class="menuStartButton menuStartButton__load-game">Load game</button>
-            <button id="credits" class="menuStartButton menuStartButton__credits" >Credits</button>
+            <!-- <button id="credits" class="menuStartButton menuStartButton__credits" >Credits</button> -->
             <button id="quit-game" class="menuStartButton menuStartButton__quit-game">Quit game</button>
+            
+            <a href="#game.views.Credits" class="menuStartButton">Href to credits test</a>
         </div>
-    
+        <slot name="view-port">
+
+        </slot>
     </div>
 </template>
