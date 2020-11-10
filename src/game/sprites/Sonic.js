@@ -45,6 +45,7 @@ namespace `game.sprites` (
         //TODO: replace with StateMachine/BehaviorTree
         onUpdate(){
             super.onUpdate();
+            if(!this.context){return}
             /*
             if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
                 if(!this.is_running){
@@ -87,7 +88,7 @@ namespace `game.sprites` (
                 
             }
             else if(Key.isDown(Key.LEFT)){
-                this.run(); this.x-=12; this.width*-1;//this.buffer.scale(-1,1);
+                this.run(); this.x-=12; this.width*=-1;//this.buffer.scale(-1,1);
             }
             else if(Key.isDown(Key.UP)){
                 this.walk(); this.y-=6;
