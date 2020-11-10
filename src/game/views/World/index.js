@@ -36,8 +36,7 @@ namespace `game.views` (
             var img = new Image();
             img.src="resources/images/sonic3_spritesheet.png";
             
-            var img2 = new Image();
-            img2.src="resources/images/greenhillzone.png";
+            
             
             this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
             this.sonic.idle()
@@ -111,13 +110,13 @@ namespace `game.views` (
         onFixedUpdate(time) {
             this.camera.update();
             this.sonic.onUpdate();
-            console.log(this.sonic.x+" / "+this.sonic.y+" / "+this.sonic.width+" / "+this.sonic.context);
+           // console.log(this.sonic.x+" / "+this.sonic.y+" / "+this.sonic.width+" / "+this.sonic.context);
         }
         
 
         //onDraw, runs 1x per frame. Good place to paint
         onDraw (interpolation){
-           
+            
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height)
             let h = innerHeight/2;
@@ -130,9 +129,16 @@ namespace `game.views` (
             this.buffer.fillStyle = 'hsl(175,15%,10%)';
             this.buffer.fillRect(w/2, h/2, w, h);
             
+
+           
+            
             this.sonic.onDraw();
             
             this.camera.render(this.buffer, this.context);
+            //until i can understand camera better...
+            var img2 = new Image();
+            img2.src="resources/images/greenhillzone2.png";
+            this.context.drawImage(img2,0,0);
 
         }
     }
