@@ -34,8 +34,11 @@ namespace `game.views` (
             this.buffer.canvas.width = window.innerWidth; //make buffer fullscreen
             
             var img = new Image();
-
             img.src="resources/images/sonic3_spritesheet.png";
+            
+            var img2 = new Image();
+            img2.src="resources/images/greenhillzone.png";
+            
             this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
             this.sonic.idle()
 
