@@ -12,6 +12,9 @@ namespace `game.views` (
             // this.music.loop=true;
             // this.music.load();
             this.onReset();
+            this.img2 = new Image();
+            this.img2.src="resources/images/greenhillzone2.png";
+            alert(this.img2);
         }
 
         onReset(){
@@ -136,9 +139,8 @@ namespace `game.views` (
             
             this.camera.render(this.buffer, this.context);
             //until i can understand camera better...
-            var img2 = new Image();
-            img2.src="resources/images/greenhillzone2.png";
-            this.context.drawImage(img2,0,0);
+           
+            this.context.drawImage(this.img2,0,0);
 
         }
     }
