@@ -14,7 +14,7 @@ namespace `game.sprites` (
                 row: 1,
                 tickCount: 0,
                 ticksPerFrame: 4,
-                frames: 8
+                frames: 8,
             });
         }
 
@@ -85,13 +85,11 @@ namespace `game.sprites` (
             //a lot of diff ways to build this out depending on the gameplay
             if(Key.isDown(Key.RIGHT)){
                 this.run(); this.x+=12;
-                
+                this.direction = 'right';
             }
             else if(Key.isDown(Key.LEFT)){
-                this.run(); 
-                this.x-=12;
-                this.context.save();
-                this.context.scale(-1,1);
+                this.run(); this.x-=12; 
+                this.direction = 'left';
             }
             else if(Key.isDown(Key.UP)){
                 this.walk(); this.y-=6;

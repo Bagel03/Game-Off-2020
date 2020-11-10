@@ -14,6 +14,7 @@ namespace `game.sprites` (
             this.row = options.row; // Row of sprites
             this.ticksPerFrame = options.ticksPerFrame; // Speed of animation
             this.tickCount = options.tickCount; // How much time has passed
+            this.direction = options.direction || null;
         }
 
         onUpdate() {
@@ -30,18 +31,22 @@ namespace `game.sprites` (
         }
 
         onDraw() {
-
+            this.context.save();
+            this.context.translate(this.x + this.width/2, this.y + this.height/2);
+            if(this.direction === 'left') this.context.scale(-1, 1);
+            console.log(this)
             this.context.drawImage(
                 this.image,
                 this.frameIndex * this.width, // The x-axis coordinate of the top left corner
                 this.row * this.height, // The y-axis coordinate of the top left corner
                 this.width, // The width of the sub-rectangle
                 this.height, // The height of the sub-rectangle
-                this.x, // The x coordinate
-                this.y,// The y coordinate
+                -this.width / 2, // The x coordinate
+                -this.height / 2,// The y coordinate
                 this.width, // The width to draw the image
                 this.height // The width to draw the image
             );
+            this.context.restore();
         }
     }
 )
