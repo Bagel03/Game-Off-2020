@@ -88,7 +88,10 @@ namespace `game.sprites` (
                 
             }
             else if(Key.isDown(Key.LEFT)){
-                this.run(); this.x-=12; this.width*=-1;//this.buffer.scale(-1,1);
+                this.run(); 
+                this.x-=12;
+                this.context.save();
+                this.context.scale(-1,1);
             }
             else if(Key.isDown(Key.UP)){
                 this.walk(); this.y-=6;
@@ -107,5 +110,7 @@ namespace `game.sprites` (
             else if (this.y < -150){this.y = innerWidth;}
             
         }
+
+
     }
 )
