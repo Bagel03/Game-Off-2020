@@ -158,7 +158,7 @@ namespace `game.views` (
         onFixedUpdate(time) {
             this.sonic.onUpdate();
             
-           console.log(this.sonic.ticksPerFrame + " / "+this.sonic.tickCount + " / "+this.sonic.frameIndex+ " / "+this.sonic.frames);
+           //console.log(this.sonic.ticksPerFrame + " / "+this.sonic.tickCount + " / "+this.sonic.frameIndex+ " / "+this.sonic.frames);
         }
         
 
