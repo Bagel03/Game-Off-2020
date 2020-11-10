@@ -71,30 +71,6 @@ namespace `game.sprites` (
                 
             }
             */
-            /*
-           if(Key.onKeydown){
-                //console.log(Key.code);
-            switch(Key.code){
-                    
-                case "ArrowRight":
-                    this.run(); //this.x+=5;
-                    break;
-                case "ArrowLeft":
-                    this.walk(); //this.x-=5;
-                    break;
-                default:
-                    //console.log("switch busted");
-                   // console.log(Key.code);
-                    //this.idle();
-                    break;
-                
-            }
-            
-
-            }*/
-            
-            
-            
             
             //how would i get the this.context of sonic?
             //////////////////////////////////////////////////////
@@ -105,17 +81,19 @@ namespace `game.sprites` (
 
             //this.context.scale(-1,1);
             
+            //a lot of diff ways to build this out depending on the gameplay
             if(Key.isDown(Key.RIGHT)){
                 this.run(); this.x+=2; 
             }
-           if(Key.isDown(Key.LEFT)){
+            else if(Key.isDown(Key.LEFT)){
                 this.walk(); this.x-=2;
             }
-             if(Key.isDown(Key.UP)){
-                this.idle(); this.y-=2;
+            else this.idle();
+            if(Key.isDown(Key.UP)){
+                this.y-=2;
             }
-             if(Key.isDown(Key.DOWN)){
-                this.idle(); this.y+=2;
+            if(Key.isDown(Key.DOWN)){
+                this.y+=2;
             }
             
         }
