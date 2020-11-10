@@ -1,4 +1,5 @@
 import 'hud.Splash';
+import 'hud.PauseMenu';
 import 'game.views.StartMenu';
 import 'game.views.World';
 import! 'game.modules.UIMachine';
@@ -38,6 +39,7 @@ namespace `game` (
 
         onPauseGame(){
             this.machine.push(this.startmenu);
+            PauseMenu.pause();
         }
 
         onStartGame(){
@@ -59,6 +61,7 @@ namespace `game` (
         //onUpdate, runs 1x per frame. Good place to handle user input
         onUpdate = (timestamp, delta) => {
             this.machine.onUpdate();
+           
         }
     }
 );

@@ -9,16 +9,20 @@
     DOWN: "ArrowDown",
     A: "KeyA",
     D: "KeyD",
+      code: null,
 
     isDown: function(code) {
+        
       return this._pressed[code];
     },
     
     onKeydown: function(e) {
+        this.code = e.code;
       this._pressed[e.code] = true;
     },
     
     onKeyup: function(e) {
+        
       delete this._pressed[e.code];
     }
   };

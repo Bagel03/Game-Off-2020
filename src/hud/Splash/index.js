@@ -72,7 +72,7 @@ namespace `hud` (
 					  <i class='layer'></i>
 					  <i class='layer'></i>
 					  <i class='layer'></i>
-                      <img id="logo" src="../../../resources/images/game-off-logo.png" style="height: 115px;">
+                      <img id="logo" src="../../../resources/images/game-off-anim.gif" style="height: 25vh;">
 					</div>
 				</template>
         	`

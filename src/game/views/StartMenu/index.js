@@ -1,7 +1,4 @@
 
-
-
-
 namespace `game.views` (
     @tag("start-menu");
     class StartMenu extends WebComponent {
@@ -16,6 +13,8 @@ namespace `game.views` (
             this.music_select.loop=false;
             this.music_select.load();
             this.onReset();
+            
+            
         }
 
         onReset(){
@@ -23,13 +22,20 @@ namespace `game.views` (
             this.isBlocking = true;
             this.isStarted  = false;
         }
-
+       
         async onConnected() {
+            
             await super.onConnected();
+            
             this.addEventListener("click",  e => this.onStartGame(),    false, "#start-game");
             this.addEventListener("change", e => this.onToggleMusic(e), false, "#enable-music");
+            this.addEventListener("click",  e => this.onCreditsHandler(),    false, "#credits");
+        
         }
-
+        async onCreditsHandler(){
+               console.log("I am onCreditsHandler, and i am working good")
+          
+         }
         async onToggleMusic(e){
             if(e.target.checked){
                 this.music_select.play();
@@ -46,6 +52,7 @@ namespace `game.views` (
         onStartGame(){
             this.dispatchEvent("startgame");
         }
+        
 
 
 

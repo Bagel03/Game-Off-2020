@@ -20,21 +20,22 @@ namespace `game.sprites` (
 
         walk() {
             this.frames = 8;
-            this.frameIndex = 0;
+            //this.frameIndex = 0;
             this.row = 1;
             this.ticksPerFrame = 4;
+           
         }
 
         run() {
             this.frames = 4;
-            this.frameIndex = 0;
+           // this.frameIndex = 0;
             this.row = 2;
             this.ticksPerFrame = 2;
         }
 
         idle() {
             this.frames = 9;
-            this.frameIndex = 0;
+           // this.frameIndex = 0;
             this.row = 0;
             this.ticksPerFrame = 12;
         }
@@ -44,10 +45,11 @@ namespace `game.sprites` (
         //TODO: replace with StateMachine/BehaviorTree
         onUpdate(){
             super.onUpdate();
-
+            /*
             if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
                 if(!this.is_running){
                     this.run();
+                    //this.x+=5;
                     this.is_running=true;
                     this.is_walking=false
                 }
@@ -56,6 +58,7 @@ namespace `game.sprites` (
             else if(Key.isDown(Key.RIGHT)){
                 if(!this.is_walking){
                     this.walk();
+                    //this.x+=5;
                     this.is_walking=true;
                     this.is_running=false;
                 }
@@ -65,6 +68,32 @@ namespace `game.sprites` (
                 this.is_walking=false;
                 this.is_running=false;
                 this.idle();
+                
+            }
+            */
+            
+            //how would i get the this.context of sonic?
+            //////////////////////////////////////////////////////
+            //if(Key.isDown(Key.LEFT)){console.log(this.context);}
+
+            //how would i get the this.context of sonic?
+            //////////////////////////////////////////////////////
+
+            //this.context.scale(-1,1);
+            
+            //a lot of diff ways to build this out depending on the gameplay
+            if(Key.isDown(Key.RIGHT)){
+                this.run(); this.x+=2; 
+            }
+            else if(Key.isDown(Key.LEFT)){
+                this.walk(); this.x-=2;
+            }
+            else this.idle();
+            if(Key.isDown(Key.UP)){
+                this.y-=2;
+            }
+            if(Key.isDown(Key.DOWN)){
+                this.y+=2;
             }
             
         }
