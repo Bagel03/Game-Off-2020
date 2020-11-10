@@ -13,7 +13,7 @@
     color:white;
 }
 
-:host > div{
+:host > div {
     position: absolute;
     /*width: 499px;*/
     top: 50%;
