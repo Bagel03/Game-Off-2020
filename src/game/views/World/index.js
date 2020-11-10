@@ -34,15 +34,15 @@ namespace `game.views` (
             this.buffer.canvas.width = window.innerWidth; //make buffer fullscreen
             
             var img = new Image();
-<<<<<<< HEAD
+
             img.src="./resources/images/sonic3_spritesheet.png";
             this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.context, img);
             this.sonic.idle();
-=======
+
             img.src="resources/images/sonic3_spritesheet.png";
             this.sonic = new game.sprites.Sonic((this.canvas.width/4), (this.canvas.height/4), this.buffer, img);
             this.sonic.idle()
->>>>>>> 20fdda8b4ed03076600f9562979433d1d50b07d7
+
 
             const viewport = new game.modules.utils.Rectangle(0, 0, this.canvas.width/2, this.canvas.height/2);
             const target = new game.modules.utils.Rectangle(100, 100, this.canvas.width, this.canvas.height);//draw with offset
@@ -170,7 +170,7 @@ namespace `game.views` (
             let h = innerHeight/2;
             let w = innerWidth/2;
             // console.log("h: "+h+" "+"w: "+w);
-<<<<<<< HEAD
+
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.context.fillStyle = 'hsl(175,15%,10%)';
             this.context.fillRect(0, 0, w, h);
@@ -178,12 +178,12 @@ namespace `game.views` (
             this.sonic.onDraw();
             
             
-=======
+
             this.buffer.fillStyle = 'hsl(175,15%,10%)';
             this.buffer.fillRect(0, 0, w, h);
             this.sonic.onDraw()
             this.camera.render(this.buffer, this.context);
->>>>>>> 20fdda8b4ed03076600f9562979433d1d50b07d7
+
         }
     }
 );

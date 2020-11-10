@@ -71,6 +71,7 @@ namespace `game.sprites` (
                 
             }
             */
+            /*
            if(Key.onKeydown){
                 //console.log(Key.code);
             switch(Key.code){
@@ -89,21 +90,33 @@ namespace `game.sprites` (
                 
             }
             
-<<<<<<< HEAD
-            }
+
+            }*/
+            
+            
+            
+            
             //how would i get the this.context of sonic?
             //////////////////////////////////////////////////////
             //if(Key.isDown(Key.LEFT)){console.log(this.context);}
-=======
+
             //how would i get the this.context of sonic?
             //////////////////////////////////////////////////////
->>>>>>> 20fdda8b4ed03076600f9562979433d1d50b07d7
+
             //this.context.scale(-1,1);
-            /*
+            
             if(Key.isDown(Key.RIGHT)){
-                this.x+=5;
-            }*/
-           
+                this.run(); this.x+=2; 
+            }
+           if(Key.isDown(Key.LEFT)){
+                this.walk(); this.x-=2;
+            }
+             if(Key.isDown(Key.UP)){
+                this.idle(); this.y-=2;
+            }
+             if(Key.isDown(Key.DOWN)){
+                this.idle(); this.y+=2;
+            }
             
         }
     }
