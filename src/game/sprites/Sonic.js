@@ -83,18 +83,20 @@ namespace `game.sprites` (
             
             //a lot of diff ways to build this out depending on the gameplay
             if(Key.isDown(Key.RIGHT)){
-                this.run(); this.x+=2; 
+                this.run(); this.x+=12; 
             }
             else if(Key.isDown(Key.LEFT)){
-                this.walk(); this.x-=2;
+                this.run(); this.x-=12;
+            }
+            else if(Key.isDown(Key.UP)){
+                this.walk(); this.y-=6;
+            }
+            else if(Key.isDown(Key.DOWN)){
+                this.walk(); this.y+=6;
             }
             else this.idle();
-            if(Key.isDown(Key.UP)){
-                this.y-=2;
-            }
-            if(Key.isDown(Key.DOWN)){
-                this.y+=2;
-            }
+            
+           // if (this.x > ){}
             
         }
     }
