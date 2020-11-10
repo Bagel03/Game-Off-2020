@@ -29,12 +29,17 @@ namespace `game` (
         
         async onConnected() {
             await super.onConnected();
-            this.addEventListener("showcredits",  e => this.onShowCredits(e));
-            this.addEventListener("startgame",  e => this.onStartGame(e));
-            this.addEventListener("pausegame",  e => this.onPauseGame(e));
-            this.addEventListener("gameover",   e => this.onGameOver(e));
-            this.addEventListener("resumegame",   e => this.onResumeGame(e));
+            this.addEventListener("showcredits", e => this.onShowCredits(e));
+            this.addEventListener("startgame",   e => this.onStartGame(e));
+            this.addEventListener("pausegame",   e => this.onPauseGame(e));
+            this.addEventListener("gameover",    e => this.onGameOver(e));
+            this.addEventListener("resumegame",  e => this.onResumeGame(e));
             this.addEventListener("startmenu",   e => this.onStartMenu(e));
+            this.addEventListener("quit",        e => this.onQuit(e));
+        }
+
+        onQuit(){
+            location.reload();
         }
 
         onShowCredits(){

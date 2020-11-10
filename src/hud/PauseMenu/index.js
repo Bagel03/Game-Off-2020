@@ -16,6 +16,12 @@ namespace`hud`(
         async onConnected() {
             await super.onConnected();
             this.addEventListener("click", e=>this.onResume(), false, "div.resume");
+            this.addEventListener("click", e=>this.onQuit(), false, "div.quit");
+            this.addEventListener("click", e=>this.onMenu(), false, "div.menu");
+        }
+
+        onMenu(){
+            this.dispatchEvent("startmenu")
         }
 
         onResume(){
@@ -27,7 +33,9 @@ namespace`hud`(
             this.isStarted=false;
         }
 
-
+        onQuit(){
+            this.dispatchEvent("quit")
+        }
 
 
 

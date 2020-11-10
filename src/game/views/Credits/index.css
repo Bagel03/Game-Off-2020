@@ -8,6 +8,8 @@
     text-align: center;
     padding: 58px;
     box-sizing: border-box;
+    z-index: 110;
+    position:absolute;
 }
 
 :host .section{
