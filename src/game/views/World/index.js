@@ -26,19 +26,19 @@ namespace `game.views` (
             this.canvas = this.querySelector('canvas');
             this.context = this.canvas.getContext('2d');
 
-            this.canvas.height = window.innerHeight/2; //make canvas fullscreen/2
-            this.canvas.width = window.innerWidth/2; //make canvas fullscreen/2
+            this.canvas.height = window.innerHeight; //make canvas fullscreen
+            this.canvas.width = window.innerWidth; //make canvas fullscreen
 
             this.buffer = document.createElement('canvas').getContext('2d');
-            this.buffer.canvas.height = window.innerHeight/2; //make buffer fullscreen/2
-            this.buffer.canvas.width = window.innerWidth/2; //make buffer fullscreen/2
+            this.buffer.canvas.height = window.innerHeight; //make buffer fullscreen
+            this.buffer.canvas.width = window.innerWidth; //make buffer fullscreen
             
             var img = new Image();
             img.src="resources/images/sonic3_spritesheet.png";
-            this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
+            this.sonic = new game.sprites.Sonic((this.canvas.width/4), (this.canvas.height/4), this.buffer, img);
             this.sonic.idle()
 
-            const viewport = new game.modules.utils.Rectangle(0, 0, this.canvas.width, this.canvas.height);
+            const viewport = new game.modules.utils.Rectangle(0, 0, this.canvas.width/2, this.canvas.height/2);
             const target = new game.modules.utils.Rectangle(100, 100, this.canvas.width, this.canvas.height);//draw with offset
             this.camera = new game.modules.Camera(viewport, target);
             
