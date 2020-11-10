@@ -1,6 +1,3 @@
-import 'game.views.Credits';
-
-
 
 namespace `game.views` (
     @tag("start-menu");
@@ -32,19 +29,12 @@ namespace `game.views` (
             
             this.addEventListener("click",  e => this.onStartGame(),    false, "#start-game");
             this.addEventListener("change", e => this.onToggleMusic(e), false, "#enable-music");
-
-            this.creditsButton = document.querySelector("#credits")
-            this.onCreditsHandler()
-
-
-            this.loadGameButton = document.querySelector("#load-game")
-            this.quitGameButton = document.querySelector("#quit-game")
+            this.addEventListener("click",  e => this.onCreditsHandler(),    false, "#credits");
+        
         }
-       async onCreditsHandler(){
-           
-            this.creditsButton.addEventListener("click",e =>{
-                console.log(e)
-            })
+        async onCreditsHandler(){
+               console.log("I am onCreditsHandler, and i am working good")
+          
          }
         async onToggleMusic(e){
             if(e.target.checked){
