@@ -1,4 +1,5 @@
-
+import! 'game.modules.camera';
+import! 'game.modules.utils.rectangle';
 namespace `game.views` (
     @tag("world-view");
     class World extends WebComponent {
@@ -6,7 +7,7 @@ namespace `game.views` (
             super();
             this.machine = machine;
             // this.actions = new display.worlds.aeiou.Machine;
-            this.world=world;
+            this.world = world;
             // this.music = new Audio("/resources/tunes/sawsquarenoise_-_02_-_Towel_Defence_Comic.mp3");
             // this.music.loop=true;
             // this.music.load();
@@ -27,11 +28,26 @@ namespace `game.views` (
 
             this.canvas.height = window.innerHeight/2; //make canvas fullscreen/2
             this.canvas.width = window.innerWidth/2; //make canvas fullscreen/2
+
+            this.buffer = document.createElement('canvas').getContext('2d');
+            this.buffer.canvas.height = window.innerHeight/2; //make buffer fullscreen/2
+            this.buffer.canvas.width = window.innerWidth/2; //make buffer fullscreen/2
+            
             var img = new Image();
             img.src="resources/images/sonic3_spritesheet.png";
-            this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.context, img);
+            this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
             this.sonic.idle()
 
+            const viewport = new game.modules.utils.Rectangle(0, 0, this.canvas.width, this.canvas.height);
+            const target = new game.modules.utils.Rectangle(100, 100, this.canvas.width, this.canvas.height);//draw with offset
+            this.camera = new game.modules.Camera(viewport, target);
+            
+            let h = innerHeight/2;
+            let w = innerWidth/2;
+            // console.log("h: "+h+" "+"w: "+w);
+            this.buffer.fillStyle = 'hsl(175,15%,10%)';
+            this.buffer.fillRect(0, 0, w, h);
+            this.sonic.onDraw()
 
             this.addEventListener("click", e => this.onPauseMenu(), false, "#pause");
             this.addEventListener("click", e => this.onEndLevel(), false, "#exit");
@@ -93,7 +109,7 @@ namespace `game.views` (
         //----------------MACHINE
         onAwake(){
             this.style.display="block";
-            console.log(this.namespace + " Awake")
+            console.log(this.namespace + " Awake");
             // this.music.play();
         }
 
@@ -108,7 +124,8 @@ namespace `game.views` (
             document.body.appendChild(this)
             // this.world.appendChild(this)
             this.isStarted=true;   
-            console.log(this.namespace + " Started")
+            console.log(this.namespace + " Started");
+
         }
 
         onExit(){
@@ -139,13 +156,15 @@ namespace `game.views` (
         //onDraw, runs 1x per frame. Good place to paint
         onDraw (interpolation){
            
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height)
             let h = innerHeight/2;
             let w = innerWidth/2;
             // console.log("h: "+h+" "+"w: "+w);
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.context.fillStyle = 'hsl(175,15%,10%)';
-            this.context.fillRect(0, 0, w, h);
+            this.buffer.fillStyle = 'hsl(175,15%,10%)';
+            this.buffer.fillRect(0, 0, w, h);
             this.sonic.onDraw()
+            this.camera.render(this.buffer, this.context);
         }
     }
 );
