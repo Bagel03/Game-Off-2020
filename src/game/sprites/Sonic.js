@@ -88,7 +88,7 @@ namespace `game.sprites` (
                 
             }
             else if(Key.isDown(Key.LEFT)){
-                this.run(); this.x-=12; this.width*=-1;//this.buffer.scale(-1,1);
+                this.run(); this.x-=12; this.context.scale(-1,1); //this.width*=-1;//
             }
             else if(Key.isDown(Key.UP)){
                 this.walk(); this.y-=6;
