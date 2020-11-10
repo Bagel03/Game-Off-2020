@@ -23,6 +23,7 @@ namespace `game.sprites` (
             this.frameIndex = 0;
             this.row = 1;
             this.ticksPerFrame = 4;
+           
         }
 
         run() {
@@ -44,10 +45,11 @@ namespace `game.sprites` (
         //TODO: replace with StateMachine/BehaviorTree
         onUpdate(){
             super.onUpdate();
-            
+            /*
             if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
                 if(!this.is_running){
                     this.run();
+                    //this.x+=5;
                     this.is_running=true;
                     this.is_walking=false
                 }
@@ -56,6 +58,7 @@ namespace `game.sprites` (
             else if(Key.isDown(Key.RIGHT)){
                 if(!this.is_walking){
                     this.walk();
+                    //this.x+=5;
                     this.is_walking=true;
                     this.is_running=false;
                 }
@@ -65,13 +68,37 @@ namespace `game.sprites` (
                 this.is_walking=false;
                 this.is_running=false;
                 this.idle();
+                
+            }
+            */
+           if(Key.onKeydown){
+                //console.log(Key.code);
+            switch(Key.code){
+                    
+                case "ArrowRight":
+                    this.run(); //this.x+=5;
+                    break;
+                case "ArrowLeft":
+                    this.walk(); //this.x-=5;
+                    break;
+                default:
+                    //console.log("switch busted");
+                   // console.log(Key.code);
+                    //this.idle();
+                    break;
+                
             }
             
-            if(Key.isDown){console.log(Key.code);}
+            }
             //how would i get the this.context of sonic?
             //////////////////////////////////////////////////////
-            if(Key.isDown(Key.LEFT)){console.log(this.context);}
+            //if(Key.isDown(Key.LEFT)){console.log(this.context);}
             //this.context.scale(-1,1);
+            /*
+            if(Key.isDown(Key.RIGHT)){
+                this.x+=5;
+            }*/
+           
             
         }
     }

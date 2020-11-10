@@ -61,6 +61,7 @@ namespace `game` (
         //onUpdate, runs 1x per frame. Good place to handle user input
         onUpdate = (timestamp, delta) => {
             this.machine.onUpdate();
+           
         }
     }
 );

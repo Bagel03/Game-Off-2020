@@ -28,9 +28,9 @@ namespace `game.views` (
             this.canvas.height = window.innerHeight/2; //make canvas fullscreen/2
             this.canvas.width = window.innerWidth/2; //make canvas fullscreen/2
             var img = new Image();
-            img.src="resources/images/sonic3_spritesheet.png";
+            img.src="./resources/images/sonic3_spritesheet.png";
             this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.context, img);
-            this.sonic.idle()
+            this.sonic.idle();
 
 
             this.addEventListener("click", e => this.onPauseMenu(), false, "#pause");
@@ -127,12 +127,15 @@ namespace `game.views` (
         //onUpdate, runs 1x per frame. Good place to handle user input
         onUpdate(timestamp, delta){
             // this.actions.onUpdate();
+            
         }
 
 
         //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
         onFixedUpdate(time) {
-            this.sonic.onUpdate()
+            this.sonic.onUpdate();
+            
+           console.log(this.sonic.ticksPerFrame + " / "+this.sonic.tickCount + " / "+this.sonic.frameIndex+ " / "+this.sonic.frames);
         }
         
 
@@ -145,7 +148,10 @@ namespace `game.views` (
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.context.fillStyle = 'hsl(175,15%,10%)';
             this.context.fillRect(0, 0, w, h);
-            this.sonic.onDraw()
+            
+            this.sonic.onDraw();
+            
+            
         }
     }
 );
