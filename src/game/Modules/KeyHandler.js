@@ -3,16 +3,20 @@
 
   window.Key = {
     _pressed: {},
+    _up:null,
     LEFT: "ArrowLeft",
     UP: "ArrowUp",
     RIGHT: "ArrowRight",
     DOWN: "ArrowDown",
     A: "KeyA",
     D: "KeyD",
-      code: null,
+    ESC : "Escape",
+    code: null,
 
     isDown: function(code) {
-        
+      return this._pressed[code];
+    },
+    isUp: function(code) {
       return this._pressed[code];
     },
     
@@ -22,8 +26,8 @@
     },
     
     onKeyup: function(e) {
-        
       delete this._pressed[e.code];
+      this._up=e.code;
     }
   };
 

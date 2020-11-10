@@ -5,21 +5,25 @@ namespace `game.modules` (
             super();
         }
 
+        //called by game loop
         onUpdate(timestamp, delta){
             var state = this[0];
                 state&&!state.isSleeping&&state.onUpdate&&state.onUpdate(timestamp, delta);
         }
 
+        //called by game loop
         onFixedUpdate(time){
             var state = this[0];
                 state&&!state.isSleeping&&state.onFixedUpdate&&state.onFixedUpdate(time);
         }
 
+        //called by game loop
         onDraw(interpolation){
             var state = this[0];
                 state&&!state.isSleeping&&state.onDraw&&state.onDraw(interpolation);
         }
 
+        //called by user to push in a new Component
         push(state){
             state && !state.isStarted && state.onStart();
             state && state.onAwake();
@@ -28,6 +32,7 @@ namespace `game.modules` (
             this.unshift(state);
         }
 
+        //called by machine
         pop(){
             var current = this[0];
             if(current){

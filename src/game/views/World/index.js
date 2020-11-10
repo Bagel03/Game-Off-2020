@@ -6,7 +6,6 @@ namespace `game.views` (
         constructor(world, machine) {
             super();
             this.machine = machine;
-            // this.actions = new display.worlds.aeiou.Machine;
             this.world = world;
             // this.music = new Audio("/resources/tunes/sawsquarenoise_-_02_-_Towel_Defence_Comic.mp3");
             // this.music.loop=true;
@@ -56,63 +55,20 @@ namespace `game.views` (
             this.sonic.onDraw()
 
             this.addEventListener("click", e => this.onPauseMenu(), false, "#pause");
-            this.addEventListener("click", e => this.onEndLevel(), false, "#exit");
-            // this.addEventListener("click", e => this.onScored(e), false, "#inc-score");
-            // this.addEventListener("challengedone", e => this.onChallengeDone(e));
-            // this.addEventListener("failed", e => this.onFailedChallenge(e));
-            
-            // this.actions.push(new display.worlds.aeiou.Challenge(this.world, this, this.machine));
-            // this.actions.push(new display.worlds.aeiou.ScoreKeeper(this.world, this.machine));
-            // this.actions.push(new display.worlds.aeiou.DamageMeter(this.world, this.machine));
         }
 
-        
-
-        // //onUpdate, runs 1x per frame. Good place to handle user input
-        // onUpdate(timestamp, delta) {
-        //     // if(Key.isDown(Key.RIGHT) && Key.isDown(Key.DOWN)){
-        //     //     console.log("DOWN-RIGHT BEING PRESSED")
-        //     // }
-        // }
-
-        // onEndLevel(){
-        //     debugger;
-        //     this.isFinished=true
-        //     this.dispatchEvent("gameover");
-        //     this.music.pause();
-        // }
-
-        // onGameOver(){
-        //     this.isFinished=true;
-        //     this.music.pause();
-        // }
-
-        // onFailedChallenge(){
-        //     //TODO: Could be used to decrement lives as a feature (?)
-        // }
-
-        // onChallengeDone(){
-        //     var doit = !this.isFinished && confirm("Try the next Challenge?")
-        //         doit && this.actions.push(new display.worlds.aeiou.Challenge(this.world, this, this.machine));
-        // }
-
         onPauseMenu(){
-            // this.machine.push(new display.worlds.aeiou.Menu(this.world, this.machine));
             this.dispatchEvent("pausegame")
         }
 
-        // onScored(e){
-        //     this.dispatchEvent("score", {amount:42});
-        // }
+        onResume(){
+            this.dispatchEvent("resumegame")
+        }
 
-        // append(vowel){
-        //     this.canvas.appendChild(vowel)
-        // }
-        
-        
+
         
 
-        //----------------MACHINE
+        //------------------------------MACHINE CALLED----------------------------
         onAwake(){
             this.style.display="block";
             console.log(this.namespace + " Awake");
@@ -120,15 +76,14 @@ namespace `game.views` (
         }
 
         onSleep(){
-            this.style.display="none";
+            // this.style.display="none";
             console.log(this.namespace + " Sleeping");
-            this.music.pause();
+            // this.music.pause();
         }
 
         onStart() {
             // this.world.settings.music && this.music.play();
             document.body.appendChild(this)
-            // this.world.appendChild(this)
             this.isStarted=true;   
             console.log(this.namespace + " Started");
 
@@ -149,16 +104,13 @@ namespace `game.views` (
 
         //onUpdate, runs 1x per frame. Good place to handle user input
         onUpdate(timestamp, delta){
-            // this.actions.onUpdate();
-            
+            Key.isUp(Key.ESC) && this.onPauseMenu();
         }
 
 
         //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
         onFixedUpdate(time) {
             this.sonic.onUpdate();
-            
-           //console.log(this.sonic.ticksPerFrame + " / "+this.sonic.tickCount + " / "+this.sonic.frameIndex+ " / "+this.sonic.frames);
         }
         
 
