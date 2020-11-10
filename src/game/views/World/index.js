@@ -108,6 +108,7 @@ namespace `game.views` (
         onFixedUpdate(time) {
             this.camera.update();
             this.sonic.onUpdate();
+            console.log(this.sonic.x+" / "+this.sonic.y);
         }
         
 
