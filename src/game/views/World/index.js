@@ -14,7 +14,6 @@ namespace `game.views` (
             this.onReset();
             this.img2 = new Image();
             this.img2.src="resources/images/greenhillzone2.png";
-            alert(this.img2);
         }
 
         onReset(){
@@ -113,7 +112,6 @@ namespace `game.views` (
         onFixedUpdate(time) {
             this.camera.update();
             this.sonic.onUpdate();
-           // console.log(this.sonic.x+" / "+this.sonic.y+" / "+this.sonic.width+" / "+this.sonic.context);
         }
         
 
@@ -124,23 +122,18 @@ namespace `game.views` (
             this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height)
             let h = innerHeight/2;
             let w = innerWidth/2;
-            // console.log("h: "+h+" "+"w: "+w);
 
             this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.buffer.fillStyle = 'red';
-            this.buffer.fillRect(0, 0, this.canvas.width, this.canvas.height);
-            this.buffer.fillStyle = 'hsl(175,15%,10%)';
-            this.buffer.fillRect(w/2, h/2, w, h);
             
 
-           
+            this.buffer.drawImage(this.img2,0, 0, this.canvas.width, this.canvas.height);
+
             
             this.sonic.onDraw();
             
             this.camera.render(this.buffer, this.context);
             //until i can understand camera better...
            
-            this.context.drawImage(this.img2,0,0);
 
         }
     }
