@@ -30,12 +30,15 @@ namespace `game.views` (
             this.canvas = this.querySelector('canvas');
             this.context = this.canvas.getContext('2d');
 
-            this.canvas.height = window.innerHeight; //make canvas fullscreen
-            this.canvas.width = window.innerWidth; //make canvas fullscreen
+            this.canvas.height = 480; //make canvas fullscreen
+            this.canvas.width = 640; //make canvas fullscreen
 
             this.buffer = document.createElement('canvas').getContext('2d');
-            this.buffer.canvas.height = window.innerHeight; //make buffer fullscreen
-            this.buffer.canvas.width = window.innerWidth; //make buffer fullscreen
+            this.buffer.canvas.height = this.canvas.height; //make buffer fullscreen
+            this.buffer.canvas.width = this.canvas.width; //make buffer fullscreen
+
+            this.canvas.imageSmoothingEnabled = this.buffer.imageSmoothingEnabled = false;
+            this.buffer.canvas.style.imageRendering = this.canvas.style.imageRendering = 'pixelated';
             
             var img = new Image();
             img.src="resources/images/sonic3_spritesheet.png";
@@ -54,8 +57,28 @@ namespace `game.views` (
             .then(() => this.camera.moveBy(new game.modules.utils.Vector(-100, -100), 100, 'linear'))
 
 
-
+            this.fillScreen();
             this.addEventListener("click", e => this.onPauseMenu(), false, "#pause");
+            window.addEventListener('resize', e => this.fillScreen(), false);
+        }
+
+        fillScreen(){
+                
+            // Get the height and width of the window
+            var height = document.documentElement.clientHeight;
+            var width  = document.documentElement.clientWidth;
+
+            let width_height_ratio = this.canvas.width / this.canvas.height;
+            // This makes sure the DISPLAY canvas is resized in a way that maintains the MAP's width / height ratio.
+            if (width / height < width_height_ratio) height = Math.floor(width  / width_height_ratio);
+            else                                         width  = Math.floor(height * width_height_ratio);
+
+            // This sets the CSS of the DISPLAY canvas to resize it to the scaled height and width.
+            this.canvas.style.height = height + 'px';
+            this.canvas.style.width  = width  + 'px';
+            // //this centers the canvas
+            this.canvas.style.marginTop = (innerHeight/2 - height/2) + 'px';
+            this.canvas.style.marginLeft = (innerWidth/2 - width/2) + 'px';
         }
 
         onPauseMenu(){
