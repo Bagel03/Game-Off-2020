@@ -1,6 +1,6 @@
-import! 'game.modules.camera';
-import! 'game.modules.utils.rectangle';
-import! 'game.modules.utils.vector';
+import! 'game.modules.Camera';
+import! 'game.modules.utils.Rectangle';
+import! 'game.modules.utils.Vector';
 namespace `game.views` (
     @tag("world-view");
     class World extends WebComponent {
