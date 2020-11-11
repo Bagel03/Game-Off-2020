@@ -18,15 +18,16 @@ namespace `game.modules`(
          * @param {string} interpolation Type of interpolation to using durring the camera's movement
          * 
          */
-        moveBy(amount, framecount, interpolation = 'linear'){                    console.log('called')
+        moveBy(amount, framecount, interpolation = 'linear'){                   
 
             let animationFunct;
             switch(interpolation){
                 case 'logarithmic':
                     animationFunct = frame => {
+                        const scaler = Vector.div(animationFunct, 2);
                         //If it is the last frame, do the same as last frame to get you to the final point
-                        if(frame === framecount) this.setCenter(Vector.add(this.center, amount));
-                        else this.setCenter(Vector.add(this.center, amount.div(2)));
+                        if(frame === framecount) this.viewport.position.add(scaler);
+                        else this.viewport.position.add(scaler.div(2));
                     }
                 break;
                 case 'delay':
@@ -59,7 +60,7 @@ namespace `game.modules`(
          * 
          */
         moveTo(target, framecount, interpolation = 'linear'){
-            const diff = Vector.sub(target, this.center);
+            const diff = Vector.sub(target, this.viewport.position);
             this.moveBy(diff, framecount, interpolation)
         }
 
@@ -80,13 +81,11 @@ namespace `game.modules`(
                 break;
                 case 'linear':
                 default:
-                    const segment = scaler.div(framecount);
                     animationFunct = frame => {
-                        this.zoom.add(segment);
                     };
             }
             return new Promise((resolve, reject) => {
-                this.animations.push(new CameraAnimation(framecount, frame => animationFunct(frame), resolve()));
+                this.animations.push(new CameraAnimation(framecount, animationFunct, resolve));
             })
         }
 
