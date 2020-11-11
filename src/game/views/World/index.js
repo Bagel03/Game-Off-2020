@@ -14,10 +14,8 @@ namespace `game.views` (
             this.onReset();
             this.img2 = new Image();
             this.img2.src="resources/images/greenhillzone2.png";
-<<<<<<< HEAD
             //alert(this.img2);
-=======
->>>>>>> ba87d8707a9f0f37c674ae77d112189554e4bbb8
+
         }
 
         onReset(){
@@ -135,12 +133,6 @@ namespace `game.views` (
             this.buffer.fillRect(w/2, h/2, w, h);
             ////KAMEHAMEHA ---<(((((   BANG!!!   )))))||||||||||||||||
             this.buffer.drawImage(this.img2,0,0,this.canvas.width, this.canvas.height);
-
-            
-
-            this.buffer.drawImage(this.img2,0, 0, this.canvas.width, this.canvas.height);
-
-
             
             this.sonic.onDraw();
             
