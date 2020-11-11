@@ -34,7 +34,7 @@ namespace `game.sprites` (
             this.context.save();
             this.context.translate(this.x + this.width/2, this.y + this.height/2);
             if(this.direction === 'left') this.context.scale(-1, 1);
-            console.log(this)
+            //console.log(this)
             this.context.drawImage(
                 this.image,
                 this.frameIndex * this.width, // The x-axis coordinate of the top left corner
