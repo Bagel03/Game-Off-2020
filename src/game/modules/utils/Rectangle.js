@@ -1,4 +1,4 @@
-import! 'game.modules.utils.vector';
+import! 'game.modules.utils.Vector';
 namespace `game.modules.utils`(
         class Rectangle{
 
