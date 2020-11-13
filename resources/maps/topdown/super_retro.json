@@ -1,0 +1,14 @@
+{ "columns":16,
+ "image":"..\/images\/atlas_16x.png",
+ "imageheight":304,
+ "imagewidth":256,
+ "margin":0,
+ "name":"super_retro",
+ "spacing":0,
+ "tilecount":304,
+ "tiledversion":"1.4.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":1.4
+}

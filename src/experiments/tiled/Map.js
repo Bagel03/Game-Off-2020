@@ -53,6 +53,22 @@ namespace `experiments.tiled` (
             return this.map.layers[layer].data[row * this.map.height + col];
         }
 
+        getCol (x) {
+            return Math.floor(x / this.tsize);
+        }
+
+        getRow (y) {
+            return Math.floor(y / this.tsize);
+        }
+
+        getX (col) {
+            return col * this.tsize;
+        }
+        
+        getY (row) {
+            return row * this.tsize;
+        }
+
         //returns a tileset/atlas for the layer based on MaterialSource property
         getTilesetForLayerByMaterialSource(layer){
             if(layer){
