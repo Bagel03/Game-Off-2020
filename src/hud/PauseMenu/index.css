@@ -1,3 +1,7 @@
+@font-face{
+    font-family: pixelated;
+    src: url(../../../../resources/fonts/rubber-biscuit/RUBBBB__.TTF);
+}
 :host {
     display: none;
     font-family: monospace;
@@ -20,6 +24,7 @@
     opacity: 1;
 }
 :host .layer .container div {
+    font-family: pixelated;
     display: inline-block;
     background: white;
     font-size: 1.2em;
