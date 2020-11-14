@@ -1,5 +1,5 @@
 { "columns":16,
- "image":"..\/images\/atlas_16x.png",
+ "image":"atlas_16x.png",
  "imageheight":304,
  "imagewidth":256,
  "margin":0,
@@ -8,6 +8,85 @@
  "tilecount":304,
  "tiledversion":"1.4.2",
  "tileheight":16,
+ "tiles":[
+        {
+         "id":49,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":7.30263157894737,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":10.3289473684211,
+                     "x":3.15789473684211,
+                     "y":4.60526315789474
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":97,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":14.9565217391304,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":14.9565217391304,
+                     "x":0.521739130434782,
+                     "y":0.521739130434783
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":100,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":7.30434782608696,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":11.7391304347826,
+                     "x":2.43478260869565,
+                     "y":6.60869565217391
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }],
  "tilewidth":16,
  "type":"tileset",
  "version":1.4

@@ -3,7 +3,7 @@ import! 'experiments.tiled.Map';
 import! 'experiments.tiled.renderers.html.Isometric';
 
 namespace `experiments.tiled` (
-    class TiledMapDemo extends Application { //a dom app, not a world. dont need loop
+    class IsometricTiledDemo extends Application { //a dom app, not a world. dont need loop
         constructor(el){
             super(el);
 

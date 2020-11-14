@@ -13,7 +13,9 @@ namespace `experiments.tiled` (
 
             return new Promise(async (res,fail)=>{
                 for(let tileset of this.map.tilesets){
-                    var response = await fetch('resources/maps/' + tileset.source.replace("tsx","json"));
+                    debugger;
+                    var tilesetPath = this.path.substr(0,this.path.lastIndexOf("/"));
+                    var response = await fetch(tilesetPath +"/" + tileset.source.replace("tsx","json"));
                     var _tileset = await response.json();
                         _tileset.firstgid = tileset.firstgid;
                     this.tilesets.push(_tileset);
@@ -26,9 +28,11 @@ namespace `experiments.tiled` (
         get layers(){
             return this.map.layers;
         }
+
         get height(){
             return this.map.height;
         }
+
         get width(){
             return this.map.width;
         }
@@ -36,6 +40,7 @@ namespace `experiments.tiled` (
         get tilewidth(){
             return this.map.tilewidth;
         }
+
         get tileheight(){
             return this.map.tileheight;
         }
@@ -54,19 +59,19 @@ namespace `experiments.tiled` (
         }
 
         getCol (x) {
-            return Math.floor(x / this.tsize);
+            return Math.floor(x / this.width);
         }
 
         getRow (y) {
-            return Math.floor(y / this.tsize);
+            return Math.floor(y / this.height);
         }
 
         getX (col) {
-            return col * this.tsize;
+            return col * this.width;
         }
         
         getY (row) {
-            return row * this.tsize;
+            return row * this.height;
         }
 
         //returns a tileset/atlas for the layer based on MaterialSource property
