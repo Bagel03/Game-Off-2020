@@ -1,5 +1,6 @@
-@tag("pause-menu");
-namespace`hud`(
+
+namespace `hud` (
+    @tag("pause-menu");
     class PauseMenu extends WebComponent {
         constructor(world, machine) {
             super();

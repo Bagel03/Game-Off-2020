@@ -44,18 +44,19 @@
 }
 :host .menuStartButton{
     font-family: pixelated;
-    color: wheat;
+    color: black;
     font-size: 3vh;
     outline: none;
-    border: none;
-    background-color: transparent;
+    background-color: white;
     justify-self: center;
     align-self: center;
     grid-column-start: 2;
     grid-column-end: 3;
     height: auto;
     width: auto;
-    
+    border: 20px solid transparent;
+    border-image: url(../../../resources/images/pauseMenuBorder.png) stretch;
+    border-image-slice: 30;   
 }
 :host .menuStartButton:hover{
     color: yellowgreen;
