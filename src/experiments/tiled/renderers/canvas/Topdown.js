@@ -19,11 +19,15 @@ namespace `experiments.tiled.renderers.canvas` (
             for(let row = 0; row < map.width; row++){
                 for(let col = 0; col < map.width; col++){
                     const tile = map.getTile(layer, col, row);
+                    var tileset = layer === 0 ?
+                    map.getTilesetByIndex(layer):
+                    map.getTilesetForLayerByMaterialSource(map.layers[layer]);
+                    var tilepos = map.getTilePositionFor(tileset, tileTypeID, layer);//returns {col,row,x,y}
                     if(tile === 0) continue;
                     this.context.drawImage(
                         this.tileAtlas, 
-                        tile.x, 
-                        tile.y, 
+                        tilepos.x, 
+                        tilepos.y, 
                         map.tilewidth,
                         map.tileheight,
                         col * map.tilewidth,
