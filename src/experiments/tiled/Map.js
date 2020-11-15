@@ -13,7 +13,6 @@ namespace `experiments.tiled` (
 
             return new Promise(async (res,fail)=>{
                 for(let tileset of this.map.tilesets){
-                    debugger;
                     var tilesetPath = this.path.substr(0,this.path.lastIndexOf("/"));
                     var response = await fetch(tilesetPath +"/" + tileset.source.replace("tsx","json"));
                     var _tileset = await response.json();

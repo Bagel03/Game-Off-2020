@@ -7,8 +7,8 @@ namespace `game.modules`(
          */
         constructor(viewport, target){
             this.animations = [];
-            this.viewport = viewport;
-            this.target = target;
+            this.viewport = viewport.copy();
+            this.target = target.copy();
         }
 
         /**

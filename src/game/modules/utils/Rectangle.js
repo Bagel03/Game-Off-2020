@@ -23,6 +23,9 @@ namespace `game.modules.utils`(
         set width(value){this.size.x = value}
         set height(value){this.size.y = value}
 
+        copy = () => new Rectangle(this.left, this.top, this.width, this.height)
+
+
         /**
          * 
          * @param {Vector} vector 
@@ -30,5 +33,6 @@ namespace `game.modules.utils`(
         setCenter = vector => this.position.setFromVector(vector.sub(this.size.copy().div(2)));
 
         static fromXYWH = (x, y, w, h) => new Rectangle(new game.modules.utils.Vector(x, y), new game.modules.utils.Vector(w, h));
+    
     }
 )

@@ -3,28 +3,33 @@ namespace `experiments.tiled.renderers.canvas` (
         constructor(map){
             this.context=document.createElement('canvas').getContext('2d');
             this.map=map;
+            this.context.canvas.width = 500;
+            this.context.canvas.height = 500;
             this.tileAtlas = new Image();
-            this.tileAtlas.src="resources/maps/topdown/atlas_16x.png";
-
+            this.tileAtlas.src="./resources/maps/topdown/atlas_16x.png";
+            this.tileAtlas.addEventListener('load', () => this.onDraw)
             // document.body.appendChild(this.tileAtlas)
+            console.log(this.context)
         }
 
         onDraw(){
-            this.drawLayer(0);
+            for(let i = 0; i < this.map.layers.length; i++){
+                this.drawLayer(i);
+            }
             // this.drawGrid();
         }
 
         drawLayer (layer) {
-            const {map} = this;
+            const {map, context} = this;
             for(let row = 0; row < map.width; row++){
                 for(let col = 0; col < map.width; col++){
                     const tile = map.getTile(layer, col, row);
+                    // if(tile === 0) continue;
                     var tileset = layer === 0 ?
                     map.getTilesetByIndex(layer):
                     map.getTilesetForLayerByMaterialSource(map.layers[layer]);
-                    var tilepos = map.getTilePositionFor(tileset, tileTypeID, layer);//returns {col,row,x,y}
-                    if(tile === 0) continue;
-                    this.context.drawImage(
+                    var tilepos = map.getTilePositionFor(tileset, tile, layer);//returns {col,row,x,y}
+                    context.drawImage(
                         this.tileAtlas, 
                         tilepos.x, 
                         tilepos.y, 
