@@ -11,8 +11,10 @@ namespace `experiments.tiled` (
         async load(){
             var response = await fetch(this.path);
             this.map = await response.json();
+            
 
             return new Promise(async (res,fail)=>{
+                this.processImageLayers()
                 for(let tileset of this.map.tilesets){
                     var tilesetPath = this.path.substr(0,this.path.lastIndexOf("/"));
                     var response = await fetch(tilesetPath +"/" + tileset.source.replace("tsx","json"));
@@ -28,6 +30,20 @@ namespace `experiments.tiled` (
                 console.log("All Tilesets For Map",this.tilesets)
                 res(this)
             })
+        }
+
+        processImageLayers(){
+            for(var i=0; i<=this.layers.length-1; i++){
+                var layer = this.layers[i];
+                console.log("layer",layer)
+                if(layer.type=="imagelayer"){
+                    // console.log("image layer:",layer)
+                    var imagepath = this.path.substr(0,this.path.lastIndexOf("/"));
+                    var img = new Image;
+                        img.src = imagepath +"/" + layer.image;
+                        layer.image=img;
+                }
+            }
         }
 
         //for each tileset (holding collision bounds as <tilesseet.objectgroup.objects[]>), 

@@ -10,32 +10,49 @@ namespace `experiments.tiled.renderers.canvas` (
 
         onDraw(){
             for(let i = 0; i < this.map.layers.length; i++){
-                this.drawLayer(i);
+                var layer = this.map.layers[i];
+                this.drawLayer(i,layer);
             }
             // this.drawGrid();
         }
 
-        drawLayer (layer) {
+        drawLayer (layer, layerObject) {
+            //console.log(layerObject);
             const {map, context} = this;
-            for(let row = 0; row < map.width; row++){
-                for(let col = 0; col < map.width; col++){
-                    const tile = map.getTile(layer, col, row);
-                    // if(tile === 0) continue;
-                    var tileset = layer === 0 ?
-                    map.getTilesetByIndex(layer):
-                    map.getTilesetForLayerByMaterialSource(map.layers[layer]);
-                    var tilepos = map.getTilePositionFor(tileset, tile, layer);//returns {col,row,x,y}
-                    context.drawImage(
-                        tileset.image, 
-                        tilepos.x, 
-                        tilepos.y, 
-                        map.tilewidth,
-                        map.tileheight,
-                        col * map.tilewidth,
-                        row * map.tileheight,
-                        map.tilewidth,
-                        map.tileheight
-                    )
+            if(layerObject.type=="imagelayer"){
+                context.drawImage(
+                    layerObject.image, 
+                    0, 
+                    0, 
+                    layerObject.image.width,
+                    layerObject.image.height,
+                    layerObject.offsetx,
+                    layerObject.offsety,
+                    layerObject.image.width,
+                    layerObject.image.height
+                )
+            }
+            else if(layerObject.type=="tilelayer"){
+                for(let row = 0; row < map.width; row++){
+                    for(let col = 0; col < map.width; col++){
+                        const tile = map.getTile(layer, col, row);
+                        // if(tile === 0) continue;
+                        var tileset = layer === 0 ?
+                        map.getTilesetByIndex(layer):
+                        map.getTilesetForLayerByMaterialSource(map.layers[layer]);
+                        var tilepos = map.getTilePositionFor(tileset, tile, layer);//returns {col,row,x,y}
+                        context.drawImage(
+                            tileset.image, 
+                            tilepos.x, 
+                            tilepos.y, 
+                            map.tilewidth,
+                            map.tileheight,
+                            col * map.tilewidth,
+                            row * map.tileheight,
+                            map.tilewidth,
+                            map.tileheight
+                        )
+                    }
                 }
             }
         }

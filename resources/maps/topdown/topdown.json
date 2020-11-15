@@ -63,8 +63,32 @@
          "width":11,
          "x":0,
          "y":0
+        }, 
+        {
+         "id":15,
+         "image":"tree2.png",
+         "name":"Tree1",
+         "offsetx":131.333333333333,
+         "offsety":-41,
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":14,
+         "image":"tree.png",
+         "name":"Tree",
+         "offsetx":75,
+         "offsety":48.3333333333333,
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":6,
+ "nextlayerid":16,
  "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"right-down",
