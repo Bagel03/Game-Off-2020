@@ -5,6 +5,7 @@ namespace `experiments.tiled` (
             this.path=path;
             this.map=null;
             this.tilesets=[];
+            this.collisions={};
         }
 
         async load(){
@@ -22,10 +23,23 @@ namespace `experiments.tiled` (
                             _tileset.src = _tileset.image;
                             _tileset.image = img;//rewrite prop
                     this.tilesets.push(_tileset);
+                    this.processBounds(_tileset)
                 }
                 console.log("All Tilesets For Map",this.tilesets)
                 res(this)
             })
+        }
+
+        //for each tileset (holding collision bounds as <tilesseet.objectgroup.objects[]>), 
+        //add collision objects globally to map.collissions{}, keyed by maps tile type id.
+        //ex usage from world/collider:
+        //  this.map.collisions[177] where 177 is the tile type id
+        //  returns array of collision objects for this 1 tile
+        processBounds(tileset){
+            for(var i=0; i<=tileset.tiles.length-1; i++){
+                var tile = tileset.tiles[i];
+                this.collisions[tile.id+1] = tile.objectgroup.objects;//tile.id+1 because 1 less in tileset. Tiled Editor design
+            }
         }
 
         get layers(){
@@ -108,6 +122,24 @@ namespace `experiments.tiled` (
         }
 
         getTilePositionFor(tileset, tileType, layerIndex){
+            if(tileset.firstgid != 1){
+                // debugger;
+            }
+            var firstgid = Number(tileset.firstgid);
+            var tileType = tileType-firstgid;
+            // layerIndex <=0 ? (tileType -= 1):null;//Tiled Bug 
+
+            var index = tileType;
+            var col = index % tileset.columns; 
+            var row = Math.floor(index / tileset.columns);
+
+            var x = col*tileset.tilewidth;
+            var y = row*tileset.tileheight;
+
+            return {col,row,x,y}
+        }
+
+        getTileWithAnyCollision(tileset, tileType, layerIndex){
             if(tileset.firstgid != 1){
                 // debugger;
             }

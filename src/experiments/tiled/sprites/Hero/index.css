@@ -36,22 +36,18 @@
 
 /* walking */
 .walk-left {
-  -webkit-animation: walk_left steps(8) 0.7s infinite;
-          animation: walk_left steps(8) 0.7s infinite;
+  animation: walk_left steps(8) 0.7s infinite;
 }
 .walk-down {
-  -webkit-animation: walk_down steps(8) 0.7s infinite;
-          animation: walk_down steps(8) 0.7s infinite;
+  animation: walk_down steps(8) 0.7s infinite;
 }
 
 .walk-right {
-  -webkit-animation: walk_right steps(8) 0.7s infinite;
-          animation: walk_right steps(8) 0.7s infinite;
+  animation: walk_right steps(8) 0.7s infinite;
 }
 
 .walk-up {
-  -webkit-animation: walk_up steps(8) 0.7s infinite;
-          animation: walk_up steps(8) 0.7s infinite;
+  animation: walk_up steps(8) 0.7s infinite;
 }
 
 /* kneel down */
