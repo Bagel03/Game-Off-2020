@@ -1,6 +1,6 @@
 namespace `experiments.tiled.renderers.canvas` (
     class Topdown {
-        constructor(map){
+        constructor(context,map){
             this.context=document.createElement('canvas').getContext('2d');
             this.map=map;
             this.context.canvas.width = 500;

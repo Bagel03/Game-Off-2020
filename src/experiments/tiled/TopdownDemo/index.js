@@ -1,6 +1,7 @@
 import! 'experiments.tiled.Point';
 import! 'experiments.tiled.Map';
 import! 'experiments.tiled.renderers.canvas.Topdown';
+import! 'experiments.tiled.renderers.html.Topdown';
 import 'experiments.tiled.sprites.Hero';
 import! 'game.modules.KeyHandler';
 import! 'game.modules.Camera';
@@ -24,16 +25,16 @@ namespace `experiments.tiled` (
             this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");//a json Tiled export -- .tsx is the Tiled project file
             await this.map.load();//await loading
             
-            const viewport = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);
-            const target = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);//draw with offset
-            this.camera = new game.modules.Camera(viewport, target);
+            const viewport  = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);
+            const target    = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);//draw with offset
+            this.camera     = new game.modules.Camera(viewport, target);
 
             console.log("this.map",this.map)
             // this.camera = new experiments.tiled.cameras.Camera(this.map,176,176);
-            this.renderer = new experiments.tiled.renderers.canvas.Topdown(this.map/*Map*/); //replace with canvas renderer
+            this.renderer = new experiments.tiled.renderers.canvas.Topdown(this,this.map/*Map*/); //replace with canvas renderer
             this.hero = new experiments.tiled.sprites.Hero;
             this.appendChild(this.hero);
-            this.ready=true
+            this.ready=true;
         }
 
         onFixedUpdate=()=>{
