@@ -19,4 +19,9 @@
    <object id="1" x="2.43478" y="6.6087" width="11.7391" height="7.30435"/>
   </objectgroup>
  </tile>
+ <tile id="177">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0.0869565" y="5.04348" width="15.8261" height="10.7826"/>
+  </objectgroup>
+ </tile>
 </tileset>

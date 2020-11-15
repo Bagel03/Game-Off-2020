@@ -2,14 +2,9 @@ namespace `experiments.tiled.renderers.canvas` (
     class Topdown {
         constructor(context,map){
             this.context=document.createElement('canvas').getContext('2d');
-            this.map=map;
-            this.context.canvas.width = 500;
-            this.context.canvas.height = 500;
-            this.tileAtlas = new Image();
-            this.tileAtlas.src="./resources/maps/topdown/atlas_16x.png";
-            this.tileAtlas.addEventListener('load', () => this.onDraw)
-            // document.body.appendChild(this.tileAtlas)
-            console.log(this.context)
+            this.map = map;
+            this.context.canvas.width   = 500;
+            this.context.canvas.height  = 500;
         }
 
         onDraw(){
@@ -30,7 +25,7 @@ namespace `experiments.tiled.renderers.canvas` (
                     map.getTilesetForLayerByMaterialSource(map.layers[layer]);
                     var tilepos = map.getTilePositionFor(tileset, tile, layer);//returns {col,row,x,y}
                     context.drawImage(
-                        this.tileAtlas, 
+                        tileset.image, 
                         tilepos.x, 
                         tilepos.y, 
                         map.tilewidth,
@@ -42,36 +37,6 @@ namespace `experiments.tiled.renderers.canvas` (
                     )
                 }
             }
-            // var map=this.map;
-            // var startCol = Math.floor(this.camera.x / map.tilewidth);
-            // var endCol = startCol + (this.camera.width / map.tilewidth);
-            // var startRow = Math.floor(this.camera.y / map.tileheight);
-            // var endRow = startRow + (this.camera.height / map.tileheight);
-            // var offsetX = -this.camera.x + startCol * map.tilewidth;
-            // var offsetY = -this.camera.y + startRow * map.tileheight;
-
-            // for (var c = startCol; c <= endCol; c++) {
-            //     for (var r = startRow; r <= endRow; r++) {
-            //         // debugger;
-            //         var tile = map.getTile(layer, c, r);
-            //         var x = (c - startCol) * map.tilewidth + offsetX;
-            //         var y = (r - startRow) * map.tileheight + offsetY;
-            //         debugger;
-            //         // if (tile !== 0) { // 0 => empty tile
-            //             this.context.drawImage(
-            //                 this.tileAtlas, // image
-            //                 c * map.tilewidth, // source x
-            //                 r * map.tileheight, // source y
-            //                 map.tilewidth, // source width
-            //                 map.tileheight, // source height
-            //                 Math.round(x),  // target x
-            //                 Math.round(y), // target y
-            //                 map.tilewidth, // target width
-            //                 map.tileheight // target height
-            //             );
-            //         // }
-            //     }
-            // }
         }
 
 

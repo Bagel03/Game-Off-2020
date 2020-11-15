@@ -17,6 +17,9 @@ namespace `experiments.tiled` (
                     var response = await fetch(tilesetPath +"/" + tileset.source.replace("tsx","json"));
                     var _tileset = await response.json();
                         _tileset.firstgid = tileset.firstgid;
+                        var img = new Image;
+                            img.src = tilesetPath +"/" + _tileset.image;
+                            _tileset.image = img;//rewrite prop
                     this.tilesets.push(_tileset);
                 }
                 console.log("All Tilesets For Map",this.tilesets)
