@@ -19,6 +19,7 @@ namespace `experiments.tiled` (
                         _tileset.firstgid = tileset.firstgid;
                         var img = new Image;
                             img.src = tilesetPath +"/" + _tileset.image;
+                            _tileset.src = _tileset.image;
                             _tileset.image = img;//rewrite prop
                     this.tilesets.push(_tileset);
                 }

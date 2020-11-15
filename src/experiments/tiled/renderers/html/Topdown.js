@@ -12,6 +12,8 @@ namespace `experiments.tiled.renderers.html` (
         //never needs redrawing. For a canvas renderer, should be 
         //called in Worlds onDraw loop.
         onDraw(){
+            // this.clearRect();
+            if(this.already_drawn){return}
             var layers    = this.map.layers;
             for(var layer = 0; layer <= layers.length-1; layer++){
                 if(!layers[layer].visible){
@@ -22,8 +24,6 @@ namespace `experiments.tiled.renderers.html` (
                     d.classList.add(layers[layer].name)//a more specific class for styling (Ex: Boulders, or Trees)
                 for (var r = 0; r < this.map.height; r++) {
                   for (var c = 0; c < this.map.width; c++) {
-                    // var x = (c - r) * this.map.tilewidth/2;//isometric x
-                    // var y = (c + r) * this.map.tileheight/2;//isometric y
                     var x = (c ) * this.map.tilewidth;
                     var y = (r ) * this.map.tileheight;
 
@@ -51,8 +51,12 @@ namespace `experiments.tiled.renderers.html` (
                 //render to context. Since this is DOM-based, appendchild.
                 this.context.appendChild(d)
             }
+            this.already_drawn=true;
         }
 
+        clearRect(){
+            this.context.innerHTML="";
+        }
 
         //voffset is a custom property i created in Tiled for this Layer. I am
         //picking it out from layer.properties. You can assign many. It allowed me to offsett my layer

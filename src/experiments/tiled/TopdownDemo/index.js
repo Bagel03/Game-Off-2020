@@ -30,7 +30,6 @@ namespace `experiments.tiled` (
             this.camera     = new game.modules.Camera(viewport, target);
 
             console.log("this.map",this.map)
-            // this.camera = new experiments.tiled.cameras.Camera(this.map,176,176);
             this.renderer = new experiments.tiled.renderers.canvas.Topdown(this,this.map/*Map*/); //replace with canvas renderer
             this.hero = new experiments.tiled.sprites.Hero;
             this.appendChild(this.hero);
@@ -52,8 +51,9 @@ namespace `experiments.tiled` (
         onDraw=()=>{
             if(this.ready){
                 this.renderer.onDraw();
-
-                this.camera.render(this.renderer.context, this.context);
+                if(this.renderer instanceof experiments.tiled.renderers.canvas.Topdown){//for easy debugging between canvas & html
+                    this.camera.render(this.renderer.context, this.context);//camera only needed for canvas
+                }
                 this.hero.onDraw();
             }
         }
