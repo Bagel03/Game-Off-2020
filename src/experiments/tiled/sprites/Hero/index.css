@@ -5,7 +5,7 @@
 :host {
   transform:scale(3);
   position: absolute;
-  bottom: 112px;
+  top:0;left:0;
   margin-left: 0;
   width: 64px;
   height: 64px;
