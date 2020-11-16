@@ -40,7 +40,7 @@ namespace `hud` (
 
         onQuit(){
             this.dispatchEvent("savegame")
-            // this.dispatchEvent("quit")
+            this.dispatchEvent("quit")
         }
 
 
