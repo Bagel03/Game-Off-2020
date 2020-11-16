@@ -1,18 +1,14 @@
 
-namespace`game.modules`(
+
+namespace `game.sprites`(
     class GetCharacterData{
         constructor(characterConstructor){
-                this.testMethod()
-                this.characterConstructor = characterConstructor;
-                this.dispatchData = Event("characterData")
-                this.dispatchSonicData();
+                this.dispatchSonicData(characterConstructor);
                 
         }
-        testMethod(){
-            console.log("Class GetCharacterData, Logged from:", this)
-        }
-        dispatchSonicData(){
-            document.dispatchEvent(this.dispatchData, {characterConstructor: this.characterConstructor})
+        dispatchSonicData(characterConstructor){
+            this.dispatchData = new CustomEvent("characterData", {detail: characterConstructor});
+            document.dispatchEvent(this.dispatchData)
         }
     }
 

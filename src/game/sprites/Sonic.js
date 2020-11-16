@@ -23,8 +23,8 @@ namespace `game.sprites` (
         }
         getCharacterData(){
             document.addEventListener("savegame",()=>{
-                this.data = new game.sprites.GetCharacterData(this);
-                // return (new game.sprites.GetCharacterData(this);
+                // this.data = new game.sprites.GetCharacterData(this);
+                return new game.sprites.GetCharacterData(this);
     
             })
          
