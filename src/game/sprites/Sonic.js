@@ -1,8 +1,10 @@
 import! 'game.sprites.Sprite';
+import! 'game.sprites.GetCharacterData';
 
 namespace `game.sprites` (
     class Sonic extends game.sprites.Sprite {
         constructor(x, y, context, image) {
+            
             super({
                 context: context,
                 image: image,
@@ -16,8 +18,14 @@ namespace `game.sprites` (
                 ticksPerFrame: 4,
                 frames: 8,
             });
+            
+            this.getCharacterData();
         }
+        getCharacterData(){
+            this.data = new game.sprites.GetCharacterData(this);
+            // return (new game.sprites.GetCharacterData(this);
 
+        }
         walk() {
             this.frames = 8;
             //this.frameIndex = 0;
@@ -85,6 +93,7 @@ namespace `game.sprites` (
             if(Key.isDown(Key.RIGHT)){
                 this.run(); this.x+=12;
                 this.direction = 'right';
+              
             }
             else if(Key.isDown(Key.LEFT)){
                 this.run(); this.x-=12; 

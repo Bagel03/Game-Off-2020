@@ -10,6 +10,7 @@
     DOWN: "ArrowDown",
     A: "KeyA",
     D: "KeyD",
+    S: "KeyS",
     ESC : "Escape",
     code: null,
 
