@@ -36,7 +36,7 @@ namespace `experiments.tiled.renderers.canvas` (
                 for(let row = 0; row < map.width; row++){
                     for(let col = 0; col < map.width; col++){
                         const tile = map.getTile(layer, col, row);
-                        // if(tile === 0) continue;
+                        if(tile === 0) continue;
                         var tileset = layer === 0 ?
                         map.getTilesetByIndex(layer):
                         map.getTilesetForLayerByMaterialSource(map.layers[layer]);
