@@ -1,6 +1,6 @@
 import 'system.math.MathUUID';
 namespace `experiments.tiled.renderers.canvas` (
-    class DepthSorting{
+    class DepthSorter{
         constructor(){
             this.buffer = document.createElement('canvas').getContext('2d');
             this.imgs = [];
@@ -17,17 +17,9 @@ namespace `experiments.tiled.renderers.canvas` (
                 return (a.sx + a.sh) - (b.sx + b.sy);
             })
             images.forEach((image) => {
-                this.buffer.drawImage(
-                    image.image,
-                    image.sx,
-                    image.sy,
-                    image.sw,
-                    image.sh,
-                    image.dx, 
-                    image.dy, 
-                    image.dw,
-                    image.dh 
-                )
+                with (image){
+                    this.buffer.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)
+                }
             })
         }
     }
