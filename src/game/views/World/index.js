@@ -1,6 +1,7 @@
 import! 'game.modules.Camera';
 import! 'game.modules.utils.Rectangle';
 import! 'game.modules.utils.Vector';
+import! 'game.modules.GetConstructorData';
 namespace `game.views` (
     @tag("world-view");
     class World extends WebComponent {
@@ -15,9 +16,15 @@ namespace `game.views` (
             this.img2 = new Image();
             this.img2.src="resources/images/greenhillzone2.png";
             //alert(this.img2);
-
+            this.getWorldData();
         }
-
+        getWorldData(){
+            document.addEventListener("savegame",()=>{
+                return new game.modules.GetConstructorData(this);
+    
+            })
+         
+        }
         onReset(){
             this.isFinished = false;
             this.isStarted=false;

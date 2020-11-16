@@ -1,5 +1,5 @@
 import! 'game.sprites.Sprite';
-import! 'game.sprites.GetCharacterData';
+import! 'game.modules.GetConstructorData';
 
 namespace `game.sprites` (
     class Sonic extends game.sprites.Sprite {
@@ -24,7 +24,7 @@ namespace `game.sprites` (
         getCharacterData(){
             document.addEventListener("savegame",()=>{
                 // this.data = new game.sprites.GetCharacterData(this);
-                return new game.sprites.GetCharacterData(this);
+                return new game.modules.GetConstructorData(this);
     
             })
          

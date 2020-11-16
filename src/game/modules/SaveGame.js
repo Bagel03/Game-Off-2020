@@ -5,7 +5,7 @@ namespace`game.modules`(
             this.listenSonicData()
         }
         listenSonicData(){
-            document.addEventListener("characterData", (e)=>{
+            document.addEventListener("constructorData", (e)=>{
                 console.log("Class SaveGame received event", e.detail)
             })
         }
