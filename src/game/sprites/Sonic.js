@@ -22,9 +22,12 @@ namespace `game.sprites` (
             this.getCharacterData();
         }
         getCharacterData(){
-            this.data = new game.sprites.GetCharacterData(this);
-            // return (new game.sprites.GetCharacterData(this);
-
+            document.addEventListener("savegame",()=>{
+                this.data = new game.sprites.GetCharacterData(this);
+                // return (new game.sprites.GetCharacterData(this);
+    
+            })
+         
         }
         walk() {
             this.frames = 8;
