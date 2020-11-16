@@ -7,6 +7,7 @@ import! 'game.modules.UIMachine';
 import! 'game.sprites.Sonic';
 import! 'game.modules.KeyHandler';
 import! 'game.modules.Audio';
+import! 'game.modules.SaveGame'
 
 @tag("game-off");
 namespace `game` (
@@ -24,7 +25,9 @@ namespace `game` (
             this.startmenu  = new game.views.StartMenu(this, this.machine);
             this.world      = new game.views.World(this, this.machine);
             this.pausemenu  = new hud.PauseMenu(this, this.machine);
+            this.savegame   = new game.modules.SaveGame();
             this.machine.push(this.startmenu);
+            
         }
         
         async onConnected() {
@@ -69,6 +72,7 @@ namespace `game` (
         onStartGame(){
             // this.level = this.level
             this.machine.push(this.world);
+        
         }
 
         //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai

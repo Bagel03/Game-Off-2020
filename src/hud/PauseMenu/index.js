@@ -1,9 +1,12 @@
 
+
 namespace `hud` (
     @tag("pause-menu");
     class PauseMenu extends WebComponent {
         constructor(world, machine) {
             super();
+            this.testVal = 2;
+            
             this.machine = machine;
             // this.actions = new display.worlds.aeiou.Machine;
             this.world = world;
@@ -19,6 +22,7 @@ namespace `hud` (
             this.addEventListener("click", e=>this.onResume(), false, "div.resume");
             this.addEventListener("click", e=>this.onQuit(), false, "div.quit");
             this.addEventListener("click", e=>this.onMenu(), false, "div.menu");
+            this.addEventListener("savegame", e=>this.onQuit(), false, "div.quit");
         }
 
         onMenu(){
@@ -35,6 +39,7 @@ namespace `hud` (
         }
 
         onQuit(){
+            this.dispatchEvent("savegame")
             this.dispatchEvent("quit")
         }
 
