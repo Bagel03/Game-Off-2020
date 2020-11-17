@@ -2,10 +2,12 @@ import! 'experiments.tiled.Point';
 import! 'experiments.tiled.Map';
 import! 'experiments.tiled.renderers.canvas.Topdown';
 import! 'experiments.tiled.renderers.html.Topdown';
-import 'experiments.tiled.sprites.Hero';
+// import 'experiments.tiled.sprites.Hero';
 import! 'game.modules.KeyHandler';
 import! 'game.modules.Camera';
 import! 'game.modules.utils.Rectangle';
+import! 'experiments.tiled.renderers.canvas.DepthSorter';
+import! 'experiments.tiled.sprites.CanvasSprite';
 // import! 'game.modules.Input';
 // import! 'experiments.tiled.cameras.Camera';
 
@@ -30,9 +32,12 @@ namespace `experiments.tiled` (
             this.camera     = new game.modules.Camera(viewport, target);
 
             console.log("this.map",this.map)
-            this.renderer = new experiments.tiled.renderers.canvas.Topdown(this,this.map/*Map*/); //replace with canvas renderer
-            this.hero = new experiments.tiled.sprites.Hero;
-            this.appendChild(this.hero);
+            this.renderer = new experiments.tiled.renderers.canvas.Topdown(this.map/*Map*/); //replace with canvas renderer
+            this.staticMapRender = this.renderer.getLayerImages();
+            this.depthSorter = new experiments.tiled.renderers.canvas.DepthSorter();
+            this.player = new experiments.tiled.sprites.CanvasSprite();
+            // this.hero = new experiments.tiled.sprites.Hero;
+            // this.appendChild(this.hero);
             this.ready=true;
         }
 
@@ -44,17 +49,17 @@ namespace `experiments.tiled` (
 
         onUpdate=()=>{
             if(this.ready){
-                this.hero.onUpdate();
+                this.player.onUpdate();
             }
         }
 
         onDraw=()=>{
             if(this.ready){
-                this.renderer.onDraw();
+                this.depthSorter.preRender(...this.staticMapRender, this.player.getImageData());
                 if(this.renderer instanceof experiments.tiled.renderers.canvas.Topdown){//for easy debugging between canvas & html
-                    this.camera.render(this.renderer.context, this.context);//camera only needed for canvas
+                    this.camera.render(this.depthSorter.context, this.context);//camera only needed for canvas
                 }
-                this.hero.onDraw();
+                // this.hero.onDraw();
             }
         }
         

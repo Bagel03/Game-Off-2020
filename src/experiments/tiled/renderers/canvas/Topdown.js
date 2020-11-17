@@ -1,40 +1,41 @@
 
 namespace `experiments.tiled.renderers.canvas` (
     class Topdown {
-        constructor(context,map){
-            this.context=document.createElement('canvas').getContext('2d');
+        constructor(map){
             this.map = map;
-            this.context.canvas.width   = 500;
-            this.context.canvas.height  = 500;
         }
 
-        onDraw(){
+        getLayerImages(){ // return an array of all the image objects that the depth sorter will sort and the camera will render
+            const arr = [];
             for(let i = 0; i < this.map.layers.length; i++){
                 var layer = this.map.layers[i];
-                this.drawLayer(i,layer);
+                arr.push(this.getLayerImage(i,layer))
             }
+            return arr;
             // this.drawGrid();
         }
 
-        drawLayer (layer, layerObject) {
-            //console.log(layerObject);
-            const {map, context} = this;
+        getLayerImage (layer, layerObject) {
+            const {map} = this;
             if(layerObject.type=="imagelayer"){
-                context.drawImage(
-                    layerObject.image, 
-                    0, 
-                    0, 
-                    layerObject.image.width,
-                    layerObject.image.height,
-                    layerObject.offsetx,
-                    layerObject.offsety,
-                    layerObject.image.width,
-                    layerObject.image.height
-                )
+                return{
+                    image: layerObject.image, 
+                    sx: 0, 
+                    sy: 0, 
+                    sw: layerObject.image.width,
+                    sh: layerObject.image.height,
+                    dx: layerObject.offsetx,
+                    dy: layerObject.offsety,
+                    dw: layerObject.image.width,
+                    dh: layerObject.image.height
+                }
             }
             else if(layerObject.type=="tilelayer"){
+                const context = document.createElement('canvas').getContext('2d');
+                const size = this.getImageBoundingBox(layer);
+                context.canvas.width = size.x + size.w; context.canvas.height = size.y + size.h;
                 for(let row = 0; row < map.width; row++){
-                    for(let col = 0; col < map.width; col++){
+                    for(let col = 0; col < map.height; col++){
                         const tile = map.getTile(layer, col, row);
                         if(tile === 0) continue;
                         var tileset = layer === 0 ?
@@ -54,9 +55,46 @@ namespace `experiments.tiled.renderers.canvas` (
                         )
                     }
                 }
+                return {
+                    image: context.canvas,
+                    sx: 0, 
+                    sy: 0, 
+                    sw: context.canvas.width,
+                    sh: context.canvas.height,
+                    dx: 0,
+                    dy: 0,
+                    dw: context.canvas.width,
+                    dh: context.canvas.height,
+                    z: layerObject.name === 'Ground' ? 0 : undefined
+                }
             }
         }
 
+        getImageBoundingBox(layer){
+            const {map} = this;
+            const boudingBox = { //default to absolutes
+                minRow: map.width,
+                minCol: map.height,
+                maxRow: 0,
+                maxCol: 0 
+            }
+            for(let row = 0; row < map.height; row++){
+                for(let col = 0; col < map.width; col++){
+                    if(map.getTile(layer, col, row) !== 0){
+                        boudingBox.minRow = Math.min(boudingBox.minRow, row);
+                        boudingBox.minCol = Math.min(boudingBox.minCol, col);                       
+                        boudingBox.maxRow = Math.max(boudingBox.maxRow, row);
+                        boudingBox.maxCol = Math.max(boudingBox.maxCol, col);
+                    }
+                }
+            }
+            return{
+                x: boudingBox.minCol * map.tilewidth,
+                y: boudingBox.minRow * map.tileheight,
+                w: (boudingBox.maxCol - boudingBox.minCol + 1) * map.tilewidth,
+                h: (boudingBox.maxRow - boudingBox.minRow + 1) * map.tileheight
+            }
+        }
 
         drawGrid () {
             var map=this.map;

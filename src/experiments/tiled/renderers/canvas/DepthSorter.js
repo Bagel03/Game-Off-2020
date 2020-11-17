@@ -1,25 +1,33 @@
-import 'system.math.MathUUID';
 namespace `experiments.tiled.renderers.canvas` (
     class DepthSorter{
         constructor(){
-            this.buffer = document.createElement('canvas').getContext('2d');
-            this.imgs = [];
+            this.context = document.createElement('canvas').getContext('2d');
+            this.context.canvas.width = this.context.canvas.height = 500; //TODO fix this
         }
         /**
          * Should be called before each render cycle, this sorts the images and prepares them
          * @param {object []} images The images that need to be added to the scene 
          */
         preRender(...images){
+            this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
             images.sort((a, b) => {
                 if(a.z !== undefined && b.z !== undefined) return a.z - b.z;
                 if(a.z === undefined && b.z !== undefined) return 1;
                 if(a.z !== undefined && b.z === undefined) return -1;
-                return (a.sx + a.sh) - (b.sx + b.sy);
+                return (a.dy + a.dh) - (b.dy + b.dh);
             })
             images.forEach((image) => {
-                with (image){
-                    this.buffer.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)
-                }
+                this.context.drawImage(
+                    image.image,
+                    image.sx,
+                    image.sy,
+                    image.sw,
+                    image.sh,
+                    image.dx,
+                    image.dy,
+                    image.dw,
+                    image.dh
+                )
             })
         }
     }
