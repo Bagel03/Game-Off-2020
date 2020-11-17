@@ -15,12 +15,12 @@ namespace`game.modules`(
             this.eventArray = [];
 
             // need a few loops and comparison
-            this.listenData("sonic", sonic)
-            this.listenData("world", world)
+            this.listenData("sonic", this.sonic)
+            this.listenData("world", this.world)
         }
         listenData(eventname, filter){
             document.addEventListener(eventname, (e)=>{
-                console.log(e.detail.camera)
+                console.log(typeof e.detail)
             })
         }
     }
