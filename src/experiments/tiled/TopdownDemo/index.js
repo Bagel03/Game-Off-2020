@@ -33,7 +33,8 @@ namespace `experiments.tiled` (
 
             console.log("this.map",this.map)
             this.renderer = new experiments.tiled.renderers.canvas.Topdown(this.map/*Map*/); //replace with canvas renderer
-            this.staticMapRender = this.renderer.getLayerImages();
+            this.staticMapRender;
+            await window.setTimeout(() => this.staticMapRender = this.renderer.getLayerImages(),100);
             this.depthSorter = new experiments.tiled.renderers.canvas.DepthSorter();
             this.player = new experiments.tiled.sprites.CanvasSprite();
             // this.hero = new experiments.tiled.sprites.Hero;

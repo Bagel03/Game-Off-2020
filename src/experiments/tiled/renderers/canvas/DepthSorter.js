@@ -17,18 +17,24 @@ namespace `experiments.tiled.renderers.canvas` (
                 return (a.dy + a.dh) - (b.dy + b.dh);
             })
             images.forEach((image) => {
-                this.context.drawImage(
-                    image.image,
-                    image.sx,
-                    image.sy,
-                    image.sw,
-                    image.sh,
-                    image.dx,
-                    image.dy,
-                    image.dw,
-                    image.dh
-                )
+                try{
+                    this.context.drawImage(
+                        image.image,
+                        image.sx,
+                        image.sy,
+                        image.sw,
+                        image.sh,
+                        image.dx,
+                        image.dy,
+                        image.dw,
+                        image.dh
+                    )
+                }catch(error){
+                    console.log(error, image);
+                    console.trace();
+                }
             })
+        
         }
     }
 )

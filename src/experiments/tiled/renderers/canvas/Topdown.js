@@ -11,14 +11,15 @@ namespace `experiments.tiled.renderers.canvas` (
                 var layer = this.map.layers[i];
                 arr.push(this.getLayerImage(i,layer))
             }
+            console.log(arr)
             return arr;
             // this.drawGrid();
         }
 
         getLayerImage (layer, layerObject) {
             const {map} = this;
-            if(layerObject.type=="imagelayer"){
-                return{
+            if(layerObject.type==="imagelayer"){
+                const img = {
                     image: layerObject.image, 
                     sx: 0, 
                     sy: 0, 
@@ -29,11 +30,14 @@ namespace `experiments.tiled.renderers.canvas` (
                     dw: layerObject.image.width,
                     dh: layerObject.image.height
                 }
+                console.log(img)
+                return img;
             }
             else if(layerObject.type=="tilelayer"){
                 const context = document.createElement('canvas').getContext('2d');
                 const size = this.getImageBoundingBox(layer);
-                context.canvas.width = size.x + size.w; context.canvas.height = size.y + size.h;
+                context.canvas.width = size.x + size.w + 1;
+                context.canvas.height = size.y + size.h + 1;
                 for(let row = 0; row < map.width; row++){
                     for(let col = 0; col < map.height; col++){
                         const tile = map.getTile(layer, col, row);
@@ -59,12 +63,12 @@ namespace `experiments.tiled.renderers.canvas` (
                     image: context.canvas,
                     sx: 0, 
                     sy: 0, 
-                    sw: context.canvas.width,
-                    sh: context.canvas.height,
+                    sw: size.x + size.w,
+                    sh: size.y + size.h,
                     dx: 0,
                     dy: 0,
-                    dw: context.canvas.width,
-                    dh: context.canvas.height,
+                    dw: size.x + size.w,
+                    dh: size.y + size.h,
                     z: layerObject.name === 'Ground' ? 0  : undefined
                 }
             }
@@ -88,12 +92,13 @@ namespace `experiments.tiled.renderers.canvas` (
                     }
                 }
             }
-            return{
+            let obj = {
                 x: boudingBox.minCol * map.tilewidth,
                 y: boudingBox.minRow * map.tileheight,
                 w: (boudingBox.maxCol - boudingBox.minCol + 1) * map.tilewidth,
                 h: (boudingBox.maxRow - boudingBox.minRow + 1) * map.tileheight
             }
+            return obj;
         }
 
         drawGrid () {
