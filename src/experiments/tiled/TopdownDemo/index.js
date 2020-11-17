@@ -55,7 +55,7 @@ namespace `experiments.tiled` (
 
         onDraw=()=>{
             if(this.ready){
-                this.depthSorter.preRender(...this.staticMapRender, this.player.getImageData());
+                this.depthSorter.preRender(...this.staticMapRender, this.player.getImageData())
                 if(this.renderer instanceof experiments.tiled.renderers.canvas.Topdown){//for easy debugging between canvas & html
                     this.camera.render(this.depthSorter.context, this.context);//camera only needed for canvas
                 }

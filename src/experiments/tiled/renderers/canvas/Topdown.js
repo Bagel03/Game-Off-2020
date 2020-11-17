@@ -65,7 +65,7 @@ namespace `experiments.tiled.renderers.canvas` (
                     dy: 0,
                     dw: context.canvas.width,
                     dh: context.canvas.height,
-                    z: layerObject.name === 'Ground' ? 0 : undefined
+                    z: layerObject.name === 'Ground' ? 0 : layerObject.name === 'Objects' ? 1 : undefined
                 }
             }
         }
