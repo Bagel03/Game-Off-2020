@@ -1,24 +1,27 @@
 
 namespace`game.modules`(
     class SaveGame{
+        sonic = {
+            x: "",
+            y: "",
+        }    
+        world = {
+        
+            cameraX:"",
+            cameraY:"",
+        }
+
         constructor(){
             this.eventArray = [];
-            this.newStorage = localStorage
-            this.listenSonicData()
-            
+
+            // need a few loops and comparison
+            this.listenData("sonic", sonic)
+            this.listenData("world", world)
         }
-        listenSonicData(){
-            document.addEventListener("constructorData", (e)=>{
-                // console.log("Class SaveGame received event", e.detail)
-                this.eventArray.push(e.detail)
-                this.saveToLocalStorageAsJSON();
+        listenData(eventname, filter){
+            document.addEventListener(eventname, (e)=>{
+                console.log(e.detail.camera)
             })
-        }
-        saveToLocalStorageAsJSON(array =[]){
-            array = this.eventArray;
-            // jsondata = JSON.stringify(array[0])
-            console.log(array)
-            // this.newStorage["Save game"] = JSON.stringify(array)
         }
     }
 )

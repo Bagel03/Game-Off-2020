@@ -2,12 +2,13 @@
 
 namespace `game.modules`(
     class GetConstructorData{
-        constructor(constructorConstructor){
-                this.dispatchSonicData(constructorConstructor);
+        constructor(constructorConstructor, eventname){
+            this.eventname = eventname
+            this.dispatchSonicData(constructorConstructor);
                 
         }
         dispatchSonicData(constructorConstructor){
-            this.dispatchData = new CustomEvent("constructorData", {detail: constructorConstructor});
+            this.dispatchData = new CustomEvent(this.eventname, {detail: constructorConstructor});
             document.dispatchEvent(this.dispatchData)
         }
     }

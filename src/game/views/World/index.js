@@ -18,9 +18,11 @@ namespace `game.views` (
             //alert(this.img2);
             this.getWorldData();
         }
+
+        
         getWorldData(){
             document.addEventListener("savegame",()=>{
-                return new game.modules.GetConstructorData(this);
+                return new game.modules.GetConstructorData(this, "world"); //Create Event and send constructor data
     
             })
          

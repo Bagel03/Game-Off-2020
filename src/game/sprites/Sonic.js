@@ -23,8 +23,7 @@ namespace `game.sprites` (
         }
         getCharacterData(){
             document.addEventListener("savegame",()=>{
-                // this.data = new game.sprites.GetCharacterData(this);
-                return new game.modules.GetConstructorData(this);
+                return new game.modules.GetConstructorData(this, "sonic"); //Create Event and send constructor data
     
             })
          
