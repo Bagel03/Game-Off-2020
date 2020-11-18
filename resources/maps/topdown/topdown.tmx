@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="11" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="4">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="11" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="27" nextobjectid="10">
  <editorsettings>
   <export target="topdown.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="super_retro.tsx"/>
+ <tileset firstgid="305" source="tree.tsx"/>
+ <tileset firstgid="306" source="tree2.tsx"/>
  <layer id="1" name="Ground" width="11" height="11">
   <properties>
    <property name="MaterialSource" value="super_retro.tsx"/>
@@ -27,16 +29,16 @@
    <property name="MaterialSource" value="super_retro.tsx"/>
   </properties>
   <data encoding="csv">
-178,178,179,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,69,0,0,
-0,0,0,0,0,0,0,0,0,0,0,
-0,0,52,0,0,0,0,133,164,0,0,
-0,0,69,0,0,133,133,85,0,0,0,
-0,0,0,193,194,116,0,101,0,0,0,
-0,0,0,209,210,132,69,0,0,0,0,
-0,0,148,148,148,117,148,148,148,0,0,
+0,0,0,0,0,88,88,0,0,0,0,
+0,0,0,0,0,0,0,0,69,88,0,
+0,0,0,0,0,0,0,0,88,88,0,
+0,0,0,0,0,0,0,133,0,0,0,
+0,0,69,0,0,133,133,0,0,0,0,
+0,0,0,0,0,116,0,0,0,0,0,
+0,0,0,0,0,132,69,0,0,0,0,
+0,0,0,0,0,117,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
@@ -58,10 +60,8 @@
 0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <imagelayer id="15" name="Tree1" offsetx="131.333" offsety="-41">
-  <image source="tree2.png" width="95" height="128"/>
- </imagelayer>
- <imagelayer id="14" name="Tree" offsetx="75" offsety="48.3333">
-  <image source="tree.png" width="110" height="128"/>
- </imagelayer>
+ <objectgroup id="24" name="ObjectLayer1">
+  <object id="5" gid="305" x="86.7366" y="-14.7114" width="110" height="128"/>
+  <object id="9" gid="306" x="-10.8655" y="18.3417" width="95" height="128"/>
+ </objectgroup>
 </map>

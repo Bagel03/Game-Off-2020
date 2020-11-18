@@ -13,31 +13,33 @@ namespace `experiments.tiled` (
             this.map = await response.json();
             
 
-            return new Promise(async (res,fail)=>{
-                this.processImageLayers()
-                for(let tileset of this.map.tilesets){
-                    var tilesetPath = this.path.substr(0,this.path.lastIndexOf("/"));
-                    var response = await fetch(tilesetPath +"/" + tileset.source.replace("tsx","json"));
-                    var _tileset = await response.json();
-                        _tileset.firstgid = tileset.firstgid;
-                        var img = new Image;
-                            img.src = tilesetPath +"/" + _tileset.image;
-                            _tileset.src = _tileset.image;
-                            _tileset.image = img;//rewrite prop
-                    this.tilesets.push(_tileset);
-                    this.processBounds(_tileset)
-                }
-                console.log("All Tilesets For Map",this.tilesets)
-                res(this)
+            return new Promise(async (resolve,fail)=>{
+                await this.processImageLayers();
+                await this.processTilesets();
+                resolve(this)
             })
         }
 
-        processImageLayers(){
+        async processTilesets(){
+            for(let tileset of this.map.tilesets){
+                var tilesetPath = this.path.substr(0,this.path.lastIndexOf("/"));
+                var response = await fetch(tilesetPath +"/" + tileset.source.replace("tsx","json"));
+                var _tileset = await response.json();
+                    _tileset.firstgid = tileset.firstgid;
+                    var img = new Image;
+                        img.src = tilesetPath +"/" + _tileset.image;
+                        _tileset.src = _tileset.image;
+                        _tileset.image = img;//rewrite prop
+                this.tilesets.push(_tileset);
+                this.processBounds(_tileset)
+            }
+            console.log("All Tilesets For Map",this.tilesets)
+        }
+
+        async processImageLayers(){
             for(var i=0; i<=this.layers.length-1; i++){
                 var layer = this.layers[i];
-                console.log("layer",layer)
                 if(layer.type=="imagelayer"){
-                    // console.log("image layer:",layer)
                     var imagepath = this.path.substr(0,this.path.lastIndexOf("/"));
                     var img = new Image;
                         img.src = imagepath +"/" + layer.image;
@@ -52,10 +54,15 @@ namespace `experiments.tiled` (
         //  this.map.collisions[177] where 177 is the tile type id
         //  returns array of collision objects for this 1 tile
         processBounds(tileset){
-            for(var i=0; i<=tileset.tiles.length-1; i++){
-                var tile = tileset.tiles[i];
-                this.collisions[tile.id+1] = tile.objectgroup.objects;//tile.id+1 because 1 less in tileset. Tiled Editor design
+            tileset.bounds = tileset.tiles;
+            if(tileset && tileset.tiles){
+                for(var i=0; i<=tileset.tiles.length-1; i++){
+                    var tile = tileset.tiles[i];
+                    var key  = tileset.firstgid <=1 ? tile.id+1 : tileset.firstgid;
+                    this.collisions[key] = tile.objectgroup.objects;
+                }
             }
+            delete tileset.tiles;
         }
 
         get layers(){
@@ -155,22 +162,27 @@ namespace `experiments.tiled` (
             return {col,row,x,y}
         }
 
-        getTileWithAnyCollision(tileset, tileType, layerIndex){
-            if(tileset.firstgid != 1){
-                // debugger;
-            }
-            var firstgid = Number(tileset.firstgid);
-            var tileType = tileType-firstgid;
-            // layerIndex <=0 ? (tileType -= 1):null;//Tiled Bug 
-
-            var index = tileType;
-            var col = index % tileset.columns; 
-            var row = Math.floor(index / tileset.columns);
-
-            var x = col*tileset.tilewidth;
-            var y = row*tileset.tileheight;
-
-            return {col,row,x,y}
+        getTilesetByGid(gid){
+            var tilesets = this.tilesets.filter(ts => ts.firstgid == gid);
+            return tilesets[0];
         }
+
+        // getTileWithAnyCollision(tileset, tileType, layerIndex){
+        //     if(tileset.firstgid != 1){
+        //         // debugger;
+        //     }
+        //     var firstgid = Number(tileset.firstgid);
+        //     var tileType = tileType-firstgid;
+        //     // layerIndex <=0 ? (tileType -= 1):null;//Tiled Bug 
+
+        //     var index = tileType;
+        //     var col = index % tileset.columns; 
+        //     var row = Math.floor(index / tileset.columns);
+
+        //     var x = col*tileset.tilewidth;
+        //     var y = row*tileset.tileheight;
+
+        //     return {col,row,x,y}
+        // }
     }
 );

@@ -23,19 +23,20 @@ namespace `experiments.tiled.sprites` (
 
         async onConnected(){
             await super.onConnected();
+            // alert("Asda")
             // this.walk.start();
         }
 
-        getCollider(){
-            // var coords=this.getBoundingClientRect();
-            return {
-                x:this.x,
-                y:this.y,
-                width : 210,
-                height : 240,
-                bottom:this.y+240
-            }
-        }
+        // getCollider(){
+        //     // var coords=this.getBoundingClientRect();
+        //     return {
+        //         x:this.x,
+        //         y:this.y,
+        //         width : 210,
+        //         height : 240,
+        //         bottom:this.y+240
+        //     }
+        // }
 
         canWalk(){
             return true;

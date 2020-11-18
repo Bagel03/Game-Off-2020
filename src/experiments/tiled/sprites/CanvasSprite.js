@@ -18,7 +18,7 @@ namespace `experiments.tiled.sprites`(
                 dy: this.pos.y,
                 dw: this.pos.w,
                 dh: this.pos.h,
-                id: 'sprite',
+                id: 'sprite'
             }
         }
         onUpdate(){

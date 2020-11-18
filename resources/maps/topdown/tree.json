@@ -1,16 +1,17 @@
-{ "columns":16,
- "image":"atlas_16x.png",
- "imageheight":304,
- "imagewidth":256,
+{ "columns":1,
+ "image":"tree.png",
+ "imageheight":128,
+ "imagewidth":110,
  "margin":0,
- "name":"super_retro",
+ "name":"tree",
+ "objectalignment":"topleft",
  "spacing":0,
- "tilecount":304,
+ "tilecount":1,
  "tiledversion":"1.4.2",
- "tileheight":16,
+ "tileheight":128,
  "tiles":[
         {
-         "id":177,
+         "id":0,
          "objectgroup":
             {
              "draworder":"index",
@@ -18,15 +19,15 @@
              "name":"",
              "objects":[
                     {
-                     "height":10.7826,
+                     "height":30,
                      "id":1,
                      "name":"",
                      "rotation":0,
                      "type":"",
                      "visible":true,
-                     "width":15.8261,
-                     "x":0.0869565,
-                     "y":5.04348
+                     "width":61,
+                     "x":29,
+                     "y":89
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -35,7 +36,7 @@
              "y":0
             }
         }],
- "tilewidth":16,
+ "tilewidth":110,
  "type":"tileset",
  "version":1.4
 }
