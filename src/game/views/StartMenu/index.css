@@ -1,6 +1,12 @@
 @font-face{
     font-family: pixelated;
-    src: url(../../../../resources/fonts/rubber-biscuit/RUBBBB__.TTF);
+    src: url(../../../../resources/fonts/PixelEmulator-xq08.ttf);
+    
+}
+@font-face{
+    font-family: PressStart2P;
+    src: url(../../../../resources/fonts/PressStart2P/PressStart2P.ttf);
+    
 }
 :host {
     display: block;
@@ -43,18 +49,18 @@
 
 }
 :host .menuStartButton{
-    font-family: pixelated;
-    color: black;
-    font-size: 3vh;
+    font-family: pressStart2P;
+    color: white;
+    font-size: 3.5vh;
     outline: none;
-    background-color: white;
-    justify-self: center;
+    background-color: transparent;
+    /* justify-self: center; */
     align-self: center;
     grid-column-start: 2;
     grid-column-end: 3;
     height: auto;
     width: auto;
-    border: 20px solid transparent;
+    border: 5px solid transparent;
     border-image: url(../../../resources/images/pauseMenuBorder.png) stretch;
     border-image-slice: 30;   
 }
