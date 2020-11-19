@@ -29,7 +29,7 @@ namespace `experiments.tiled` (
             this.context.canvas.width = this.width;
             this.context.canvas.height = this.height;
 
-            this.camera = new game.modules.Camera({x: 0, w: 0, w: this.width, h: this.height}, {x: 0, w: 0, w: this.width, h: this.height});
+            this.camera = new game.modules.Camera({x: 0, y: 0, w: this.width, h: this.height}, {x: 0, y: 0, w: this.width, h: this.height});
             this.scene = new experiments.tiled.renderers.canvas.Scene(this.width, this.height);
 
             //render the map
@@ -55,8 +55,8 @@ namespace `experiments.tiled` (
             if(this.ready){
                 this.player.onDraw(this.scene)
                 this.scene.render();
-                this.context.drawImage(this.scene.context.canvas, 0, 0)
-            //     this.camera.render(this.scene.context, this.context);//camera only needed for canvas
+                // this.context.drawImage(this.scene.context.canvas, 0, 0)
+                this.camera.render(this.scene.context, this.context);//camera only needed for canvas
             }
         }
     }

@@ -52,16 +52,13 @@ namespace `game.views` (
             var img = new Image();
             img.src="resources/images/sonic3_spritesheet.png";
             
-            
-            
             this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
             this.sonic.idle()
 
 
-            const viewport = new game.modules.utils.Rectangle(0, 0, this.canvas.width, this.canvas.height);
-            const target = new game.modules.utils.Rectangle(0, 0, this.canvas.width, this.canvas.height);//draw with offset
-            this.camera = new game.modules.Camera(viewport, target);
-
+            let x= 0,y = 0, w = this.canvas.width, h = this.canvas.height;
+            this.camera = new game.modules.Camera({x, y, w, h},{x, y, w, h});
+            console.log(this.camera)
             this.camera.moveBy(new game.modules.utils.Vector(100, 100), 100, 'linear')
             .then(() => this.camera.moveBy(new game.modules.utils.Vector(-100, -100), 100, 'linear'))
 
@@ -69,6 +66,7 @@ namespace `game.views` (
             this.fillScreen();
             this.addEventListener("click", e => this.onPauseMenu(), false, "#pause");
             window.addEventListener('resize', e => this.fillScreen(), false);
+            this.ready = true;
         }
 
         fillScreen(){
