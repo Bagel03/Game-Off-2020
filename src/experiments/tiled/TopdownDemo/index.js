@@ -55,7 +55,6 @@ namespace `experiments.tiled` (
             if(this.ready){
                 this.player.onDraw(this.scene)
                 this.scene.render();
-                // this.context.drawImage(this.scene.context.canvas, 0, 0)
                 this.camera.render(this.scene.context, this.context);//camera only needed for canvas
             }
         }

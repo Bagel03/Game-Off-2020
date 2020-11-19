@@ -16,6 +16,7 @@ namespace `experiments.tiled.sprites`(
 
         //Runs each animation frame
         onDraw(scene){
+            if(!this.rendered) return;
             scene.editImage(this.sceneID, this.img, this.pos, this.imgCords);
         }
 

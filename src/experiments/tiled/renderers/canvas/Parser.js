@@ -40,7 +40,6 @@ namespace `experiments.tiled.renderers.canvas`(
             //     layerdiv.appendChild(img);
             // }
             else if(layerObject.type=="objectgroup"){
-                console.log('object')
                 let objects = layerObject.objects;
                 if(objects){
                     for(let i=0; i < objects.length; i++){

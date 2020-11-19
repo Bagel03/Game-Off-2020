@@ -14,6 +14,7 @@ namespace `experiments.tiled.renderers.canvas`(
 
         addImage(image,  renderCords = {}, uvCords = {}, z){
             const ID = Math.uuid();
+            console.log(image)
             this.images[ID] = {
                 image: image,
                 //The texture cords to grab the image from
@@ -66,7 +67,6 @@ namespace `experiments.tiled.renderers.canvas`(
         //We sort at image loading time so we dont have to sort every frame
         sortImages(){
             this.imageArr = Object.values(this.images);
-            console.log(this.imageArr)
             this.imageArr.sort((a, b) => a.z - b.z);
         }
 

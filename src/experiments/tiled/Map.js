@@ -30,15 +30,26 @@ namespace `experiments.tiled` (
                         img.src = tilesetPath +"/" + _tileset.image;
                         _tileset.src = _tileset.image;
                         _tileset.image = img;//rewrite prop
+                    await awaitLoad(img);
+    
                 this.tilesets.push(_tileset);
                 this.processBounds(_tileset)
             }
+
+            function awaitLoad(img) {
+                return new Promise((resolve, fail) => {
+                    img.addEventListener('load', () => {
+                        resolve();
+                    });
+                })
+            } 
             console.log("All Tilesets For Map",this.tilesets)
         }
 
         async processImageLayers(){
             for(var i=0; i<=this.layers.length-1; i++){
                 var layer = this.layers[i];
+                console.log(layer.image)
                 if(layer.type=="imagelayer"){
                     var imagepath = this.path.substr(0,this.path.lastIndexOf("/"));
                     var img = new Image;
