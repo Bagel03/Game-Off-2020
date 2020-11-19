@@ -7,8 +7,8 @@ namespace `game.modules`(
          */
         constructor(viewport, target){
             this.animations = [];
-            this.viewport = viewport.copy();
-            this.target = target.copy();
+            this.viewport = viewport;
+            this.target = target;
         }
 
         /**
@@ -101,8 +101,8 @@ namespace `game.modules`(
          */
         render(buffer, target){
             target.drawImage(buffer.canvas,
-                this.viewport.left, this.viewport.top, this.viewport.width, this.viewport.height,
-                this.target.left,   this.target.top,   this.target.width,   this.target.height)
+                this.viewport.x, this.viewport.y, this.viewport.w, this.viewport.h,
+                this.target.x,   this.target.y,   this.target.w,   this.target.h)
         }
     },
 

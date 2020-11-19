@@ -1,15 +1,10 @@
 import! 'experiments.tiled.Point';
 import! 'experiments.tiled.Map';
-import! 'experiments.tiled.renderers.canvas.Topdown';
-import! 'experiments.tiled.renderers.html.Topdown';
-// import 'experiments.tiled.sprites.Hero';
+import! 'experiments.tiled.renderers.canvas.Scene';
 import! 'game.modules.KeyHandler';
 import! 'game.modules.Camera';
-import! 'game.modules.utils.Rectangle';
-import! 'experiments.tiled.renderers.canvas.DepthSorter';
 import! 'experiments.tiled.sprites.CanvasSprite';
-// import! 'game.modules.Input';
-// import! 'experiments.tiled.cameras.Camera';
+import! 'experiments.tiled.renderers.canvas.Parser';
 
 namespace `experiments.tiled` (
     class TopdownDemo extends World { //a dom app, not a world. dont need loop
@@ -26,19 +21,22 @@ namespace `experiments.tiled` (
             this.context = document.getElementById('demo').getContext('2d');    
             this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");//a json Tiled export -- .tsx is the Tiled project file
             await this.map.load();//await loading
-            
-            const viewport  = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);
-            const target    = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);//draw with offset
-            this.camera     = new game.modules.Camera(viewport, target);
+            console.log(this.map)
+    
+            this.width = this.map.width * this.map.tilewidth;
+            this.height = this.map.height * this.map.tileheight;
 
-            console.log("this.map",this.map)
-            this.renderer = new experiments.tiled.renderers.canvas.Topdown(this.map/*Map*/); //replace with canvas renderer
-            this.staticMapRender;
-            await window.setTimeout(() => this.staticMapRender = this.renderer.getLayerImages(),100);
-            this.depthSorter = new experiments.tiled.renderers.canvas.DepthSorter();
-            this.player = new experiments.tiled.sprites.CanvasSprite();
-            // this.hero = new experiments.tiled.sprites.Hero;
-            // this.appendChild(this.hero);
+            this.context.canvas.width = this.width;
+            this.context.canvas.height = this.height;
+
+            this.camera = new game.modules.Camera({x: 0, w: 0, w: this.width, h: this.height}, {x: 0, w: 0, w: this.width, h: this.height});
+            this.scene = new experiments.tiled.renderers.canvas.Scene(this.width, this.height);
+
+            //render the map
+            new experiments.tiled.renderers.canvas.Parser(this.map).addToScene(this.scene);
+
+            this.player = new experiments.tiled.sprites.CanvasSprite(this.scene);
+
             this.ready=true;
         }
 
@@ -53,51 +51,13 @@ namespace `experiments.tiled` (
                 this.player.onUpdate();
             }
         }
-
         onDraw=()=>{
             if(this.ready){
-                this.depthSorter.preRender(...this.staticMapRender, this.player.getImageData())
-                if(this.renderer instanceof experiments.tiled.renderers.canvas.Topdown){//for easy debugging between canvas & html
-                    this.camera.render(this.depthSorter.context, this.context);//camera only needed for canvas
-                }
-                // this.hero.onDraw();
+                this.player.onDraw(this.scene)
+                this.scene.render();
+                this.context.drawImage(this.scene.context.canvas, 0, 0)
+            //     this.camera.render(this.scene.context, this.context);//camera only needed for canvas
             }
         }
-        
-
- 
-        // //dom has real physical layers, it's not a flat canvas "pixel" click.
-        // //more complicated. Trying to find which objects are under my click
-        // //through all z layers. Much more complex vs. canvas click. But even
-        // //on a canvas with multiple "layers", you can't easily determine all
-        // //objects under mouse unless you make memory map manually. DOM gives
-        // //it free, naturally.
-        // onTileClicked(e){
-        //     var w = this.map.tilewidth/2;
-        //     var h = this.map.tileheight/2;
-        //     var scrollLeft = document.documentElement.scrollLeft;
-        //     var scrollTop = document.documentElement.scrollTop;
-
-        //     var mx = e.src.pageX-scrollLeft;
-        //     var my = e.src.pageY-scrollTop;
-        //     var nodes = document.elementsFromPoint(mx,my);
-        //     var tilenodes = nodes.filter(n => n.classList.contains("tile"));
-        //         tilenodes.forEach(n =>{
-        //             var coordsA = n.getBoundingClientRect();
-        //             n.centerX = coordsA.left+ w;
-        //             n.centerY = coordsA.top + h;
-        //             n.distToPointX = Math.abs(n.centerX-mx);
-        //             n.distToPointY = Math.abs(n.centerY-my);
-        //             n.dist = n.distToPointX*n.distToPointX + n.distToPointY*n.distToPointY;
-        //         });
-        //         tilenodes.sort(function(a, b) {
-        //           return (a.dist == b.dist) ? 0 : (a.dist > b.dist ? 1 : -1);
-        //         });
-        //     console.log("objects in proximity of click", tilenodes)
-        //     var target = tilenodes.shift();
-        //     console.log(mx,my)
-        //     console.log("top most object", target);
-        //     this.renderer.screenXY_to_mapXY(mx+scrollLeft,my+scrollTop);
-        // }
-    }   
+    }
 );
