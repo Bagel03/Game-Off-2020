@@ -126,7 +126,7 @@ class CameraAnimation{
      * @param {finishFunct} finishFunct Called once the animation is finihsed 
      */
     constructor(frameCount, animationFunct, finishFunct){
-        alert("CameraAnimation")
+        //alert("CameraAnimation")
         this.currentFrame = 0;
         this.frameCount = frameCount;
         this.animationFunct = animationFunct;

@@ -53,12 +53,12 @@ namespace `game.views` (
             img.src="resources/images/sonic3_spritesheet.png";
             
             this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
-            this.sonic.idle()
+            this.sonic.idle();
 
 
             let x= 0,y = 0, w = this.canvas.width, h = this.canvas.height;
             this.camera = new game.modules.Camera({x, y, w, h},{x, y, w, h});
-            console.log(this.camera)
+            console.log(this.camera);
             this.camera.moveBy(new game.modules.utils.Vector(100, 100), 100, 'linear')
             .then(() => this.camera.moveBy(new game.modules.utils.Vector(-100, -100), 100, 'linear'))
 
@@ -151,7 +151,7 @@ namespace `game.views` (
         onDraw (interpolation){
             
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height)
+            this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
             let h = innerHeight/2;
             let w = innerWidth/2;
 
