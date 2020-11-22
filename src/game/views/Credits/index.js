@@ -1,3 +1,5 @@
+import! 'game.stars.Stars';
+
 
 @tag("credits-hud");
 namespace `game.views` (
@@ -16,6 +18,25 @@ namespace `game.views` (
 
         async onConnected(){
             await super.onConnected();
+
+            this.canvas = document.querySelector('canvas');
+            this.context = this.canvas.getContext('2d');
+
+            this.canvas.height = 480; //make canvas fullscreen
+            this.canvas.width = 640; //make canvas fullscreen
+
+            this.buffer = document.createElement('canvas').getContext('2d');
+            this.buffer.canvas.height = this.canvas.height; //make buffer fullscreen
+            this.buffer.canvas.width = this.canvas.width; //make buffer fullscreen
+
+            this.canvas.imageSmoothingEnabled = this.buffer.imageSmoothingEnabled = false;
+            this.buffer.canvas.style.imageRendering = this.canvas.style.imageRendering = 'pixelated';
+
+            this.stars = new game.stars.Stars();
+            //this.stars.initLayers(layers);
+
+           
+
         }
 
         //------------------------------MACHINE CALLED----------------------------
@@ -62,14 +83,26 @@ namespace `game.views` (
 
         //onUpdate, runs 1x per frame. Good place to handle user input
        onUpdate(timestamp, delta){
-            Key.isUp(Key.ESC) && this.dispatchEvent("startmenu")
+            Key.isUp(Key.ESC) && this.dispatchEvent("startmenu");
+            
+
+
+
         }
 
 
         //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
-        onFixedUpdate(time) {}
+        onFixedUpdate(time) {
+
+            //stars update goes here
+            this.stars.onUpdate();
+        }
 
         //onDraw, runs 1x per frame. Good place to paint
-        onDraw (interpolation){}
+        onDraw (interpolation){
+            //stars draw methods go here
+            this.stars.onDraw();
+
+        }
     }
 );

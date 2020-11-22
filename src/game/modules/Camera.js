@@ -1,3 +1,4 @@
+import! 'game.modules.utils.Rectangle';
 namespace `game.modules`(
     class Camera{
         /**
@@ -7,8 +8,8 @@ namespace `game.modules`(
          */
         constructor(viewport, target){
             this.animations = [];
-            this.viewport = viewport.copy();
-            this.target = target.copy();
+            this.viewport = new game.modules.utils.Rectangle(viewport.x, viewport.y, viewport.w, viewport.h);
+            this.target = new game.modules.utils.Rectangle(target.x, target.y, target.w, target.h);
         }
 
         /**
@@ -18,7 +19,8 @@ namespace `game.modules`(
          * @param {string} interpolation Type of interpolation to using durring the camera's movement
          * 
          */
-        moveBy(amount, framecount, interpolation = 'linear'){                   
+        moveBy(amount, framecount, interpolation = 'linear'){       
+            console.log(this.viewport)            
 
             let animationFunct;
             switch(interpolation){
@@ -124,7 +126,7 @@ class CameraAnimation{
      * @param {finishFunct} finishFunct Called once the animation is finihsed 
      */
     constructor(frameCount, animationFunct, finishFunct){
-        alert("CameraAnimation")
+        //alert("CameraAnimation")
         this.currentFrame = 0;
         this.frameCount = frameCount;
         this.animationFunct = animationFunct;
