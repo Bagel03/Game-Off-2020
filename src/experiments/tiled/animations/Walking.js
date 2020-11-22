@@ -7,41 +7,14 @@ namespace `experiments.tiled.animations` (
         	super(name, sprite);
 			this.sprite = sprite;
 			this.name   = name;
-			this.sprite.y_velocity = 0;
-			this.sprite.x_velocity = 0;
-			this.sprite.x = 0;
-			this.sprite.y = 0;
-			// this.up    = false;
-   //          this.down  = false;
-   //          this.left  = false;
-   //          this.right = false;
-			// document.addEventListener('keydown', e=>this.onKeyInput(e));
-   //          document.addEventListener('keyup',   e=>this.onKeyInput(e));
+			// this.sprite.y_velocity = 0;
+			// this.sprite.x_velocity = 0;
+			// this.sprite.x = 0;
+			// this.sprite.y = 0;
+			// this.dir=0;
 		}
 
-		// onKeyUp(){
-
-		// }
-
-		// onKeyInput(e){
-		// 	// console.log(e.key)
-  //           const keydown = e.type === 'keydown';
-  //           var key     = e.key.toLowerCase();
-
-  //           key === 'w' && (this.up = keydown);
-  //           key === 's' && (this.down = keydown);
-  //           key === 'a' && (this.left = keydown);
-  //           key === 'd' && (this.right = keydown);
-  //           // console.log("key:",[this.up,this.down])
-  //       }
-
-		start(dir) {
-			// debugger;
-			if(this.isAnimating){return}
-			this.sprite.classList.remove(this.name+"-"+this.dirstr);
-			this.isAnimating=true;
-			// this.update(dir);
-		}
+		
 
 		stop() {
 			this.sprite.classList.remove(this.name+"-right");
@@ -51,78 +24,111 @@ namespace `experiments.tiled.animations` (
 
 			this.isAnimating=false;
 			// this.sprite.velocity = 1;
-			this.sprite.y_velocity = 0;
-			this.sprite.x_velocity = 0;
+			// this.sprite.y_velocity = 0;
+			// this.sprite.x_velocity = 0;
+		}
+		clear(){
+			this.sprite.classList.remove(this.name+"-right");
+			this.sprite.classList.remove(this.name+"-left");
+			this.sprite.classList.remove(this.name+"-up");
+			this.sprite.classList.remove(this.name+"-down");
 		}
 
 		onUpdate(delta){
-			//dir=1;
-			// if(this.up){
-			// 	console.log("up")
+			// if (Key.isDown(Key.RIGHT)){
+					// this.dir=1;
+					// this.dirstr = "right";
+			// 		this.isAnimating=true;
+			// 		this.sprite.x_velocity = 1;		
 			// }
-			// else if (this.down){
-			// 	console.log("down")
+			// else if (Key.isDown(Key.LEFT)) {
+			// 	this.dir=-1;
+			// 	this.dirstr = "left";
+			// 	this.isAnimating=true;
+			// 	this.sprite.x_velocity = 1;
 			// }
-			// this.up &&
-			// this.down && console.log("down")
-			if (Key.isDown(Key.RIGHT) && this.sprite.canWalk()){
-				// console.log("right")
-				// if (this.right && this.sprite.canWalk()) {
-					this.stop();
-					this.dir=1;
-					this.dirstr = "right";
-					this.start()
-					this.isAnimating=true;
-					this.sprite.x_velocity = 1;		
-					// this.walk(delta)
-				// } 
-			}
-			else if (Key.isDown(Key.LEFT) && this.sprite.canWalk()) {
-				this.stop();
-				this.dir=-1;
-				this.dirstr = "left";
-				this.start()
-				this.isAnimating=true;
-				this.sprite.x_velocity = 1;
-
-				// this.walk(delta)
-			}
-			else if (Key.isDown(Key.DOWN) && this.sprite.canWalk()) {
-				this.stop();
-				this.dir=1;
-				this.dirstr = "down";
-				this.start()
-				this.isAnimating=true;
-				this.sprite.y_velocity = 1;
-				// this.walk(delta)
-			}
-			else if (Key.isDown(Key.UP) && this.sprite.canWalk()) {
-				this.stop();
-				this.dir=-1;
-				this.dirstr = "up";
-				this.start()
-				this.isAnimating=true;
-				this.sprite.y_velocity = 1;
-				// this.walk(delta)
-			}
-			else {
-				this.stop()
-			}
+			// else if (Key.isDown(Key.DOWN)) {
+			// 	this.dir=1;
+			// 	this.dirstr = "down";
+			// 	this.isAnimating=true;
+			// 	this.sprite.y_velocity = 1;
+			// }
+			// else if (Key.isDown(Key.UP)) {
+			// 	this.dir=-1;
+			// 	this.dirstr = "up";
+			// 	this.isAnimating=true;
+			// 	this.sprite.y_velocity = 1;
+			// }
+			// else {
+			// 	this.stop()
+			// }
 		}
 
-		onDraw(delta=16.6){
-			// console.log(this.sprite.velocity)
-			if(!this.isAnimating){return}
-			this.sprite.classList.add(this.name+"-"+this.dirstr);
-			//increase velocity each frame while animation is running
-			// this.sprite.velocity += .0000001 ;
+		
+
+
+
+		
+		//------------------------------MACHINE CALLED----------------------------
+
+        //Called when machine awakes this component. Usualy we hide/show onAwake.
+        //and do anything else like play music, sfx, animation etc
+        onAwake(){
+            // this.style.display="block";
+            console.log(this.namespace + " Awake");
+            // this.music.play();
+            this.isAnimating=true;
+
+        }
+
+        //Machine puts it to sleep.Usually hide itself, pause music, animate out.
+        onSleep(){
+            // this.style.display="none";
+            console.log(this.namespace + " Sleeping");
+            // this.music.pause();
+            this.isAnimating=false;
+            this.stop()
+        }
+
+        //Machine calls it once if never started, hence tthe isStarted flag. Usually,
+        //you append this component to DOM, which fires onConnected() above.
+        onStart(dir) {
+			if(this.isAnimating){return}
+			this.sprite.classList.remove(this.name+"-"+this.sprite.dirstr);
+			this.isAnimating=true;
+			this.isStarted=true;
+			console.log(this.namespace + " Started");
+		}
+
+
+        //Machine calls if isFinished is ever true. Destroy self and cleanup. 
+        onExit(){
+            console.log(this.namespace + " Exit")
+            this.stop()
+        }
+
+        //onUpdate, runs 1x per frame. Good place to handle user input
+       	onUpdate(timestamp, delta){
+            // Key.isUp(Key.ESC) && this.dispatchEvent("startmenu")
+        }
+
+
+        //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
+        onFixedUpdate(time) {}
+
+        //onDraw, runs 1x per frame. Good place to paint
+        onDraw(interpolation){
 			if(this.isAnimating){
-				if(this.sprite.x <= 0) {
-					this.sprite.x=0;
+				this.clear();
+				this.sprite.classList.add(this.name+"-"+this.sprite.dirstr);
+				if(this.sprite.dirstr=="left"||this.sprite.dirstr=="right"){
+					this.sprite.x += this.sprite.x_velocity*this.sprite.direction;
 				}
-				this.sprite.x += this.sprite.x_velocity*this.dir;
-				this.sprite.y += this.sprite.y_velocity*this.dir;
-				this.sprite.style.transform = "translate3d(" + this.sprite.x + "px," + this.sprite.y + "px,0px) scale(.5)";
+				else if(this.sprite.dirstr=="up"||this.sprite.dirstr=="down"){
+					this.sprite.y += this.sprite.y_velocity*this.sprite.direction;
+				}
+
+				this.sprite.style.transform = "translate3d(" + this.sprite.x + "px," + this.sprite.y + "px, 0px)";
 			}
 		}
     }

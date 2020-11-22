@@ -25,6 +25,7 @@ namespace `game.modules` (
 
         //called by user to push in a new Component
         push(state){
+            if(this[0]==state){return}
             state && !state.isStarted && state.onStart();
             state && state.onAwake();
             state.isSleeping=false

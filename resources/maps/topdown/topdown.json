@@ -59,7 +59,7 @@
                  "value":"super_retro.tsx"
                 }],
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":11,
          "x":0,
          "y":0
@@ -70,28 +70,16 @@
          "name":"ObjectLayer1",
          "objects":[
                 {
-                 "gid":305,
-                 "height":128,
-                 "id":5,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":110,
-                 "x":86.7366467787115,
-                 "y":-14.711406162465
-                }, 
-                {
                  "gid":306,
                  "height":128,
-                 "id":9,
+                 "id":16,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":95,
-                 "x":-10.8655462184874,
-                 "y":18.3417366946778
+                 "x":46,
+                 "y":-5.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -100,7 +88,7 @@
          "y":0
         }],
  "nextlayerid":27,
- "nextobjectid":10,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",

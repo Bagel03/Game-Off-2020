@@ -4,6 +4,9 @@ import! 'experiments.tiled.Map';
 import! 'experiments.tiled.renderers.html.Topdown';
 import 'experiments.tiled.sprites.Hero';
 import! 'game.modules.KeyHandler';
+import! 'game.modules.KeyHandler';
+import! 'experiments.tiled.DepthSort';
+import {boxBox} from '/src/experiments/tiled/colliders/boxBox.js';
 // import! 'game.modules.Camera';
 // import! 'game.modules.utils.Rectangle';
 // import! 'experiments.tiled.renderers.canvas.DepthSorter';
@@ -14,7 +17,6 @@ namespace `experiments.tiled` (
     class TopdownHtmlDemo extends World { //a dom app, not a world. dont need loop
         constructor(el){
             super(el);
-
             //filter clicks only on '.tile' nodes in DOM (4th arg is css match). Ignores clicks on any other object.
             this.addEventListener("click", e => this.onTileClicked(e), false, ".tile");
         }
@@ -22,34 +24,43 @@ namespace `experiments.tiled` (
         //onConnected fires once when this class is ready in DOM.
         async onConnected() {
             await super.onConnected();
-            this.context = document.getElementById('demo').getContext('2d');    
+            // this.context = document.getElementById('demo').getContext('2d');    
             this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");//a json Tiled export -- .tsx is the Tiled project file
             await this.map.load();//await loading
             
+            this.hero = new experiments.tiled.sprites.Hero;
+            // this.appendChild(this.hero);
+
+            this.map.objects.push(this.hero)
+
             // const viewport  = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);
             // const target    = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);//draw with offset
             // this.camera     = new game.modules.Camera(viewport, target);
 
             console.log("this.map",this.map)
             this.renderer = new experiments.tiled.renderers.html.Topdown(this, this.map/*Map*/); //replace with canvas renderer
+            this.depth = new experiments.tiled.DepthSort;
             // this.staticMapRender;
             // await window.setTimeout(() => this.staticMapRender = this.renderer.getLayerImages(),100);
             // this.depthSorter = new experiments.tiled.renderers.canvas.DepthSorter();
             // this.player = new experiments.tiled.sprites.CanvasSprite();
-            this.hero = new experiments.tiled.sprites.Hero;
-            this.appendChild(this.hero);
+            // this.hero = new experiments.tiled.sprites.Hero;
+            // this.appendChild(this.hero);
+            // this.map.objects.push(this.hero)
             this.ready=true;
         }
 
         onFixedUpdate=()=>{
             if(this.ready){
-                this.hero.onUpdate();
+                // this.hero.onUpdate();
+                this.hero.onFixedUpdate();
             }
         }
 
         onUpdate=()=>{
             if(this.ready){
                 // this.player.onUpdate();
+                this.hero.onUpdate();
             }
         }
 
@@ -59,6 +70,7 @@ namespace `experiments.tiled` (
                 // if(this.renderer instanceof experiments.tiled.renderers.canvas.Topdown){//for easy debugging between canvas & html
                 //     this.camera.render(this.depthSorter.context, this.context);//camera only needed for canvas
                 // }
+                this.depth.sort(this.map.objects);
                 this.renderer.onDraw();
                 this.hero.onDraw();
             }

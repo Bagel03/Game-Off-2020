@@ -6,14 +6,33 @@ namespace `experiments.tiled.renderers.html` (
         }
 
         onDraw(){
-            if(this.already_drawn){return}
-            for(let i = 0; i < this.map.layers.length; i++){
-                var layer = this.map.layers[i];
-                    layer.visible && this.drawLayer(i,layer);
+            if(this.already_drawn){
+                this.drawDepth()
+            }
+            else {
+                for(let i = 0; i < this.map.layers.length; i++){
+                    var layer = this.map.layers[i];
+                        layer.visible && this.drawLayer(i,layer);
+                }
             }
             this.already_drawn=true;
         }
 
+        drawDepth(){
+            var objects = this.map.objects;
+            if(objects){
+                for(var i=0; i<=objects.length-1;i++){
+                    let object = objects[i];
+                    if(object.gid){
+                        let img = object.image;
+                        img&&(img.style.zIndex=i);
+                    }
+                    else {
+                        object&&(object.style.zIndex=i);
+                    }  
+                }
+            }
+        }
 
         drawLayer (layerIndex, layerObject) {
             var layerdiv = document.createElement("div");
@@ -31,7 +50,7 @@ namespace `experiments.tiled.renderers.html` (
                     var tilepos = this.map.getTilePositionFor(tileset, tileTypeID, layerIndex);//returns {col,row,x,y}
                     var x = c * this.map.tilewidth;
                     var y = r * this.map.tileheight;
-                    this.placeTile2(tilepos, {x, y}, c, r, layerdiv)
+                    this.appendTile(tilepos, {x, y}, c, r, layerdiv)
                   }
                 }
             }
@@ -43,17 +62,25 @@ namespace `experiments.tiled.renderers.html` (
                 layerdiv.appendChild(img);
             }
             else if(layerObject.type=="objectgroup"){
-                var objects = layerObject.objects;
+                var objects = this.map.objects;
+
                 if(objects){
                     for(var i=0; i<=objects.length-1;i++){
                         var object = objects[i];
-                        debugger;
-                        var tileset = this.map.getTilesetByGid(object.gid);
-                        var img = tileset.image;
+                        if(object.gid){
+                            var tileset = this.map.getTilesetByGid(object.gid);
+                            var img = object.image;
                             img.style.position="absolute";
                             img.style.left = `${object.x}px`;
                             img.style.top  = `${object.y}px`;
-                        layerdiv.appendChild(img);
+                            layerdiv.appendChild(img);
+                        }
+                        else {
+                            object.style.position="absolute";
+                            object.style.left = `${object.x}px`;
+                            object.style.top  = `${object.y}px`;
+                            layerdiv.appendChild(object);
+                        }  
                     }
                 }
             }
@@ -72,7 +99,7 @@ namespace `experiments.tiled.renderers.html` (
         // }
 
         //place a tile at <pt>, <tilepos> for background image from sprite sheet
-        placeTile2(tilepos, pt, map_col, map_row, layer){
+        appendTile(tilepos, pt, map_col, map_row, layer){
             var xpos = pt.x + "px";
             var ypos = pt.y + "px";
             var tile = document.createElement("div");

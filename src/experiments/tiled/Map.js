@@ -2,10 +2,11 @@
 namespace `experiments.tiled` (
     class Map {
         constructor (path){
-            this.path=path;
-            this.map=null;
-            this.tilesets=[];
-            this.collisions={};
+            this.path       =path;
+            this.map        =null;
+            this.tilesets   =[];
+            this.collisions ={};
+            this.objects    =[];
         }
 
         async load(){
@@ -16,6 +17,7 @@ namespace `experiments.tiled` (
             return new Promise(async (resolve,fail)=>{
                 await this.processImageLayers();
                 await this.processTilesets();
+                await this.processObjects();
                 resolve(this)
             })
         }
@@ -44,6 +46,21 @@ namespace `experiments.tiled` (
                     var img = new Image;
                         img.src = imagepath +"/" + layer.image;
                         layer.image=img;
+                }
+            }
+        }
+
+        async processObjects(){
+            for(var i=0; i<=this.layers.length-1; i++){
+                var layer = this.layers[i];
+                if(layer.type=="objectgroup"){
+                    for(var j=0; j<=layer.objects.length-1; j++){
+                        var object = layer.objects[j];
+                            object.bounds = this.collisions[object.gid]
+                            object.tileset = this.getTilesetByGid(object.gid)
+                            object.image = object.tileset.image.cloneNode();
+                        this.objects.push(object)
+                    }
                 }
             }
         }
