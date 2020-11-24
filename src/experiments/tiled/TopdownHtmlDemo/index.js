@@ -1,76 +1,48 @@
-import! 'experiments.tiled.Point';
-import! 'experiments.tiled.Map';
-// import! 'experiments.tiled.renderers.canvas.Topdown';
-import! 'experiments.tiled.renderers.html.Topdown';
-import 'experiments.tiled.sprites.Hero';
-import! 'game.modules.KeyHandler';
-import! 'game.modules.KeyHandler';
-import! 'experiments.tiled.DepthSort';
-import {boxBox} from '/src/experiments/tiled/colliders/boxBox.js';
-// import! 'game.modules.Camera';
-// import! 'game.modules.utils.Rectangle';
-// import! 'experiments.tiled.renderers.canvas.DepthSorter';
-// import! 'experiments.tiled.sprites.CanvasSprite';
 
+import! 'experiments.tiled.renderers.html.Topdown';
+import  'experiments.tiled.sprites.Hero';
+import! 'experiments.tiled.DepthSort';
+import! 'experiments.tiled.Collider';
+import! 'game.modules.KeyHandler';
+import! 'experiments.tiled.Map';
 
 namespace `experiments.tiled` (
-    class TopdownHtmlDemo extends World { //a dom app, not a world. dont need loop
+    class TopdownHtmlDemo extends World {
         constructor(el){
             super(el);
-            //filter clicks only on '.tile' nodes in DOM (4th arg is css match). Ignores clicks on any other object.
             this.addEventListener("click", e => this.onTileClicked(e), false, ".tile");
         }
 
-        //onConnected fires once when this class is ready in DOM.
         async onConnected() {
             await super.onConnected();
-            // this.context = document.getElementById('demo').getContext('2d');    
-            this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");//a json Tiled export -- .tsx is the Tiled project file
-            await this.map.load();//await loading
+            this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");
+            await this.map.load();
             
             this.hero = new experiments.tiled.sprites.Hero;
-            // this.appendChild(this.hero);
-
-            this.map.objects.push(this.hero)
-
-            // const viewport  = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);
-            // const target    = new game.modules.utils.Rectangle(0, 0, this.context.canvas.width, this.context.canvas.height);//draw with offset
-            // this.camera     = new game.modules.Camera(viewport, target);
+            this.map.objects.push(this.hero);//add to map
 
             console.log("this.map",this.map)
-            this.renderer = new experiments.tiled.renderers.html.Topdown(this, this.map/*Map*/); //replace with canvas renderer
-            this.depth = new experiments.tiled.DepthSort;
-            // this.staticMapRender;
-            // await window.setTimeout(() => this.staticMapRender = this.renderer.getLayerImages(),100);
-            // this.depthSorter = new experiments.tiled.renderers.canvas.DepthSorter();
-            // this.player = new experiments.tiled.sprites.CanvasSprite();
-            // this.hero = new experiments.tiled.sprites.Hero;
-            // this.appendChild(this.hero);
-            // this.map.objects.push(this.hero)
+            this.renderer   = new experiments.tiled.renderers.html.Topdown(this, this.map);
+            this.depth      = new experiments.tiled.DepthSort(this.map.objects);
+            this.collider   = new experiments.tiled.Collider(this.hero,this.map.objects);
             this.ready=true;
         }
 
         onFixedUpdate=()=>{
             if(this.ready){
-                // this.hero.onUpdate();
-                this.hero.onFixedUpdate();
+                this.collider.onFixedUpdate();
             }
         }
 
         onUpdate=()=>{
             if(this.ready){
-                // this.player.onUpdate();
                 this.hero.onUpdate();
             }
         }
 
         onDraw=()=>{
             if(this.ready){
-                // this.depthSorter.preRender(...this.staticMapRender, this.player.getImageData())
-                // if(this.renderer instanceof experiments.tiled.renderers.canvas.Topdown){//for easy debugging between canvas & html
-                //     this.camera.render(this.depthSorter.context, this.context);//camera only needed for canvas
-                // }
-                this.depth.sort(this.map.objects);
+                this.depth.onDraw();
                 this.renderer.onDraw();
                 this.hero.onDraw();
             }
@@ -94,17 +66,6 @@ namespace `experiments.tiled` (
             var my = e.src.pageY-scrollTop;
             var nodes = document.elementsFromPoint(mx,my);
             var tilenodes = nodes;//nodes.filter(n => n.classList.contains("tile"));
-                // tilenodes.forEach(n =>{
-                //     var coordsA = n.getBoundingClientRect();
-                //     n.centerX = coordsA.left+ w;
-                //     n.centerY = coordsA.top + h;
-                //     n.distToPointX = Math.abs(n.centerX-mx);
-                //     n.distToPointY = Math.abs(n.centerY-my);
-                //     n.dist = n.distToPointX*n.distToPointX + n.distToPointY*n.distToPointY;
-                // });
-                // tilenodes.sort(function(a, b) {
-                //   return (a.dist == b.dist) ? 0 : (a.dist > b.dist ? 1 : -1);
-                // });
             console.log("objects in proximity of click", tilenodes)
             var target = tilenodes.shift();
             console.log(mx,my)

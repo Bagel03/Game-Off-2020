@@ -7,26 +7,15 @@ namespace `experiments.tiled.animations` (
         	super(name, sprite);
 			this.sprite = sprite;
 			this.name   = name;
-			// this.sprite.y_velocity = 0;
-			// this.sprite.x_velocity = 0;
-			// this.sprite.x = 0;
-			// this.sprite.y = 0;
-			// this.dir=0;
 		}
 
 		
 
 		stop() {
-			this.sprite.classList.remove(this.name+"-right");
-			this.sprite.classList.remove(this.name+"-left");
-			this.sprite.classList.remove(this.name+"-up");
-			this.sprite.classList.remove(this.name+"-down");
-
+			this.clear();
 			this.isAnimating=false;
-			// this.sprite.velocity = 1;
-			// this.sprite.y_velocity = 0;
-			// this.sprite.x_velocity = 0;
 		}
+
 		clear(){
 			this.sprite.classList.remove(this.name+"-right");
 			this.sprite.classList.remove(this.name+"-left");
@@ -34,63 +23,37 @@ namespace `experiments.tiled.animations` (
 			this.sprite.classList.remove(this.name+"-down");
 		}
 
-		onUpdate(delta){
-			// if (Key.isDown(Key.RIGHT)){
-					// this.dir=1;
-					// this.dirstr = "right";
-			// 		this.isAnimating=true;
-			// 		this.sprite.x_velocity = 1;		
-			// }
-			// else if (Key.isDown(Key.LEFT)) {
-			// 	this.dir=-1;
-			// 	this.dirstr = "left";
-			// 	this.isAnimating=true;
-			// 	this.sprite.x_velocity = 1;
-			// }
-			// else if (Key.isDown(Key.DOWN)) {
-			// 	this.dir=1;
-			// 	this.dirstr = "down";
-			// 	this.isAnimating=true;
-			// 	this.sprite.y_velocity = 1;
-			// }
-			// else if (Key.isDown(Key.UP)) {
-			// 	this.dir=-1;
-			// 	this.dirstr = "up";
-			// 	this.isAnimating=true;
-			// 	this.sprite.y_velocity = 1;
-			// }
-			// else {
-			// 	this.stop()
-			// }
-		}
+		
 
 		
 
 
 
 		
+
+
+
+
+
+
 		//------------------------------MACHINE CALLED----------------------------
 
         //Called when machine awakes this component. Usualy we hide/show onAwake.
         //and do anything else like play music, sfx, animation etc
         onAwake(){
-            // this.style.display="block";
             console.log(this.namespace + " Awake");
-            // this.music.play();
             this.isAnimating=true;
 
         }
 
         //Machine puts it to sleep.Usually hide itself, pause music, animate out.
         onSleep(){
-            // this.style.display="none";
             console.log(this.namespace + " Sleeping");
-            // this.music.pause();
             this.isAnimating=false;
             this.stop()
         }
 
-        //Machine calls it once if never started, hence tthe isStarted flag. Usually,
+        //Machine calls it once if never started, hence the isStarted flag. Usually,
         //you append this component to DOM, which fires onConnected() above.
         onStart(dir) {
 			if(this.isAnimating){return}
