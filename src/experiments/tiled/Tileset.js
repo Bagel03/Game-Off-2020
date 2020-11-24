@@ -27,35 +27,35 @@ namespace `experiments.tiled` (
         	return this.tilesets[index];
         }
 
-        //returns a tileset
-        getTilesetForLayerByMaterialSource(layer){
-        	if(layer){
-        		if(layer.properties){
-        			var material = layer.properties.filter(prop => prop.name == "MaterialSource");//ex: "TilesetPack_RockSand.tsx"
-        			if(material && material.length>0){
-        				var tileset = this.tilesets.filter(tileset => {
-        					// debugger;
-        					return tileset.name == material[0].value.replace(".tsx","")
-        				});//ex: "tileset.name is like "TilesetPack_RockSand"
-        				if(tileset && tileset.length>0) {
-        					return tileset[0];
-        				}
-        				else {
-        					console.error(`${this.namespace}#getTilesetForLayerByMaterialSource(<layer>) - no tileset matches the material used in this layer`,[layer,material])
-        				}
-        			}
-        			else {
-        				console.error(`${this.namespace}#getTilesetForLayerByMaterialSource(<layer>) - no 'MaterialSource' (a Tiled custom property) found for this layer in the map. Layer is:`, layer)
-        			}
-        		}
-        		else {
-        			console.error(`${this.namespace}#getTilesetForLayerByMaterialSource(<layer>) - no Tiled custom properties found for this layer in the map. Layer is:`, layer)
-        		}
-        	}
-        	else {
-        		console.error(`${this.namespace}#getTilesetForLayerByMaterialSource(<layer>) - <layer> arg is null or undefined. layer is:`, layer)
-        	}
-        }
+        // //returns a tileset
+        // getTilesetForLayerByMaterialSource(layer){
+        // 	if(layer){
+        // 		if(layer.properties){
+        // 			var material = layer.properties.filter(prop => prop.name == "MaterialSource");//ex: "TilesetPack_RockSand.tsx"
+        // 			if(material && material.length>0){
+        // 				var tileset = this.tilesets.filter(tileset => {
+        // 					// debugger;
+        // 					return tileset.name == material[0].value.replace(".tsx","")
+        // 				});//ex: "tileset.name is like "TilesetPack_RockSand"
+        // 				if(tileset && tileset.length>0) {
+        // 					return tileset[0];
+        // 				}
+        // 				else {
+        // 					console.error(`${this.namespace}#getTilesetForLayerByMaterialSource(<layer>) - no tileset matches the material used in this layer`,[layer,material])
+        // 				}
+        // 			}
+        // 			else {
+        // 				console.error(`${this.namespace}#getTilesetForLayerByMaterialSource(<layer>) - no 'MaterialSource' (a Tiled custom property) found for this layer in the map. Layer is:`, layer)
+        // 			}
+        // 		}
+        // 		else {
+        // 			console.error(`${this.namespace}#getTilesetForLayerByMaterialSource(<layer>) - no Tiled custom properties found for this layer in the map. Layer is:`, layer)
+        // 		}
+        // 	}
+        // 	else {
+        // 		console.error(`${this.namespace}#getTilesetForLayerByMaterialSource(<layer>) - <layer> arg is null or undefined. layer is:`, layer)
+        // 	}
+        // }
 
         getTileTypeById(tileset, tileType, layerIndex){
         	if(tileset.firstgid != 1){
