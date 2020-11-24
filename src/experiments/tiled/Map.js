@@ -51,10 +51,6 @@ namespace `experiments.tiled` (
         async processImageLayers(){
             for(var i=0; i<=this.layers.length-1; i++){
                 var layer = this.layers[i];
-<<<<<<< HEAD
-=======
-                // console.log(layer.image)
->>>>>>> 3717e93ccb49dfbbc7c6ad1da649ce2014162746
                 if(layer.type=="imagelayer"){
                     var imagepath = this.path.substr(0,this.path.lastIndexOf("/"));
                     var img = new Image;

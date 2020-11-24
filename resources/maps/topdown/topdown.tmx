@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="27" nextobjectid="30">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="27" nextobjectid="31">
  <editorsettings>
   <export target="topdown.json" format="json"/>
  </editorsettings>
@@ -7,6 +7,7 @@
  <tileset firstgid="305" source="tree.tsx"/>
  <tileset firstgid="306" source="tree2.tsx"/>
  <tileset firstgid="307" source="barrel_68x45.tsx"/>
+ <tileset firstgid="308" source="house_3.tsx"/>
  <layer id="1" name="Ground" width="32" height="32">
   <properties>
    <property name="MaterialSource" value="super_retro.tsx"/>
@@ -131,5 +132,6 @@
   <object id="24" gid="305" x="88.5" y="149" width="110" height="128"/>
   <object id="25" gid="305" x="-27.5" y="6.5" width="110" height="128"/>
   <object id="29" gid="307" x="158" y="253" width="68" height="45"/>
+  <object id="30" gid="308" x="274" y="-14" width="240" height="326"/>
  </objectgroup>
 </map>

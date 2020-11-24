@@ -140,6 +140,18 @@
                  "width":68,
                  "x":158,
                  "y":253
+                }, 
+                {
+                 "gid":308,
+                 "height":326,
+                 "id":30,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":240,
+                 "x":274,
+                 "y":-14
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -148,7 +160,7 @@
          "y":0
         }],
  "nextlayerid":27,
- "nextobjectid":30,
+ "nextobjectid":31,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
@@ -169,6 +181,10 @@
         {
          "firstgid":307,
          "source":"barrel_68x45.tsx"
+        }, 
+        {
+         "firstgid":308,
+         "source":"house_3.tsx"
         }],
  "tilewidth":16,
  "type":"map",
