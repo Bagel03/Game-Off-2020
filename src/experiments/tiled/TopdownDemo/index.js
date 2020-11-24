@@ -1,10 +1,9 @@
 import! 'experiments.tiled.Point';
 import! 'experiments.tiled.Map';
-import! 'experiments.tiled.renderers.canvas.Scene';
 import! 'game.modules.KeyHandler';
 import! 'game.modules.Camera';
 import! 'experiments.tiled.sprites.CanvasSprite';
-import! 'experiments.tiled.renderers.canvas.Parser';
+import! 'experiments.tiled.renderers.canvas.Renderer';
 
 namespace `experiments.tiled` (
     class TopdownDemo extends World { //a dom app, not a world. dont need loop
@@ -21,7 +20,6 @@ namespace `experiments.tiled` (
             this.context = document.getElementById('demo').getContext('2d');    
             this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");//a json Tiled export -- .tsx is the Tiled project file
             await this.map.load();//await loading
-            console.log(this.map)
     
             this.width = this.map.width * this.map.tilewidth;
             this.height = this.map.height * this.map.tileheight;
@@ -30,12 +28,10 @@ namespace `experiments.tiled` (
             this.context.canvas.height = this.height;
 
             this.camera = new game.modules.Camera({x: 0, y: 0, w: this.width, h: this.height}, {x: 0, y: 0, w: this.width, h: this.height});
-            this.scene = new experiments.tiled.renderers.canvas.Scene(this.width, this.height);
 
-            //render the map
-            new experiments.tiled.renderers.canvas.Parser(this.map).addToScene(this.scene);
+            this.renderer = new experiments.tiled.renderers.canvas.Renderer(this.map);
 
-            this.player = new experiments.tiled.sprites.CanvasSprite(this.scene);
+            this.player = new experiments.tiled.sprites.CanvasSprite();
 
             this.ready=true;
         }
@@ -53,9 +49,8 @@ namespace `experiments.tiled` (
         }
         onDraw=()=>{
             if(this.ready){
-                this.player.onDraw(this.scene)
-                this.scene.render();
-                this.camera.render(this.scene.context, this.context);//camera only needed for canvas
+                this.renderer.onDraw([this.player.imageObject]);
+                this.camera.render(this.renderer.context, this.context);//camera only needed for canvas
             }
         }
     }

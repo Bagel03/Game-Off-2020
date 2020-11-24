@@ -1,25 +1,28 @@
 namespace `experiments.tiled.sprites`(
     class CanvasSprite{
-        constructor(scene){
+        constructor(){
             this.img = new Image();
             this.img.src = 'resources/images/sonic3_spritesheet.png';
-            this.img.addEventListener('load', () => this.render(scene))
-            this.imgCords = {x: 0, y: 0, w: 120, h: 120};
-            this.pos = {x: 32, y: 32, w: 16, h: 16};
-            this.rendered = false;
-        }
-
-        render(scene){
-            this.sceneID = scene.addImage(this.img, this.pos, this.imgCords);
-            this.rendered = true;
+            this.img.addEventListener('load', () => this.ready = true);
+            this.pos = {x: 32, y: 32, w: 16, h: 16}; 
+            this.bouds = this.pos//<-- bouding box of the image;
+            this.uvs = {x: 32, y: 32, w: 32, h: 32}; 
+            this.ready = false;
         }
 
         //Runs each animation frame
-        onDraw(scene){
-            if(!this.rendered) return;
-            scene.editImage(this.sceneID, this.img, this.pos, this.imgCords);
+        onDraw(){
         }
 
+        get imageObject(){
+            return{
+                image: this.img,
+                bounds: this.bouds,
+                pos: this.pos,
+                uvs:this.uvs
+
+            }
+        }
 
         onUpdate(){
             if(Key.isDown(Key.LEFT)) this.pos.x -= 2;
