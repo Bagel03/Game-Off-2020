@@ -64,6 +64,7 @@ namespace `experiments.tiled` (
 
             var mx = e.src.pageX-scrollLeft;
             var my = e.src.pageY-scrollTop;
+            
             var nodes = document.elementsFromPoint(mx,my);
             var tilenodes = nodes;//nodes.filter(n => n.classList.contains("tile"));
             console.log("objects in proximity of click", tilenodes)
