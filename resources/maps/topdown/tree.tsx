@@ -6,7 +6,7 @@
  <image source="tree.png" width="110" height="128"/>
  <tile id="0">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="51" y="102.5" width="32.5" height="11"/>
+   <object id="1" x="52.6364" y="103.409" width="29.9545" height="8.27273"/>
   </objectgroup>
  </tile>
 </tileset>
