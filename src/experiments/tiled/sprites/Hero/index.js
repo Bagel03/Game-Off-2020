@@ -8,8 +8,8 @@ namespace `experiments.tiled.sprites` (
     class Hero extends experiments.tiled.sprites.Sprite {
         constructor (element){
             super(element);
-            this.x=0;
-            this.y=0;
+            this.x=100;
+            this.y=30;
             this.width = 64;
             this.height = 64;
             this.bounds = [{x:20,y:52,width:24,height:9}]

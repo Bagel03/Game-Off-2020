@@ -25,11 +25,15 @@
     },
     
     onKeypress: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
         this.code = e.code;
       this._pressed[e.code] = true;
     },
 
     onKeydown: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
         this.code = e.code;
       this._pressed[e.code] = true;
     },

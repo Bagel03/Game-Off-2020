@@ -13,8 +13,8 @@ html,body {
 :host {
     display: block;
     position: absolute;
-    left: 50%;
-    transform: translate3d(-50%,-50%,0) scale(1);
+    left: 20%;
+    transform: translate3d(-50%,-50%,0) scale(3);
     image-rendering: pixelated;
     top: 50%;
 }
