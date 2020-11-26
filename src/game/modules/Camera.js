@@ -42,7 +42,7 @@ namespace `game.modules`(
         }
 
         setTagFromData(){
-            this.tag.style.transform = `translate(${this.x}px, ${this.y}px) `//rotate(${this.ang}deg) scale(${this.scaleX}, ${this.scaleY})`;
+            this.tag.style.transform = `translate3d(${this.x}px, ${this.y}px, 0px)`//rotate(${this.ang}deg) scale(${this.scaleX}, ${this.scaleY})`;
         }
     }
 )
