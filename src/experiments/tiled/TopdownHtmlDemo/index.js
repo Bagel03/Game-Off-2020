@@ -34,19 +34,19 @@ namespace `experiments.tiled` (
             this.ready=true;
         }
 
-        onFixedUpdate=()=>{
+        onFixedUpdate=(time)=>{
             if(this.ready){
                 this.collider.onFixedUpdate();
             }
         }
 
-        onUpdate=()=>{
+        onUpdate=(timestamp, delta)=>{
             if(this.ready){
                 this.hero.onUpdate();
             }
         }
 
-        onDraw=()=>{
+        onDraw=(interpolation)=>{
             if(this.ready){
                 this.camera.onDraw();
                 this.depth.onDraw();
