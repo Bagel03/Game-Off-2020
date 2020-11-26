@@ -46,30 +46,30 @@ namespace `experiments.tiled.sprites` (
         }
         
         onUpdate(delta){
-            const held_direction = Keyboard.held_directions[0];
-            if (held_direction) {
-                if (held_direction === Keyboard.directions.right){
+            const dir = Keyboard.held_directions[0];
+            if (dir) {
+                if (dir === Keyboard.directions.right){
                     this.direction=1;
                     this.dirstr = "right";
                     this.x_velocity = 2;
                     this.x += this.x_velocity*this.direction;
                     this.machine.push(this.walk)
                 }
-                else if (held_direction === Keyboard.directions.left) {
+                else if (dir === Keyboard.directions.left) {
                     this.direction=-1;
                     this.dirstr = "left";
                     this.x_velocity = 2;
                     this.x += this.x_velocity*this.direction;
                     this.machine.push(this.walk)
                 }
-                else if (held_direction === Keyboard.directions.down) {
+                else if (dir === Keyboard.directions.down) {
                     this.direction=1;
                     this.dirstr = "down";
                     this.y_velocity = 2;
                     this.y += this.y_velocity*this.direction;
                     this.machine.push(this.walk)
                 }
-                else if (held_direction === Keyboard.directions.up) {
+                else if (dir === Keyboard.directions.up) {
                     this.direction=-1;
                     this.dirstr = "up";
                     this.y_velocity = 2;
