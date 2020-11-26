@@ -18,6 +18,10 @@ namespace `experiments.tiled.sprites` (
             this.direction=0;
             this.machine = new game.modules.UIMachine
             this.walk = new experiments.tiled.animations.Walking("walk", this);
+            this.sfx_collide = new Audio("/resources/sounds/sfx_sounds_impact1.wav");
+            this.sfx_collide.loop=false;
+            this.sfx_collide.load();
+
         }
 
         async onConnected(){
@@ -25,6 +29,7 @@ namespace `experiments.tiled.sprites` (
         }
 
         onCollide(object){//displace hero away from object
+            this.sfx_collide.play()
             if(this.dirstr=="down"){
                 this.y -= 3;
             }

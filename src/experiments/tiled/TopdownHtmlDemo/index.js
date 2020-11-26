@@ -3,7 +3,6 @@ import! 'experiments.tiled.renderers.html.Topdown';
 import  'experiments.tiled.sprites.Hero';
 import! 'experiments.tiled.DepthSort';
 import! 'experiments.tiled.Collider';
-//mport! 'game.modules.KeyHandler';
 import! 'experiments.tiled.input.Keyboard';
 import! 'experiments.tiled.Map';
 import! 'game.modules.Camera';
