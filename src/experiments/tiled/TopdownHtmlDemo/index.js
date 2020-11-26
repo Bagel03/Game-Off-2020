@@ -29,8 +29,9 @@ namespace `experiments.tiled` (
             this.depth      = new experiments.tiled.DepthSort(this.map.objects);
             this.collider   = new experiments.tiled.Collider(this.hero,this.map.objects);
             this.camera     = new game.modules.Camera(this.world);
-            this.camera.moveBy(-100, -100, 50)
-                .then(() => this.camera.moveBy(100, 100, 50))
+            this.camera.lookAt(this.hero)
+            // this.camera.moveBy(-100, -100, 50)
+            //     .then(() => this.camera.moveBy(100, 100, 50))
             this.ready=true;
         }
 
@@ -43,6 +44,7 @@ namespace `experiments.tiled` (
         onUpdate=(timestamp, delta)=>{
             if(this.ready){
                 this.hero.onUpdate();
+                this.camera.lookAt(this.hero)
             }
         }
 

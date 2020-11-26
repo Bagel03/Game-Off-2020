@@ -24,6 +24,11 @@ namespace `game.modules`(
             }
         }
 
+        lookAt(object){
+            this.x=object.x;
+            this.y=object.y;
+        }
+
         moveTo(x, y, frameCount){
             return this.moveBy(this.x - x, this.y - y, frameCount)
         }
@@ -42,7 +47,9 @@ namespace `game.modules`(
         }
 
         setTagFromData(){
-            this.tag.style.transform = `translate3d(${this.x}px, ${this.y}px, 0px)`//rotate(${this.ang}deg) scale(${this.scaleX}, ${this.scaleY})`;
+            var x = -(this.x-100);
+            var y = -(this.y-60);
+            this.tag.style.transform = `translate3d(${x}px, ${y}px, 0px)`//rotate(${this.ang}deg) scale(${this.scaleX}, ${this.scaleY})`;
         }
     }
 )
