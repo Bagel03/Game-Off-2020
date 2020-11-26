@@ -152,6 +152,18 @@
                  "width":240,
                  "x":274,
                  "y":-14
+                }, 
+                {
+                 "gid":309,
+                 "height":128,
+                 "id":31,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":171.294117647059,
+                 "y":286.689075630252
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -160,7 +172,7 @@
          "y":0
         }],
  "nextlayerid":27,
- "nextobjectid":31,
+ "nextobjectid":32,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
@@ -185,6 +197,10 @@
         {
          "firstgid":308,
          "source":"house_3.tsx"
+        }, 
+        {
+         "firstgid":309,
+         "source":"stone_2.tsx"
         }],
  "tilewidth":16,
  "type":"map",
