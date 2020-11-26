@@ -46,7 +46,48 @@ namespace `experiments.tiled.sprites` (
         }
         
         onUpdate(delta){
-            if (Key.isDown(Key.RIGHT)){
+            const held_direction = Keyboard.held_directions[0];
+            if (held_direction) {
+                if (held_direction === Keyboard.directions.right){
+                    this.direction=1;
+                    this.dirstr = "right";
+                    this.x_velocity = 2;
+                    this.x += this.x_velocity*this.direction;
+                    this.machine.push(this.walk)
+                }
+                else if (held_direction === Keyboard.directions.left) {
+                    this.direction=-1;
+                    this.dirstr = "left";
+                    this.x_velocity = 2;
+                    this.x += this.x_velocity*this.direction;
+                    this.machine.push(this.walk)
+                }
+                else if (held_direction === Keyboard.directions.down) {
+                    this.direction=1;
+                    this.dirstr = "down";
+                    this.y_velocity = 2;
+                    this.y += this.y_velocity*this.direction;
+                    this.machine.push(this.walk)
+                }
+                else if (held_direction === Keyboard.directions.up) {
+                    this.direction=-1;
+                    this.dirstr = "up";
+                    this.y_velocity = 2;
+                    this.y += this.y_velocity*this.direction;
+                    this.machine.push(this.walk)
+                }
+                else {
+                    this.x_velocity = 0;
+                    this.y_velocity = 0;
+                    this.machine.pop()
+                }
+            }
+            else {
+                this.x_velocity = 0;
+                this.y_velocity = 0;
+                this.machine.pop()
+            }
+            /*if (Key.isDown(Key.RIGHT)){
                 this.direction=1;
                 this.dirstr = "right";
                 this.x_velocity = 2;
@@ -78,7 +119,7 @@ namespace `experiments.tiled.sprites` (
                 this.x_velocity = 0;
                 this.y_velocity = 0;
                 this.machine.pop()
-            }
+            }*/
         }
     }
 );
