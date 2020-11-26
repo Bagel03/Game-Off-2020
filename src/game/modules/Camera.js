@@ -1,113 +1,50 @@
-import! 'game.modules.utils.Rectangle';
 namespace `game.modules`(
     class Camera{
-        /**
-         * 
-         * @param {Rectangle} viewport The virtual rectangle that the camera can capture from the input canvas
-         * @param {Rectangle} target Size (as expressed as a rectangle) of the target "Screen" that the camera will render to
-         */
-        constructor(viewport, target){
-            this.animations = [];
-            this.viewport = new game.modules.utils.Rectangle(viewport.x, viewport.y, viewport.w, viewport.h);
-            this.target = new game.modules.utils.Rectangle(target.x, target.y, target.w, target.h);
+        constructor(tag){
+            this.tag = tag;
+            this.x = 0;
+            this.y = 0;
+            this.rotation = 0;
+            this.scaleX = 0;
+            this.scaleY = 0;
+            this.animations = []
         }
 
-        /**
-         * 
-         * @param {Vector} amount The vector which is added to the camera's position. 
-         * @param {number} framecount The number of update loops that the camera must go through before the movement is compleate
-         * @param {string} interpolation Type of interpolation to using durring the camera's movement
-         * 
-         */
-        moveBy(amount, framecount, interpolation = 'linear'){       
-            console.log(this.viewport)            
-
-            let animationFunct;
+        moveBy(x, y, frameCount, interpolation = 'linear'){
             switch(interpolation){
-                case 'logarithmic':
-                    animationFunct = frame => {
-                        const scaler = Vector.div(animationFunct, 2);
-                        //If it is the last frame, do the same as last frame to get you to the final point
-                        if(frame === framecount) this.viewport.position.add(scaler);
-                        else this.viewport.position.add(scaler.div(2));
-                    }
-                break;
-                case 'delay':
-                    animationFunct = frame => {
-                        //If it is the last frame, jump to the final point
-                        if(frame === framecount) this.viewport.position.add(amount);
-                    }
-                break;
                 case 'linear':
-                default:
-
-                    const segment = amount.div(framecount)
-                    animationFunct = frame => {
-                        this.viewport.position.add(segment);
-                    }
+                    return new Promise(res => {
+                        this.animations.push(new CameraAnimation(frameCount, () =>{
+                            this.x += x/frameCount;
+                            this.y += y/frameCount;
+                            console.log('running')
+                        }, res))
+                    })
+                break;
             }
-            return new Promise((resolve, reject) => {
-                this.animations.push(new CameraAnimation(framecount, animationFunct, () => {
-                    this.animations.splice(this.animations.findIndex(() => this), 1);
-                    resolve();
-                }));
-            })
         }
 
-        /**
-         * 
-         * @param {Vector} target The target position for the center of the camera's viewport
-         * @param {number} framecount The number of update loops that the camera must go through before the movement is compleate
-         * @param {string} interpolation Type of interpolation to using durring the camera's movement
-         * 
-         */
-        moveTo(target, framecount, interpolation = 'linear'){
-            const diff = Vector.sub(target, this.viewport.position);
-            this.moveBy(diff, framecount, interpolation)
+        moveTo(x, y, frameCount){
+            return this.moveBy(this.x - x, this.y - y, frameCount)
         }
 
-        zoomBy(scaler, framecount, interpolation = 'linear'){
-            let animationFunct;
-            switch(interpolation){
-                case 'logarithmic':
-                    this.animations.push(new CameraAnimation(framecount, frame => {
-                    }))
-                break;
-                case 'exponential':
+        scale(){
 
-                break;
-                case 'delay':
-                    this.animations.push(new CameraAnimation(framecount, frame => {
-                        if(frame === framecount) this.zoom.multByVector(scaler);
-                    }));
-                break;
-                case 'linear':
-                default:
-                    animationFunct = frame => {
-                    };
-            }
-            return new Promise((resolve, reject) => {
-                this.animations.push(new CameraAnimation(framecount, animationFunct, resolve));
-            })
         }
 
         
-        update(){
-            this.animations.forEach(animation => animation.run());
+        onDraw(){
+            this.animations.forEach((animation, index) => {
+                animation.run();
+                animation.currentFrame === animation.frameCount && this.animations.splice(index, 1)
+            });
+            this.setTagFromData();
         }
 
-        /**
-         * 
-         * @param {CanvasRenderingContext2D} buffer The buffer context that the camera is capturing 
-         * @param {CanvasRenderingContext2D} target The target context that the camera is rendering to. 
-         */
-        render(buffer, target){
-            target.drawImage(buffer.canvas,
-                this.viewport.left, this.viewport.top, this.viewport.width, this.viewport.height,
-                this.target.left,   this.target.top,   this.target.width,   this.target.height)
+        setTagFromData(){
+            this.tag.style.transform = `translate(${this.x}px, ${this.y}px) `//rotate(${this.ang}deg) scale(${this.scaleX}, ${this.scaleY})`;
         }
-    },
-
+    }
 )
 
 
@@ -136,6 +73,6 @@ class CameraAnimation{
     run = () => {
         this.currentFrame++;
         this.animationFunct();
-        if(this.currentFrame === this.frameCount) this.finishFunct(); 
+        this.currentFrame === this.frameCount && this.finishFunct(); 
     }
 }

@@ -102,17 +102,13 @@ namespace `experiments.tiled.renderers.canvas` (
                     if(objects){
                         for(let i=0; i < objects.length; i++){
                             let object = objects[i];
+                            console.log(object)
                             let tileset = this.map.getTilesetByGid(object.gid);
                             this.layerImages.push({
                                 image: tileset.image,
                                 uvs: {x: 0, y: 0, w: tileset.image.width, h: tileset.image.height},
                                 pos: {x: object.x, y: object.y, w: tileset.image.width, h: tileset.image.height},
-                                bounds: {
-                                    x: object.x,
-                                    y: object.y,
-                                    w: object.width,
-                                    h: object.height,
-                                }
+                                bounds: object.bounds
                             })
                         }
                     }

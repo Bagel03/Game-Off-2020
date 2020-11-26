@@ -7,7 +7,7 @@ namespace `experiments.tiled.sprites`(
             this.pos = {x: 32, y: 32, w: 16, h: 16}; 
             this.bouds = this.pos//<-- bouding box of the image;
             this.uvs = {x: 32, y: 32, w: 32, h: 32}; 
-            this.ready = false;
+            this.ready = false; 
         }
 
         //Runs each animation frame

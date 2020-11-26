@@ -5,12 +5,13 @@ import! 'experiments.tiled.DepthSort';
 import! 'experiments.tiled.Collider';
 import! 'game.modules.KeyHandler';
 import! 'experiments.tiled.Map';
-
+import! 'game.modules.Camera';
 namespace `experiments.tiled` (
     class TopdownHtmlDemo extends World {
         constructor(el){
             super(el);
             this.addEventListener("click", e => this.onTileClicked(e), false, ".tile");
+            console.log('ran')
         }
 
         async onConnected() {
@@ -21,10 +22,15 @@ namespace `experiments.tiled` (
             this.hero = new experiments.tiled.sprites.Hero;
             this.map.objects.push(this.hero);//add to map
 
-            console.log("this.map",this.map)
-            this.renderer   = new experiments.tiled.renderers.html.Topdown(this, this.map);
+            console.log("this.map",this.map);
+
+            this.world = this.querySelector('.world');
+            this.renderer   = new experiments.tiled.renderers.html.Topdown(this.world, this.map);
             this.depth      = new experiments.tiled.DepthSort(this.map.objects);
             this.collider   = new experiments.tiled.Collider(this.hero,this.map.objects);
+            this.camera     = new game.modules.Camera(this.world);
+            this.camera.moveBy(-100, -100, 50)
+                .then(() => this.camera.moveBy(100, 100, 50))
             this.ready=true;
         }
 
@@ -42,6 +48,7 @@ namespace `experiments.tiled` (
 
         onDraw=()=>{
             if(this.ready){
+                this.camera.onDraw();
                 this.depth.onDraw();
                 this.renderer.onDraw();
                 this.hero.onDraw();
