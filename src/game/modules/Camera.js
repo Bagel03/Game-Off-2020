@@ -4,9 +4,9 @@ namespace `game.modules`(
             this.tag = tag;
             this.x = 0;
             this.y = 0;
-            this.rotation = 0;
-            this.scaleX = 0;
-            this.scaleY = 0;
+            this.ang = 0;
+            this.scaleX = 1;
+            this.scaleY = 1;
             this.animations = []
         }
 
@@ -17,7 +17,17 @@ namespace `game.modules`(
                         this.animations.push(new CameraAnimation(frameCount, () =>{
                             this.x += x/frameCount;
                             this.y += y/frameCount;
-                            console.log('running')
+                        }, res))
+                    })
+                case 'logorithmic':
+
+                    return new Promise(res => {
+                        this.animations.push(new CameraAnimation(frameCount, frame =>{
+                            let distX = (this.x - x)/2;
+                            let distY = (this.y - y)/2;
+                            if(frame === frameCount){distX *= 2; distY *= 2;} //needed so animation finishes
+                            this.x += distX;
+                            this.y += distY;
                         }, res))
                     })
                 break;
@@ -33,8 +43,20 @@ namespace `game.modules`(
             return this.moveBy(this.x - x, this.y - y, frameCount)
         }
 
-        scale(){
-
+        scale(x, y, frameCount, interpolation = 'linear'){
+            switch(interpolation){
+                case 'linear':
+                    return new Promise(res => {
+                        const mx = ((this.scaleX * x) - this.scaleX) / frameCount;
+                        const my = ((this.scaleY * y) - this.scaleY) / frameCount;
+                        console.log(mx, my)
+                        this.animations.push(new CameraAnimation(frameCount, frame => {
+                                this.scaleX +=  mx;
+                                this.scaleY +=  my;
+                        }, res)) 
+                    })   
+                break;
+            }
         }
 
         
@@ -49,7 +71,8 @@ namespace `game.modules`(
         setTagFromData(){
             var x = -(this.x-100);
             var y = -(this.y-60);
-            this.tag.style.transform = `translate3d(${x}px, ${y}px, 0px)`//rotate(${this.ang}deg) scale(${this.scaleX}, ${this.scaleY})`;
+            this.tag.style.transform = `translate3d(${x}px, ${y}px, 0px) rotate(${this.ang}deg) scale(${this.scaleX}, ${this.scaleY})`;
+            console.log(this.tag.style.transform)
         }
     }
 )
@@ -79,7 +102,7 @@ class CameraAnimation{
 
     run = () => {
         this.currentFrame++;
-        this.animationFunct();
+        this.animationFunct(this.currentFrame);
         this.currentFrame === this.frameCount && this.finishFunct(); 
     }
 }
