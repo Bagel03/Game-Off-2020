@@ -3,10 +3,11 @@
  <editorsettings>
   <export target="stone_2.json" format="json"/>
  </editorsettings>
+ <grid orientation="orthogonal" width="34" height="34"/>
  <image source="../../images/stone_2.png" width="128" height="128"/>
  <tile id="0">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="19" y="55" width="93" height="40"/>
+   <object id="2" x="23" y="57" width="84" height="35"/>
   </objectgroup>
  </tile>
 </tileset>
