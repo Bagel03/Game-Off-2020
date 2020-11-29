@@ -90,8 +90,10 @@ namespace `experiments.tiled.animations` (
 				// else if(this.sprite.dirstr=="up"||this.sprite.dirstr=="down"){
 				// 	this.sprite.y += this.sprite.y_velocity*this.sprite.direction;
 				// }
+                var x = this.sprite.lastX + (this.sprite.x - this.sprite.lastX) * interpolation;
+                var y = this.sprite.lastY + (this.sprite.y - this.sprite.lastY) * interpolation;
 
-				this.sprite.style.transform = "translate3d(" + this.sprite.x + "px," + this.sprite.y + "px, 0px)";
+				this.sprite.style.transform = "translate3d(" + x + "px," + y + "px, 0px)";
 			}
 		}
     }

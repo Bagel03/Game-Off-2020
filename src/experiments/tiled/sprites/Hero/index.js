@@ -45,47 +45,7 @@ namespace `experiments.tiled.sprites` (
         }
 
         onFixedUpdate(delta){
-            // const dir = Keyboard.held_directions[0];
-            // if (dir) {
-            //     if (dir === Keyboard.directions.right){
-            //         this.direction=1;
-            //         this.dirstr = "right";
-            //         this.x_velocity = 0.03* delta;
-            //         this.x += this.x_velocity*this.direction;
-            //         this.machine.push(this.walk)
-            //     }
-            //     else if (dir === Keyboard.directions.left) {
-            //         this.direction=-1;
-            //         this.dirstr = "left";
-            //         this.x_velocity = 0.03* delta;
-            //         this.x += this.x_velocity*this.direction;
-            //         this.machine.push(this.walk)
-            //     }
-            //     else if (dir === Keyboard.directions.down) {
-            //         this.direction=1;
-            //         this.dirstr = "down";
-            //         this.y_velocity = 2* delta;
-            //         this.y += this.y_velocity*this.direction;
-            //         this.machine.push(this.walk)
-            //     }
-            //     else if (dir === Keyboard.directions.up) {
-            //         this.direction=-1;
-            //         this.dirstr = "up";
-            //         this.y_velocity = 2* delta;
-            //         this.y += this.y_velocity*this.direction;
-            //         this.machine.push(this.walk)
-            //     }
-            //     else {
-            //         this.x_velocity = 0;
-            //         this.y_velocity = 0;
-            //         this.machine.pop()
-            //     }
-            // }
-            // else {
-            //     this.x_velocity = 0;
-            //     this.y_velocity = 0;
-            //     this.machine.pop()
-            // }
+            
         }
 
         onDraw(interpolation){
@@ -93,9 +53,10 @@ namespace `experiments.tiled.sprites` (
         }
         
         onUpdate(timestamp, delta){
-            console.log(delta)
             const dir = Keyboard.held_directions[0];
             if (dir) {
+                this.lastX = this.x;
+                this.lastY = this.y;
                 if (dir === Keyboard.directions.right){
                     this.direction=1;
                     this.dirstr = "right";
@@ -135,39 +96,6 @@ namespace `experiments.tiled.sprites` (
                 this.y_velocity = 0;
                 this.machine.pop()
             }
-            /*if (Key.isDown(Key.RIGHT)){
-                this.direction=1;
-                this.dirstr = "right";
-                this.x_velocity = 2;
-                this.x += this.x_velocity*this.direction;
-                this.machine.push(this.walk)
-            }
-            else if (Key.isDown(Key.LEFT)) {
-                this.direction=-1;
-                this.dirstr = "left";
-                this.x_velocity = 2;
-                this.x += this.x_velocity*this.direction;
-                this.machine.push(this.walk)
-            }
-            else if (Key.isDown(Key.DOWN)) {
-                this.direction=1;
-                this.dirstr = "down";
-                this.y_velocity = 2;
-                this.y += this.y_velocity*this.direction;
-                this.machine.push(this.walk)
-            }
-            else if (Key.isDown(Key.UP)) {
-                this.direction=-1;
-                this.dirstr = "up";
-                this.y_velocity = 2;
-                this.y += this.y_velocity*this.direction;
-                this.machine.push(this.walk)
-            }
-            else {
-                this.x_velocity = 0;
-                this.y_velocity = 0;
-                this.machine.pop()
-            }*/
         }
     }
 );
