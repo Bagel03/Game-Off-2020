@@ -1,5 +1,5 @@
 
-namespace `game.modules` (
+namespace `experiments.tiled` (
     class DepthSort {
         constructor(objects){
             this.objects = objects;

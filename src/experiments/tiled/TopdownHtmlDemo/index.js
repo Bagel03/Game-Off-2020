@@ -16,6 +16,8 @@ namespace `experiments.tiled` (
 
         async onConnected() {
             await super.onConnected();
+            this.fpsCounter = this.querySelector('#fpscounter');
+            
             this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");
             await this.map.load();
             
@@ -54,6 +56,13 @@ namespace `experiments.tiled` (
                 this.depth.onDraw();
                 this.renderer.onDraw();
                 this.hero.onDraw();
+            }
+        }
+
+        onUpdateEnd = (fps, panic) => {
+            super.onUpdateEnd(fps, panic);
+            if(this.fpsCounter){
+                this.fpsCounter.textContent = Math.round(fps) + ' FPS';
             }
         }
         

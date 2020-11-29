@@ -21,6 +21,10 @@ html,body {
     overflow:hidden;
 }
 
+:host #fpscounter{
+    z-index: 100000;position: absolute;margin: 10px;color: white;font-family: Verdana;
+}
+
 :host .world{
     will-change: transform;
 }
