@@ -1,7 +1,9 @@
 import! 'game.modules.Camera';
-import! 'game.modules.utils.Rectangle';
-import! 'game.modules.utils.Vector';
+import! 'game.modules.Renderer';
+import! 'game.modules.utils.DepthSort';
 import! 'game.modules.GetConstructorData';
+import! 'game.mdoules.Map';
+//Import collider and input
 namespace `game.views` (
     @tag("world-view");
     class World extends WebComponent {
@@ -9,13 +11,7 @@ namespace `game.views` (
             super();
             this.machine = machine;
             this.world = world;
-            // this.music = new Audio("/resources/tunes/sawsquarenoise_-_02_-_Towel_Defence_Comic.mp3");
-            // this.music.loop=true;
-            // this.music.load();
             this.onReset();
-            this.img2 = new Image();
-            this.img2.src="resources/images/greenhillzone2.png";
-            //alert(this.img2);
             this.getWorldData();
         }
 
@@ -34,59 +30,56 @@ namespace `game.views` (
 
         async onConnected() {
             await super.onConnected();
+            
+            //Setup Map and Renderer
+            this.map = new game.modules.Map('/resources/maps/farmdemo.tmx')//fix with .json tmx or whatever
+            await this.map.load();
+
+            this.world = this.querySelector('.world');
+            this.renderer   = new game.modules.Renderer(this.world, this.map);
+            this.depth      = new game.modules.utils.DepthSort(this.map.objects);
+            // this.collider   = new game.modules.Collider(this.hero,this.map.objects);
+            this.camera     = new game.modules.Camera(this.world);
+            this.camera.lookAt(this.hero)
+            // this.camera.moveBy(-100, -100, 50)
+            //     .then(() => this.camera.moveBy(100, 100, 50))
+            this.ready=true;
+
             // this.onGameOver = this.onGameOver.bind(this);
             // this.world.addEventListener("gameover", this.onGameOver, false);
-            this.canvas = this.querySelector('canvas');
-            this.context = this.canvas.getContext('2d');
+            // this.canvas = this.querySelector('canvas');
+            // this.context = this.canvas.getContext('2d');
 
-            this.canvas.height = 480; //make canvas fullscreen
-            this.canvas.width = 640; //make canvas fullscreen
+            // this.canvas.height = 480; //make canvas fullscreen
+            // this.canvas.width = 640; //make canvas fullscreen
 
-            this.buffer = document.createElement('canvas').getContext('2d');
-            this.buffer.canvas.height = this.canvas.height; //make buffer fullscreen
-            this.buffer.canvas.width = this.canvas.width; //make buffer fullscreen
+            // this.buffer = document.createElement('canvas').getContext('2d');
+            // this.buffer.canvas.height = this.canvas.height; //make buffer fullscreen
+            // this.buffer.canvas.width = this.canvas.width; //make buffer fullscreen
 
-            this.canvas.imageSmoothingEnabled = this.buffer.imageSmoothingEnabled = false;
-            this.buffer.canvas.style.imageRendering = this.canvas.style.imageRendering = 'pixelated';
+            // this.canvas.imageSmoothingEnabled = this.buffer.imageSmoothingEnabled = false;
+            // this.buffer.canvas.style.imageRendering = this.canvas.style.imageRendering = 'pixelated';
             
-            var img = new Image();
-            img.src="resources/images/sonic3_spritesheet.png";
+            // var img = new Image();
+            // img.src="resources/images/sonic3_spritesheet.png";
             
-            this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
-            this.sonic.idle();
+            // this.sonic = new game.sprites.Sonic((this.canvas.width/2), (this.canvas.height/2), this.buffer, img);
+            // this.sonic.idle();
 
 
-            let x= 0,y = 0, w = this.canvas.width, h = this.canvas.height;
-            this.camera = new game.modules.Camera({x, y, w, h},{x, y, w, h});
-            console.log(this.camera);
-            this.camera.moveBy(new game.modules.utils.Vector(100, 100), 100, 'linear')
-            .then(() => this.camera.moveBy(new game.modules.utils.Vector(-100, -100), 100, 'linear'))
+            // let x= 0,y = 0, w = this.canvas.width, h = this.canvas.height;
+            // this.camera = new game.modules.Camera({x, y, w, h},{x, y, w, h});
+            // console.log(this.camera);
+            // this.camera.moveBy(new game.modules.utils.Vector(100, 100), 100, 'linear')
+            // .then(() => this.camera.moveBy(new game.modules.utils.Vector(-100, -100), 100, 'linear'))
 
 
-            this.fillScreen();
+            // this.fillScreen();
             this.addEventListener("click", e => this.onPauseMenu(), false, "#pause");
-            window.addEventListener('resize', e => this.fillScreen(), false);
             this.ready = true;
         }
 
-        fillScreen(){
-                
-            // Get the height and width of the window
-            var height = document.documentElement.clientHeight;
-            var width  = document.documentElement.clientWidth;
-
-            let width_height_ratio = this.canvas.width / this.canvas.height;
-            // This makes sure the DISPLAY canvas is resized in a way that maintains the MAP's width / height ratio.
-            if (width / height < width_height_ratio) height = Math.floor(width  / width_height_ratio);
-            else                                         width  = Math.floor(height * width_height_ratio);
-
-            // This sets the CSS of the DISPLAY canvas to resize it to the scaled height and width.
-            this.canvas.style.height = height + 'px';
-            this.canvas.style.width  = width  + 'px';
-            // //this centers the canvas
-            this.canvas.style.marginTop = (innerHeight/2 - height/2) + 'px';
-            this.canvas.style.marginLeft = (innerWidth/2 - width/2) + 'px';
-        }
+        
 
         onPauseMenu(){
             this.dispatchEvent("pausegame")
@@ -142,31 +135,40 @@ namespace `game.views` (
 
         //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
         onFixedUpdate(time) {
-            this.camera.update();
-            this.sonic.onUpdate();
+            if(this.ready){
+                // this.hero.onUpdate();
+                // this.camera.lookAt(this.hero)
+            }
         }
         
 
         //onDraw, runs 1x per frame. Good place to paint
         onDraw (interpolation){
-            
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            let h = innerHeight/2;
-            let w = innerWidth/2;
+            if(this.ready){
+                this.camera.onDraw();
+                this.depth.onDraw();
+                this.renderer.onDraw();
+                // this.hero.onDraw();
+            }
 
-            this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            
+            // this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            // this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            // let h = innerHeight/2;
+            // let w = innerWidth/2;
 
-            this.buffer.fillStyle = 'red';
-            this.buffer.fillRect(0, 0, this.canvas.width, this.canvas.height);
-            this.buffer.fillStyle = 'hsl(175,15%,10%)';
-            this.buffer.fillRect(w/2, h/2, w, h);
-            ////KAMEHAMEHA ---<(((((   BANG!!!   )))))||||||||||||||||
-            this.buffer.drawImage(this.img2,0,0,this.canvas.width, this.canvas.height);
+            // this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+            // this.buffer.fillStyle = 'red';
+            // this.buffer.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            // this.buffer.fillStyle = 'hsl(175,15%,10%)';
+            // this.buffer.fillRect(w/2, h/2, w, h);
+            // ////KAMEHAMEHA ---<(((((   BANG!!!   )))))||||||||||||||||
+            // this.buffer.drawImage(this.img2,0,0,this.canvas.width, this.canvas.height);
             
-            this.sonic.onDraw();
+            // this.sonic.onDraw();
             
-            this.camera.render(this.buffer, this.context);
+            // this.camera.render(this.buffer, this.context);
             //until i can understand camera better...
            
 

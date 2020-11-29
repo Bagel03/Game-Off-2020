@@ -11,7 +11,6 @@ namespace `experiments.tiled` (
         constructor(el){
             super(el);
             this.addEventListener("click", e => this.onTileClicked(e), false, ".tile");
-            console.log('ran')
         }
 
         async onConnected() {
