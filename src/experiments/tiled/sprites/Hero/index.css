@@ -9,7 +9,7 @@
   background-image: url("resources/images/universal-lpc-sprite_male_01_full.png");
       background-repeat: no-repeat;
     background-position: 0px 0px;
-    border:1px solid;
+    /*border:1px solid;*/
     /*transform:scale(.5);*/
     z-index:1;
     will-change: transform;

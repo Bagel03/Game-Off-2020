@@ -16,15 +16,7 @@ namespace `experiments.tiled` (
 
         async onConnected() {
             await super.onConnected();
-            this.fpsCounter = this.querySelector('#fpscounter');
-            this.fpsValue = this.querySelector('#fpsvalue');
-            this.fps = this.querySelector('#fps');
-
-            // Update the slider value label while the slider is being dragged.
-            this.fps.addEventListener('input',  this.onShowFPS);
-            this.fps.addEventListener('change', this.onUpdateFPS);
-
-
+            this.setupFPSCounter();
 
             this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");
             await this.map.load();
@@ -45,9 +37,20 @@ namespace `experiments.tiled` (
             this.ready=true;
         }
 
+        setupFPSCounter(){
+            this.fpsCounter = this.querySelector('#fpscounter');
+            this.fpsValue = this.querySelector('#fpsvalue');
+            this.fps = this.querySelector('#fps');
+
+            // Update the slider value label while the slider is being dragged.
+            this.fps.addEventListener('input',  this.onShowFPS);
+            this.fps.addEventListener('change', this.onUpdateFPS);
+        }
+
         onFixedUpdate=(time)=>{
             if(this.ready){
                 this.collider.onFixedUpdate(time);
+                // this.hero.onFixedUpdate(time);
             }
         }
 
