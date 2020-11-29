@@ -46,8 +46,8 @@ namespace `experiments.tiled.sprites` (
 
         onFixedUpdate(){}
 
-        onDraw(){
-            this.machine.onDraw();
+        onDraw(interpolation){
+            this.machine.onDraw(interpolation);
         }
         
         onUpdate(delta){

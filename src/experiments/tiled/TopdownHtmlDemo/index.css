@@ -24,10 +24,20 @@ html,body {
 :host #fpscounter{
     z-index: 100000;position: absolute;margin: 10px;color: white;font-family: Verdana;
 }
+:host #fpspicker{
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    top: 12px;
+    color: white;
+    margin: 11px;
+    font-family: Verdana;
+}
 
 :host .world{
     will-change: transform;
 }
+
 
 
 .layer.Ground .tile {

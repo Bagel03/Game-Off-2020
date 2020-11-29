@@ -17,7 +17,15 @@ namespace `experiments.tiled` (
         async onConnected() {
             await super.onConnected();
             this.fpsCounter = this.querySelector('#fpscounter');
-            
+            this.fpsValue = this.querySelector('#fpsvalue');
+            this.fps = this.querySelector('#fps');
+
+            // Update the slider value label while the slider is being dragged.
+            this.fps.addEventListener('input',  this.onShowFPS);
+            this.fps.addEventListener('change', this.onUpdateFPS);
+
+
+
             this.map = new experiments.tiled.Map("resources/maps/topdown/topdown.json");
             await this.map.load();
             
@@ -39,23 +47,23 @@ namespace `experiments.tiled` (
 
         onFixedUpdate=(time)=>{
             if(this.ready){
-                this.collider.onFixedUpdate();
+                this.collider.onFixedUpdate(time);
             }
         }
 
         onUpdate=(timestamp, delta)=>{
             if(this.ready){
-                this.hero.onUpdate();
+                this.hero.onUpdate(timestamp, delta);
                 this.camera.lookAt(this.hero)
             }
         }
 
         onDraw=(interpolation)=>{
             if(this.ready){
-                this.camera.onDraw();
-                this.depth.onDraw();
-                this.renderer.onDraw();
-                this.hero.onDraw();
+                this.camera.onDraw(interpolation);
+                this.depth.onDraw(interpolation);
+                this.renderer.onDraw(interpolation);
+                this.hero.onDraw(interpolation);
             }
         }
 
@@ -64,6 +72,14 @@ namespace `experiments.tiled` (
             if(this.fpsCounter){
                 this.fpsCounter.textContent = Math.round(fps) + ' FPS';
             }
+        }
+        onShowFPS = (e) => {
+            this.fpsValue.textContent = Math.round(e.target.value);
+        }
+
+        onUpdateFPS = (e) => {
+            var val = parseInt(e.target.value, 10);
+            MainLoop.setMaxAllowedFPS(val === 60 ? Infinity : val);
         }
         
 
