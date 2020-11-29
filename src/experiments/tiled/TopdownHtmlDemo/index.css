@@ -15,9 +15,15 @@ html,body {
     position: absolute;
     transform: scale(3);
     image-rendering: pixelated;
+    transform-origin: left top;
+    width:512px;
+    height:512px;
+    overflow:hidden;
 }
 
-
+:host .world{
+    will-change: transform;
+}
 
 
 .layer.Ground .tile {

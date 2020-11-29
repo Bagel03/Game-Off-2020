@@ -71,14 +71,22 @@ namespace `experiments.tiled.renderers.html` (
                             var tileset = this.map.getTilesetByGid(object.gid);
                             var img = object.image;
                             img.style.position="absolute";
-                            img.style.left = `${object.x}px`;
-                            img.style.top  = `${object.y}px`;
+                            // img.style.left = `${object.x}px`;
+                            // img.style.top  = `${object.y}px`;
+                            // img.style.height = `${object.height}px`;
+                            img.style.left = `0px`;
+                            img.style.top  = `0px`;
+                            img.style.transform = `translate3d(${object.x}px, ${object.y}px, 0px)`;
                             layerdiv.appendChild(img);
                         }
                         else {
                             object.style.position="absolute";
-                            object.style.left = `${object.x}px`;
-                            object.style.top  = `${object.y}px`;
+                            // object.style.left = `${object.x}px`;
+                            // object.style.top  = `${object.y}px`;
+                            object.style.left = `0px`;
+                            object.style.top  = `0px`;
+                            object.style.transform = `translate3d(${object.x}px, ${object.y}px, 0px)`;
+                            // img.style.height = `${object.height}px`;
                             layerdiv.appendChild(object);
                         }  
                     }

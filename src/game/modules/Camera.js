@@ -69,10 +69,14 @@ namespace `game.modules`(
         }
 
         setTagFromData(){
-            var x = -(this.x-100);
-            var y = -(this.y-60);
+            var x = -this.clamp((this.x-256),0,256);
+            var y = -this.clamp((this.y-100),0,256);
             this.tag.style.transform = `translate3d(${x}px, ${y}px, 0px) rotate(${this.ang}deg) scale(${this.scaleX}, ${this.scaleY})`;
-            console.log(this.tag.style.transform)
+            // console.log(this.tag.style.transform)
+        }
+
+        clamp(num, min, max) {
+          return num <= min ? min : num >= max ? max : num;
         }
     }
 )
