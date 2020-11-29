@@ -6,6 +6,7 @@ import! 'experiments.tiled.Collider';
 import! 'experiments.tiled.input.Keyboard';
 import! 'experiments.tiled.Map';
 import! 'game.modules.Camera';
+
 namespace `experiments.tiled` (
     class TopdownHtmlDemo extends World {
         constructor(el){

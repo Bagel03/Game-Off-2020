@@ -2,8 +2,9 @@ import! 'game.modules.Camera';
 import! 'game.modules.Renderer';
 import! 'game.modules.utils.DepthSort';
 import! 'game.modules.GetConstructorData';
-import! 'game.mdoules.Map';
-//Import collider and input
+import! 'game.modules.Map';
+
+
 namespace `game.views` (
     @tag("world-view");
     class World extends WebComponent {
