@@ -33,7 +33,7 @@ namespace `experiments.tiled.animations` (
 
 
 
-
+        
 
 
 		//------------------------------MACHINE CALLED----------------------------
@@ -90,8 +90,11 @@ namespace `experiments.tiled.animations` (
 				// else if(this.sprite.dirstr=="up"||this.sprite.dirstr=="down"){
 				// 	this.sprite.y += this.sprite.y_velocity*this.sprite.direction;
 				// }
-                var x = this.sprite.lastX + (this.sprite.x - this.sprite.lastX) * interpolation;
-                var y = this.sprite.lastY + (this.sprite.y - this.sprite.lastY) * interpolation;
+                // var x = this.sprite.lastX + (this.sprite.x - this.sprite.lastX) * interpolation;
+                // var y = this.sprite.lastY + (this.sprite.y - this.sprite.lastY) * interpolation;
+
+                var x = Math.round(this.sprite.x);
+                var y = Math.round(this.sprite.y);
 
 				this.sprite.style.transform = "translate3d(" + x + "px," + y + "px, 0px)";
 			}

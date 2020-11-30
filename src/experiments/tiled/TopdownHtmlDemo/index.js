@@ -50,7 +50,6 @@ namespace `experiments.tiled` (
         onFixedUpdate=(time)=>{
             if(this.ready){
                 this.collider.onFixedUpdate(time);
-                // this.hero.onFixedUpdate(time);
             }
         }
 
