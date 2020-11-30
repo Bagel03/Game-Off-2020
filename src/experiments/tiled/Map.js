@@ -194,22 +194,11 @@ namespace `experiments.tiled` (
             return tilesets[0];
         }
 
-        // getTileWithAnyCollision(tileset, tileType, layerIndex){
-        //     if(tileset.firstgid != 1){
-        //         // debugger;
-        //     }
-        //     var firstgid = Number(tileset.firstgid);
-        //     var tileType = tileType-firstgid;
-        //     // layerIndex <=0 ? (tileType -= 1):null;//Tiled Bug 
-
-        //     var index = tileType;
-        //     var col = index % tileset.columns; 
-        //     var row = Math.floor(index / tileset.columns);
-
-        //     var x = col*tileset.tilewidth;
-        //     var y = row*tileset.tileheight;
-
-        //     return {col,row,x,y}
-        // }
+        get2DLayer(layerIndex){
+            var layer = this.map.layers[layerIndex];
+            var newArr = [];
+            while(layer.data.length) newArr.push(layer.data.splice(0,this.map.width));
+            return newArr;
+        }
     }
 );
