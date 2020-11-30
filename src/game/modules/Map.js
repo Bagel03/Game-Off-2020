@@ -1,4 +1,3 @@
-
 namespace `game.modules` (
     class Map {
         constructor (path){

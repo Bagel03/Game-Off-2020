@@ -1,6 +1,6 @@
 import {boxBox} from '/src/experiments/tiled/colliders/boxBox.js';
 
-namespace `experiments.tiled` (
+namespace `game.modules` (
     class Collider {
         constructor(hero,objects){
             this.hero=hero;
