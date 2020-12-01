@@ -23,13 +23,14 @@ namespace `experiments.tiled.renderers.html` (
             if(objects){
                 for(var i=0; i<=objects.length-1;i++){
                     let object = objects[i];
-                    if(object.gid){
+                        (object.image||object).style.zIndex=i
+                    /*if(object.gid){
                         let img = object.image;
                         img&&(img.style.zIndex=i);
                     }
                     else {
                         object&&(object.style.zIndex=i);
-                    }  
+                    } */ 
                 }
             }
         }

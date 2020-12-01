@@ -77,18 +77,18 @@ namespace `game` (
 
         //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
         onFixedUpdate = (time) => {
-            this.machine.onFixedUpdate();
+            this.machine.onFixedUpdate(time);
         }
         
 
         //onDraw, runs 1x per frame. Good place to paint
         onDraw = (interpolation) => {
-            this.machine.onDraw();
+            this.machine.onDraw(interpolation);
         }
 
         //onUpdate, runs 1x per frame. Good place to handle user input
         onUpdate = (timestamp, delta) => {
-            this.machine.onUpdate();
+            this.machine.onUpdate(timestamp, delta);
             // if(Key.isDown(Key.ESC)){
             //     this.onPauseGame();
             // }
