@@ -34,7 +34,7 @@ namespace `game.views` (
 
             this.stars = new game.stars.Stars();
             //this.stars.initLayers(layers);
-
+            //this.stars.init();
            
 
         }
@@ -85,7 +85,9 @@ namespace `game.views` (
        onUpdate(timestamp, delta){
             Key.isUp(Key.ESC) && this.dispatchEvent("startmenu");
             
-
+           //stars update goes here
+          console.log(timestamp+" / "+delta);
+            this.stars.onUpdate(timestamp, delta);
 
 
         }
@@ -94,8 +96,7 @@ namespace `game.views` (
         //onFixedUpdate, runs many times per frame. Good place for physics/collision/ai
         onFixedUpdate(time) {
 
-            //stars update goes here
-            this.stars.onUpdate();
+            
         }
 
         //onDraw, runs 1x per frame. Good place to paint
