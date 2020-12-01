@@ -44,7 +44,7 @@ namespace `game.stars` (
         this.setCanvasExtents();
       };
     
-    this.prevTime;
+    this.prevTime = 0;
     
 }
     
@@ -163,7 +163,7 @@ namespace `game.stars` (
 
     tick (time, step) {
         console.log(time+" "+step);
-        this.prevTime = step;
+        //this.prevTime = time;
       let elapsed = time - this.prevTime;
       this.prevTime = time;
 
@@ -207,7 +207,7 @@ onUpdate(time,delta) {
       }*/
   
     //UPDATE
-   
+  //this.prevTime = time;
     this.tick(time, delta);
  
 

@@ -86,7 +86,7 @@ namespace `game.views` (
             Key.isUp(Key.ESC) && this.dispatchEvent("startmenu");
             
            //stars update goes here
-          console.log(timestamp+" / "+delta);
+          //console.log(timestamp+" / "+delta);
             this.stars.onUpdate(timestamp, delta);
 
 
