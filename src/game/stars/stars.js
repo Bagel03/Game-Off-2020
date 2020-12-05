@@ -6,7 +6,7 @@ namespace `game.stars` (
     
   class Stars {
 
-    constructor() {
+    constructor(canvas) {
       //super();
         this.layers = [
         { percent:  30, size: { min: 0.4, max: 1.0 }, speed: { min:   1, max:   2 }, colors: ['#111', '#111', '#811'] }, // 1 in 3 get a tint of red
@@ -18,13 +18,18 @@ namespace `game.stars` (
         { percent:   2, size: { min: 1.6, max: 2.2 }, speed: { min:  64, max: 128 }, colors: ['#DDD'] },
         { percent:   1, size: { min: 1.8, max: 2.4 }, speed: { min: 128, max: 256 }, colors: ['#FFF'] }
                   ];
-      this.dx=0;
-      this.dy=0;
-      this.canvas = document.querySelector("canvas");
+      this.dx=1;
+      this.dy=1;
+      this.canvas = canvas;//this.querySelector("canvas");//document.querySelector("canvas");
       this.c = this.canvas.getContext("2d");
   
       this.w;
       this.h;  
+    
+    this.x2=0;
+    this.y2=0;
+    this.b2=0;
+    this.d2=0;
     
     this.setCanvasExtents();
     
@@ -36,7 +41,7 @@ namespace `game.stars` (
       this.crawlPos = this.crawl.clientHeight;
       //console.log(crawlPos);
     this.initLayers(this.layers);
-      this.stars = this.makeStars(10000);
+      this.stars = this.makeStars(20000);
       this.warp = false;
 
     
@@ -162,7 +167,7 @@ namespace `game.stars` (
     }
 
     tick (time, step) {
-        console.log(time+" "+step);
+        //console.log(time+" "+step);
         //this.prevTime = time;
       let elapsed = time - this.prevTime;
       this.prevTime = time;
@@ -180,46 +185,26 @@ namespace `game.stars` (
         const star = this.stars[i];
 
         const x = cx + star.x / (star.z * 0.001);
+          this.x2 = x;
         const y = cy + star.y / (star.z * 0.001);
-
+          this.y2 = y;
         if (x < 0 || x >= this.w || y < 0 || y >= this.h) {
           continue;
         }
 
         const d = star.z / 1000.0;
+          this.d2 = d;
         const b = 1 - d * d;
+          this.b2 = b;
 
         this.putPixel(x, y, b, star);
-       //   draw(x,y,b);
+          //this.draw(x,y,b);
       }
 
       //requestAnimationFrame(this.tick);
     }
 
-onUpdate(time,delta) {
-      
-     /* document.addEventListener('keydown', warpSpeed);
-      function warpSpeed(e) {
-          console.log(e.code);
-          if ((e.code=="ShiftLeft" && !this.warp) || (e.code=="ShiftRight" && !this.warp))
-          {this.warp = true;}
-          else this.warp = false;
-      }*/
-  
-    //UPDATE
-  //this.prevTime = time;
-    this.tick(time, delta);
- 
-
-
-
-    //requestAnimationFrame(init);
-    
-    }
-
-    onDraw() {
-      //DRAW
-      const draw = (x,y,b) => {
+    draw (x,y,b) {
       var star, n;
       for(n = 0 ; n < this.stars.length ; n++) {
       star = this.stars[n];
@@ -230,10 +215,28 @@ onUpdate(time,delta) {
         this.c.closePath();
        }
      this.c.fillStyle = 'white';
-     this.c.fillText("dx: " + dx, 30, 40);
-     this.c.fillText("dy: " + dy, 30, 50);
-      };
+     this.c.fillText("dx: " + this.dx, 30, 40);
+     this.c.fillText("dy: " + this.dy, 30, 50);
+      }
+
+onUpdate(time,delta) {
       
+      /*document.addEventListener('keydown', warpSpeed);
+      function warpSpeed(e) {
+          console.log(e.code);
+          if ((e.code=="ShiftLeft" && !this.warp) || (e.code=="ShiftRight" && !this.warp))
+          {this.warp = true;}
+          else this.warp = false;
+      }*/
+  
+    this.tick(time, delta);
+    
+    }
+
+    onDraw() {
+      //DRAW
+     // console.log(this.y2);
+      //this.draw(this.x2,this.y2,this.b2);
     
     
     }

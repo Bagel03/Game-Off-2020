@@ -32,7 +32,7 @@ namespace `game.views` (
             this.canvas.imageSmoothingEnabled = this.buffer.imageSmoothingEnabled = false;
             this.buffer.canvas.style.imageRendering = this.canvas.style.imageRendering = 'pixelated';
 
-            this.stars = new game.stars.Stars();
+            this.stars = new game.stars.Stars(this.canvas);
             //this.stars.initLayers(layers);
             //this.stars.init();
            
