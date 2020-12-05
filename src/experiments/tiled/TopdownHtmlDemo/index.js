@@ -31,20 +31,8 @@ namespace `experiments.tiled` (
             this.depth      = new experiments.tiled.DepthSort(this.map.objects);
             this.collider   = new experiments.tiled.Collider(this.hero,this.map.objects);
             this.camera     = new game.modules.Camera(this.world);
-            this.camera.lookAt(this.hero)
-            // this.camera.moveBy(-100, -100, 50)
-            //     .then(() => this.camera.moveBy(100, 100, 50))
+            this.camera.lookAt(this.hero);
             this.ready=true;
-        }
-
-        setupFPSCounter(){
-            this.fpsCounter = this.querySelector('#fpscounter');
-            this.fpsValue = this.querySelector('#fpsvalue');
-            this.fps = this.querySelector('#fps');
-
-            // Update the slider value label while the slider is being dragged.
-            this.fps.addEventListener('input',  this.onShowFPS);
-            this.fps.addEventListener('change', this.onUpdateFPS);
         }
 
         onFixedUpdate=(time)=>{
@@ -85,6 +73,15 @@ namespace `experiments.tiled` (
         }
         
 
+        setupFPSCounter(){
+            this.fpsCounter = this.querySelector('#fpscounter');
+            this.fpsValue = this.querySelector('#fpsvalue');
+            this.fps = this.querySelector('#fps');
+
+            // Update the slider value label while the slider is being dragged.
+            this.fps.addEventListener('input',  this.onShowFPS);
+            this.fps.addEventListener('change', this.onUpdateFPS);
+        }
  
         //dom has real physical layers, it's not a flat canvas "pixel" click.
         //more complicated. Trying to find which objects are under my click
