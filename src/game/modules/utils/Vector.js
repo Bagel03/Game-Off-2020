@@ -76,5 +76,8 @@ namespace `game.modules.utils`(
 
         static norm = vector => Vector.div(vector, vector.mag); 
         
+        static sqMag = vector => vector.x * vector.x + vector.y * vector.y;
+
+        static mag = vector => Math.sqrt(Vector.sqMag(vector));
     }
 )
