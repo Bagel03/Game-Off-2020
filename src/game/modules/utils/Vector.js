@@ -44,6 +44,20 @@ namespace `game.modules.utils`(
             return this;
         }
 
+        dist = vector => {
+            return Math.sqrt( Math.pow((this.x-vector.x), 2) + Math.pow((this.y-vector.y), 2) );
+        }
+
+        moveTowards = (targetPosition, speed) => {
+            let dx = targetPosition.x - this.x;
+            let dy = targetPosition.y - this.y;
+            let angle = Math.atan2(dy, dx);
+            // return [speed * Math.cos(angle), speed * Math.sin(angle)];
+            var x = speed * Math.cos(angle);
+            var y = speed * Math.sin(angle);
+            return new Vector(x, y)
+        }
+
         div = divisor => {
             this.x /= divisor;
             this.y /= divisor;
@@ -79,5 +93,15 @@ namespace `game.modules.utils`(
         static sqMag = vector => vector.x * vector.x + vector.y * vector.y;
 
         static mag = vector => Math.sqrt(Vector.sqMag(vector));
+
+        static moveTowards = (current, targetPosition, speed) => {
+            let dx = targetPosition.x - current.x;
+            let dy = targetPosition.y - current.y;
+            let angle = Math.atan2(dy, dx);
+            // return [speed * Math.cos(angle), speed * Math.sin(angle)];
+            var x = speed * Math.cos(angle);
+            var y = speed * Math.sin(angle);
+            return new Vector(x, y)
+        }
     }
 )

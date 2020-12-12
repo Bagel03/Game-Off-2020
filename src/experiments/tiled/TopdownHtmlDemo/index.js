@@ -1,6 +1,7 @@
 
 import! 'experiments.tiled.renderers.html.Topdown';
 import  'experiments.tiled.sprites.Hero';
+import  'experiments.tiled.sprites.Npc';
 import! 'experiments.tiled.DepthSort';
 import! 'experiments.tiled.Collider';
 import! 'experiments.tiled.input.Keyboard';
@@ -22,7 +23,9 @@ namespace `experiments.tiled` (
             await this.map.load();
             
             this.hero = new experiments.tiled.sprites.Hero;
+            this.npc = new experiments.tiled.sprites.Npc;
             this.map.objects.push(this.hero);//add to map
+            this.map.objects.push(this.npc);//add to map
 
             console.log("this.map",this.map);
 
@@ -44,6 +47,7 @@ namespace `experiments.tiled` (
         onUpdate=(timestamp, delta)=>{
             if(this.ready){
                 this.hero.onUpdate(timestamp, delta);
+                this.npc.onUpdate(timestamp, delta);
                 this.camera.lookAt(this.hero)
             }
         }
@@ -54,6 +58,7 @@ namespace `experiments.tiled` (
                 this.depth.onDraw(interpolation);
                 this.renderer.onDraw(interpolation);
                 this.hero.onDraw(interpolation);
+                this.npc.onDraw(interpolation);
             }
         }
 

@@ -84,15 +84,7 @@ namespace `experiments.tiled.animations` (
 			if(this.isAnimating && !this.sprite.iscolliding){
 				this.clear();
 				this.sprite.classList.add(this.name+"-"+this.sprite.dirstr);
-				// if(this.sprite.dirstr=="left"||this.sprite.dirstr=="right"){
-				// 	this.sprite.x += this.sprite.x_velocity*this.sprite.direction;
-				// }
-				// else if(this.sprite.dirstr=="up"||this.sprite.dirstr=="down"){
-				// 	this.sprite.y += this.sprite.y_velocity*this.sprite.direction;
-				// }
-                // var x = this.sprite.lastX + (this.sprite.x - this.sprite.lastX) * interpolation;
-                // var y = this.sprite.lastY + (this.sprite.y - this.sprite.lastY) * interpolation;
-
+				
                 var x = Math.round(this.sprite.x);
                 var y = Math.round(this.sprite.y);
 
